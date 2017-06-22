@@ -1,0 +1,41 @@
+{
+  "name": "metaschema",
+  "version": "0.0.1",
+  "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
+  "description": "Metadata Schema and Interface Definition Language (IDL)",
+  "license": "MIT",
+  "keywords": [
+    "metarhia",
+    "idl",
+    "dsl",
+    "schema",
+    "metadata"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/metarhia/metaschema"
+  },
+  "main": "./metaschema.js",
+  "readmeFilename": "README.md",
+  "scripts": {
+    "test": "npm run lint",
+    "lint": "eslint ."
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "metarhia-common": "0.0.x"
+  },
+  "devDependencies": {
+    "eslint": "3.x",
+    "tap": "^10.0.0"
+  },
+  "jshintConfig": {
+    "esversion": 6,
+    "predef": [],
+    "node": true,
+    "indent": 2,
+    "maxcomplexity": 7
+  }
+}
