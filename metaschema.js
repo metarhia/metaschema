@@ -1,8 +1,7 @@
 'use strict';
 
-const api = {};
-api.metaschema = {};
-api.common = require('metarhia-common');
-api.util = require('util');
+const generate = require('./lib/generate');
 
-module.exports = api.metaschema;
+module.exports = {
+  generate
+};
