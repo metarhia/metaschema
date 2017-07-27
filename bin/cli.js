@@ -2,12 +2,15 @@
 'use strict';
 
 const fs = require('fs');
+const path = require('path');
 
 const common = require('metarhia-common');
 
-const metaschema = require('..');
+const metaschema = require('metaschema');
 
-const apiFile = process.argv[2];
+const cwd = process.cwd();
+const apiFile = path.resolve(cwd, process.argv[2]);
+
 try {
   const imports = require(apiFile);
   const md = metaschema.generate('api.interfaceName', imports);
