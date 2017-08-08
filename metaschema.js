@@ -1,7 +1,6 @@
 'use strict';
 
-const generate = require('./lib/generate');
+const introspection = require('./lib/introspection');
+const generator = require('./lib/generator');
 
-module.exports = {
-  generate
-};
+module.exports = Object.assign({}, introspection, generator);

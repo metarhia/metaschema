@@ -6,14 +6,21 @@ const path = require('path');
 
 const common = require('metarhia-common');
 
-const metaschema = require('metaschema');
+let metaschema;
+try {
+  metaschema = require('metaschema');
+} catch (e) {
+  metaschema = require('..');
+}
 
 const cwd = process.cwd();
 const apiFile = path.resolve(cwd, process.argv[2]);
 
 try {
   const imports = require(apiFile);
-  const md = metaschema.generate('api.interfaceName', imports);
+  const namespace = path.basename(apiFile, '.js');
+  const inventory = metaschema.introspect({ [namespace]: imports });
+  const md = metaschema.generateMd(inventory);
   const mdFile = common.removeExt(apiFile) + '.md';
 
   fs.writeFile(mdFile, md, (err) => {
@@ -22,4 +29,5 @@ try {
   });
 } catch (e) {
   console.log('Cant read file: ' + apiFile);
+  console.log(e);
 }
