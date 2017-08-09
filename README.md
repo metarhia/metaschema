@@ -14,6 +14,23 @@ Metadata Schema and Interface Definition Language (IDL)
 $ npm install metaschema
 ```
 
+## Interface: metaschema
+
+### Introspect interface
+`metaschema.introspect(namespace)`
+- `namespace:hash of interfaces`
+Returns: hash of hash of record, { method, title, parameters }
+
+### Parse function signature
+`metaschema.parseSignature(fn)`
+- `fn:function` - method
+Returns: { title, parameters }
+
+### Generate md from interfaces inventory
+`metaschema.generateMd(inventory)`
+- `inventory:hash of hash of record` - { method, title, parameters }
+Returns: string, md document
+
 ## Contributors
 
   - Timur Shemsedinov (marcusaurelius)
