@@ -23,7 +23,7 @@
   },
   "readmeFilename": "README.md",
   "scripts": {
-    "test": "npm run lint && ./bin/cli.js ./metaschema.js",
+    "test": "npm run lint && ./bin/cli.js ./test/example.js",
     "lint": "eslint ."
   },
   "engines": {
