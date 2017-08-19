@@ -1,0 +1,36 @@
+{
+
+  Point: {
+    x: { type: 'number', nullable: false },
+    y: { type: 'number', nullable: false },
+  },
+
+  Line: {
+    a: { type: 'Point', nullable: false },
+    b: { type: 'Point', nullable: false },
+  },
+
+  Segment: {
+    a: { type: 'Point', nullable: false },
+    b: { type: 'Point', nullable: false },
+  },
+
+  Rect: {
+    a: { type: 'Point', nullable: false },
+    b: { type: 'Point', nullable: false },
+  },
+
+  Circle: {
+    center: { type: 'Point', nullable: false },
+    radius: { type: 'number', nullable: false },
+  },
+
+  Polygon: {
+    points: { type: '[Point]' }
+  },
+
+  Polyline: {
+    points: { type: '[Point]' }
+  },
+
+}
