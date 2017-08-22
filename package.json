@@ -24,15 +24,17 @@
   "readmeFilename": "README.md",
   "scripts": {
     "test": "npm run lint && ./bin/cli.js ./test/example.js",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "node ./test/schema.js"
   },
   "engines": {
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "metarhia-common": "^0.0.19"
+    "metarhia-common": "^0.0.22",
+    "metarhia-jstp": "^0.6.8"
   },
   "devDependencies": {
-    "eslint": "^4.1.1"
+    "eslint": "^4.4.0"
   }
 }
