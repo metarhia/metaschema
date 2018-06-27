@@ -23,14 +23,14 @@ metaschema.load('geometry', (err, schema) => {
   try {
     const p5 = geometry('Point', { x: 'hello', y: 2 });
     console.dir({ p5 });
-  } catch(e) {
+  } catch (e) {
     console.log(e.message);
   }
 
   try {
     const p6 = geometry('Point', { name: 'Marcus' });
     console.dir({ p6 });
-  } catch(e) {
+  } catch (e) {
     console.log(e.message);
   }
 
@@ -45,14 +45,14 @@ metaschema.load('geometry', (err, schema) => {
   try {
     const l3 = geometry('Line', [1, 3], [2, 5]);
     console.dir({ l3 });
-  } catch(e) {
+  } catch (e) {
     console.log(e.message);
   }
 
   try {
     const l4 = geometry('Line', { name: 'Marcus' }, { x: 2, y: true });
     console.dir({ l4 });
-  } catch(e) {
+  } catch (e) {
     console.log(e.message);
   }
 
