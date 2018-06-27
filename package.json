@@ -1,6 +1,6 @@
 {
   "name": "metaschema",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "description": "Metadata Schema and Interface Definition Language (IDL)",
   "license": "MIT",
@@ -32,7 +32,7 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "metarhia-common": "^0.0.27"
+    "metarhia-common": "^0.0.28"
   },
   "devDependencies": {
     "eslint": "^4.19.1"
