@@ -23,10 +23,9 @@
   },
   "readmeFilename": "README.md",
   "scripts": {
-    "test": "npm run lint && npm run docs && npm run build",
+    "test": "npm run lint && npm run docs && node ./test/all.js",
     "lint": "eslint .",
-    "docs": "./bin/cli.js ./test/example.js",
-    "build": "node ./test/schema.js"
+    "docs": "./bin/cli.js ./test/example.js"
   },
   "engines": {
     "node": ">=6.0.0"
