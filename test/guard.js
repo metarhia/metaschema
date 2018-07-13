@@ -5,7 +5,7 @@ const metaschema = require('..');
 metaschema.load('types', (err, schema) => {
   if (err) throw err;
   const types = metaschema.build(schema);
-  console.dir(types);
+  console.dir({ types });
 
   // Function contract guard
 

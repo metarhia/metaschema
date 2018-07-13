@@ -20,19 +20,11 @@ metaschema.load('geometry', (err, schema) => {
   const p4 = geometry('Point', 3, 5);
   console.dir({ p4 });
 
-  try {
-    const p5 = geometry('Point', { x: 'hello', y: 2 });
-    console.dir({ p5 });
-  } catch (e) {
-    console.log(e.message);
-  }
+  const p5 = geometry('Point', { x: 'hello', y: 2 });
+  console.dir({ p5 });
 
-  try {
-    const p6 = geometry('Point', { name: 'Marcus' });
-    console.dir({ p6 });
-  } catch (e) {
-    console.log(e.message);
-  }
+  const p6 = geometry('Point', { name: 'Marcus' });
+  console.dir({ p6 });
 
   // Recursive category: Line
 
@@ -42,19 +34,11 @@ metaschema.load('geometry', (err, schema) => {
   const l2 = geometry('Line', [[1, 3], [2, 5]]);
   console.dir({ l2 });
 
-  try {
-    const l3 = geometry('Line', [1, 3], [2, 5]);
-    console.dir({ l3 });
-  } catch (e) {
-    console.log(e.message);
-  }
+  const l3 = geometry('Line', [1, 3], [2, 5]);
+  console.dir({ l3 });
 
-  try {
-    const l4 = geometry('Line', { name: 'Marcus' }, { x: 2, y: true });
-    console.dir({ l4 });
-  } catch (e) {
-    console.log(e.message);
-  }
+  const l4 = geometry('Line', { name: 'Marcus' }, { x: 2, y: true });
+  console.dir({ l4 });
 
   // Mixed category: Circle
 
