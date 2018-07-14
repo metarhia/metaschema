@@ -1,30 +1,16 @@
 {
-
-  scalar: { nullable: true },
-  object: { nullable: true },
-  function: { nullable: true },
-
-  string: { type: 'scalar' },
-  number: { type: 'scalar' },
-  boolean: { type: 'scalar' },
-
-  array: { type: 'object' },
-
-  char: { type: 'string', size: 1 },
-  uri: { type: 'string', size: 2048 }, // 2kb
-  text: { type: 'string', size: 0xfffff }, // 1mb
-  blob: { type: 'Buffer', size: 0x3fffffff }, // 1gb
-
-  id: { type: 'number' },
-  byte: { type: 'number' },
-  word: { type: 'number' },
-  int: { type: 'number' },
-  serial: { type: 'number' },
-  float: { type: 'number' },
-  money: { type: 'number' },
-
-  record: { type: 'object' },
-  map: { type: 'Map' },
-  set: { type: 'Set' },
-
+  string: { type: 'String' },
+  number: { type: 'Number' },
+  boolean: { type: 'Boolean' },
+  null: { type: 'Object' },
+  undefined: {},
+  symbol: { type: 'Symbol' },
+  object: { type: 'Object' },
+  function: { type: 'Function' },
+  array: { type: 'Array' }
+  float: { type: 'Number' },
+  date: { type: 'Date' },
+  enum: { type: 'Emum' },
+  time: { type: 'Time' },
+  timestamp: { type: 'Timestamp' }
 }
