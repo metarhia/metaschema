@@ -1,0 +1,3 @@
+({
+  Name: { category: 'Nomen', required: true }
+})

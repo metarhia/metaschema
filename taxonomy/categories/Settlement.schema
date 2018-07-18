@@ -1,0 +1,5 @@
+({
+  Name: { domain: 'Nomen', required: true },
+  Type: Enum('City', 'Town', 'Village', 'Hamlet'),
+  Region: { category: 'Region', required: true }
+})
