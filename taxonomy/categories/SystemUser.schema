@@ -1,0 +1,6 @@
+({
+  Login: { domain: 'Login', required: true, unique: true },
+  Password: { domain: 'PasswordHash', required: true },
+  Groups: Many({ category: 'SystemGroup' }),
+  FullName: Include({ category: 'FullName' })
+})

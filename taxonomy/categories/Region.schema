@@ -1,0 +1,4 @@
+({
+  Name: { domain: 'Nomen', required: true },
+  Country: { category: 'Country', required: true }
+})
