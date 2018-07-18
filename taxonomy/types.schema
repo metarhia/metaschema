@@ -6,11 +6,5 @@
   undefined: {},
   symbol: { type: 'Symbol' },
   object: { type: 'Object' },
-  function: { type: 'Function' },
-  array: { type: 'Array' }
-  float: { type: 'Number' },
-  date: { type: 'Date' },
-  enum: { type: 'Emum' },
-  time: { type: 'Time' },
-  timestamp: { type: 'Timestamp' }
+  function: { type: 'Function' }
 }
