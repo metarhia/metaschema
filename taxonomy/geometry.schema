@@ -1,28 +1,28 @@
-{
+({
 
   Point: {
-    x: { type: 'number', nullable: false },
-    y: { type: 'number', nullable: false },
+    x: { type: 'number', required: true },
+    y: { type: 'number', required: true }
   },
 
   Line: {
-    a: { type: 'Point', nullable: false },
-    b: { type: 'Point', nullable: false },
+    a: { type: 'Point', required: true },
+    b: { type: 'Point', required: true }
   },
 
   Segment: {
-    a: { type: 'Point', nullable: false },
-    b: { type: 'Point', nullable: false },
+    a: { type: 'Point', required: true },
+    b: { type: 'Point', required: true }
   },
 
   Rect: {
-    a: { type: 'Point', nullable: false },
-    b: { type: 'Point', nullable: false },
+    a: { type: 'Point', required: true },
+    b: { type: 'Point', required: true }
   },
 
   Circle: {
-    center: { type: 'Point', nullable: false },
-    radius: { type: 'number', nullable: false },
+    center: { type: 'Point', required: true },
+    radius: { type: 'number', required: true }
   },
 
   Polygon: {
@@ -33,4 +33,4 @@
     points: { type: '[Point]' }
   },
 
-}
+})
