@@ -1,4 +1,4 @@
-{
+({
   string: { type: 'String' },
   number: { type: 'Number' },
   boolean: { type: 'Boolean' },
@@ -7,4 +7,4 @@
   symbol: { type: 'Symbol' },
   object: { type: 'Object' },
   function: { type: 'Function' }
-}
+})
