@@ -1,4 +1,4 @@
 ({
-  Name: { category: 'Nomen', required: true },
+  Name: { domain: 'Nomen', required: true },
   Permissions: Many({ category: 'SystemPermission' })
 })
