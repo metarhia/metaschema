@@ -1,7 +1,7 @@
-({
+{
   SID: { domain: 'SID', required: true, unique: true },
   Login: { domain: 'Login', required: true },
   Group: { domain: 'Nomen', required: true },
   Start: { domain: 'Timestamp' },
   LastActivity: { domain: 'Timestamp' }
-})
+}
