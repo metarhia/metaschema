@@ -1,5 +1,5 @@
-({
+{
   Floor: { domain: 'Count', required: true },
   Room: { domain: 'Count', required: true },
   Building: { category: 'Building', required: true }
-})
+}

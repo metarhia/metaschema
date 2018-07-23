@@ -1,0 +1,4 @@
+{
+  center: { category: 'Point', required: true },
+  radius: { domain: 'Length', required: true }
+}

@@ -1,0 +1,3 @@
+{
+  points: { category: List('Point') }
+}

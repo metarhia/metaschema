@@ -1,0 +1,4 @@
+{
+  x: { domain: 'Length', required: true },
+  y: { domain: 'Length', required: true }
+}

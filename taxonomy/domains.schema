@@ -1,4 +1,4 @@
-({
+{
   Id: { type: number },
   Logical: { type: 'boolean', control: 'CheckBox' },
   PostalCode: { type: 'string', length: 10, control: 'InputBox' },
@@ -40,4 +40,4 @@
   Area: { type: 'number', unit: 'Square metre', symbol: 'm²' },
   Volume: { type: 'number', unit: 'Litre', symbol: 'l' },
   Speed: { type: 'number', unit: 'Metres per second', symbol: 'm/s' }
-})
+}
