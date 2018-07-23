@@ -8,7 +8,7 @@ metaschema.load('geometry', (err, schema) => {
 
   // Plain record: Point
 
-  const p1 = metaschema.create('Point', { x: 3, y: 5 });
+  const p1 = metaschema.createInstance('Point', { x: 3, y: 5 });
   console.dir({ p1 });
 
   const p2 = geometry('Point', { x: 3, y: 5 });

@@ -7,7 +7,7 @@ second line of multiline method description
 - `a1:number` - comment
 multiline comment
 for first argument
-- `a2:array of string`
+- `a2` - array of string
 - `a3` - comment
 
 Returns: string, comment
