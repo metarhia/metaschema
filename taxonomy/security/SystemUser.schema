@@ -3,10 +3,9 @@
   Password: { domain: 'PasswordHash', required: true },
   Groups: Many({ category: 'SystemGroup' }),
   FullName: Include({ category: 'FullName' }),
-  Strengthn: Validate(record => {
+  Strengthen: Validate(record => {
     if (record.Login.length < 6) return false;
-    if (record.Password..length < 6) return false;
-    const val = record.MasterName.FieldName;
-    return record.FirldSetName.Field1.includes(val);
+    // Password validation
+    return true;
   })
 }

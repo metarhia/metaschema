@@ -1,4 +1,4 @@
 'use strict';
 
-require('./create');
-require('./guard');
+require('./instantiation');
+//require('./guard');
