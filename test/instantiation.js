@@ -44,4 +44,18 @@ metaschema.load('geometry', (err, schema) => {
 
   const c1 = geometry('Circle', { x: 1, y: 3 }, 10);
   console.dir({ c1 });
+
+  // Use category List
+
+  const pl1 = geometry('Polyline', {
+    points: [
+      { x: 1, y: 3 },
+      { x: 2, y: 2 },
+      { x: 3, y: 4 },
+      { x: 4, y: 5 },
+      { x: 3, y: 5 }
+    ]
+  });
+  console.dir({ pl1 }, { depth: null });
+
 });
