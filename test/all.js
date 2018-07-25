@@ -1,4 +1,5 @@
 'use strict';
 
-require('./instantiation');
-//require('./guard');
+require('./structure');
+require('./database');
+require('./guard');
