@@ -1,5 +1,6 @@
 {
   Id: { type: 'number' },
+  Lambda: { type: 'function' },
   Logical: { type: 'boolean', control: 'CheckBox' },
   PostalCode: { type: 'string', length: 10, control: 'InputBox' },
   Money: { type: 'number', control: 'InputBox' },
