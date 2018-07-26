@@ -1,0 +1,14 @@
+{
+  type: Enum('string', 'number', 'boolean', 'function', 'object', 'symbol'),
+  control: { type: 'string' },
+  length: { type: 'number' },
+  unit: { type: 'string' },
+  base: { type: 'string' },
+  mul: { type: 'number' },
+  symbol: { type: 'string' },
+  format: { type: 'string' },
+  min: { type: 'number' },
+  max: { type: 'number' },
+  signed: { type: 'boolean' },
+  bytes: { type: 'number' }
+}

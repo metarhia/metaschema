@@ -1,0 +1,66 @@
+{
+  domain: { domain: 'Nomen' },
+  category: { domain: 'Nomen' },
+  required: { domain: 'Logical' },
+  unique: { domain: 'Logical' },
+  index: { domain: 'Logical' },
+  default: { domain: 'Nomen' },
+  example: { domain: 'Nomen' },
+  control: { domain: 'Nomen' },
+  validate: { domain: 'Lambda' },
+  expression: { domain: 'Lambda' },
+  comment: { domain: 'Text' },
+
+  Check: Validate(data => {
+    const isDomain = !!data.domain;
+    const isCategory = !!data.category;
+
+    // Required just one of fields: domain or category
+    if (isDomain && isCategory) return false;
+    if (!isDomain && !isCategory) return false;
+
+    const fields = Object.keys(data);
+
+    // Check allowed fields
+    const allow = allowed => {
+      for (const field of fields) {
+        if (!allowed.includes(field)) return false;
+      }
+      return true;
+    };
+
+    // Validate calculated field
+    if (data.expression) {
+      return allowed(['domain', 'category', 'control', 'comment']);
+    }
+
+    const decorator = data.constructor.name;
+
+    // Check Include() decorator
+    if (decorator === 'Include') {
+      const all = allowed(['domain', 'category', 'unique', 'index', 'comment']);
+      if (!all) return false;
+    }
+
+    // Check Master() decorator
+    if (decorator === 'Master') {
+      const all = allowed(['category', 'control', 'comment']);
+      if (!all) return false;
+    }
+
+    // Check Many() decorator
+    if (decorator === 'Many') {
+      const all = allowed(['category', 'comment']);
+      if (!all) return false;
+    }
+
+    // Check category fields
+    if (isCategory) {
+      const all = allowed(['category', 'required', 'control', 'comment']);
+      if (!all) return false;
+    }
+
+    // Check index definition
+    return +data.index + +data.unique < 2;
+  })
+}
