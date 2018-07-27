@@ -31,7 +31,8 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "metarhia-common": "^0.0.28"
+    "metarhia-common": "^0.0.30",
+    "metasync": "^0.3.29"
   },
   "devDependencies": {
     "eslint": "^4.19.1"
