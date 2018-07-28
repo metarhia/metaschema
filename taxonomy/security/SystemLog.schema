@@ -1,6 +1,0 @@
-Log({
-  User: { category: 'SystemUser', required: true },
-  Category: { domain: 'Id', required: true },
-  Timestamp: { domain: 'Timestamp' },
-  Operation: Enum('Read', 'Insert', 'Update', 'Delete', 'Audit')
-})

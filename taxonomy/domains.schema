@@ -9,7 +9,7 @@
   URL: { type: 'string', length: 2000, control: 'InputBox' },
   IP: { type: 'string', length: 15, control: 'InputBox' },
   SID: { type: 'string', length: 64 },
-  Login: { type: 'string', length: 32,  },
+  Login: { type: 'string', length: 32 },
   Password: { type: 'string', length: 32, control: 'InputBox' },
   PasswordHash: { type: 'string', length: 128 },
   Salt: { type: 'string', length: 32 },
