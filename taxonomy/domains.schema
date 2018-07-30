@@ -22,7 +22,10 @@
     A: 'Audit'
   }),
   Text: { type: 'string', control: 'Multiline' },
-  Values: { type: 'object' },
+  List: { type: 'object', class: 'Array' },
+  Enum: { type: 'object', class: 'Enum' },
+  HashMap: { type: 'object', class: 'HashMap' },
+  HashSet: { type: 'object', class: 'HashSet' },
   JSON: { type: 'string', control: 'Multiline' },
   HTML: { type: 'string', control: 'Multiline' },
   Year: { type: 'number', length: 4, control: 'InputBox' },
