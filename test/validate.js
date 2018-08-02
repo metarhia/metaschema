@@ -2,21 +2,56 @@
 
 const metaschema = require('..');
 
-metaschema.load('geometry', (err, schema) => {
+metaschema.loadSchema('./taxonomy/CategoryField.schema', (err, schema) => {
   if (err) throw err;
-  metaschema.build(schema);
+  metaschema.build({ CategoryField: schema });
 
-  // Validate data by schema
+  metaschema.build({
+    Schema1: { Name: { domain: 'Nomen', required: false } },
+    Schema2: { Name: { domain: 'Nomen', required: true } },
+    Schema3: { Name: { domain: 'Unknown' } }
+  });
 
-  const valid = metaschema.validate('Point', { x: 3, y: 5 });
-  console.dir({ valid });
+  // Validate data by category, valid
+  {
+    const data = { Name: 'Marcus Aurelius' };
+    const valid = metaschema.validate('Schema1', data);
+    console.dir(valid);
+  }
 
-  const invalid = metaschema.validate('Point', { a: 3, b: 5 });
-  console.dir({ invalid });
+  // Validate data by category, valid, not required
+  {
+    const data = {};
+    const valid = metaschema.validate('Schema1', data);
+    console.dir(valid);
+  }
 
-  // Validate category schema by schema
+  // Validate data by category, field not found
+  {
+    const data = { City: 'Kiev' };
+    const valid = metaschema.validate('Schema1', data);
+    console.dir(valid);
+  }
 
-  const { definition } = metaschema.categories.get('Point');
-  const vPoint = metaschema.validateFields('CategoryField', definition);
-  console.dir({ definition, vPoint });
+  // Validate data by category schema, field not defined
+  {
+    const data = { FirstName: 'Marcus', Surname: 'Aurelius' };
+    const valid = metaschema.validate('Schema1', data);
+    console.dir(valid);
+  }
+
+  // Validate category schema
+  {
+    const { definition } = metaschema.categories.get('Schema1');
+    const valid = metaschema.validateFields('CategoryField', definition);
+    console.dir(valid);
+  }
+
+  // Validate category field schema
+  {
+    const { definition } = metaschema.categories.get('CategoryField');
+    const valid = metaschema.validateFields('CategoryField', definition);
+    console.dir(valid);
+  }
+
 });
