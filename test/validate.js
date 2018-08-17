@@ -2,7 +2,7 @@
 
 const metaschema = require('..');
 
-metaschema.loadSchema('./taxonomy/CategoryField.schema', (err, schema) => {
+metaschema.loadSchema('./schemas/CategoryField.schema', (err, schema) => {
   if (err) throw err;
   metaschema.build({ CategoryField: schema });
 
