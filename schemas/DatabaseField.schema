@@ -23,44 +23,41 @@
     const fields = Object.keys(data);
 
     // Check allowed fields
-    const allow = allowed => {
-      for (const field of fields) {
-        if (!allowed.includes(field)) return false;
-      }
-      return true;
-    };
+    const allow = allowed => fields.every(f => allowed.includes(f));
 
     // Validate calculated field
     if (data.expression) {
-      return allowed(['domain', 'display', 'category', 'control', 'comment']);
+      return allowFields(
+        ['domain', 'display', 'category', 'control', 'comment']
+      );
     }
 
     const decorator = data.constructor.name;
 
     // Check Include() decorator
     if (decorator === 'Include') {
-      const all = allowed(['category', 'comment']);
-      if (!all) return false;
+      const fits = allowFields(['category', 'comment']);
+      if (!fits) return false;
     }
 
     // Check Master() decorator
     if (decorator === 'Master') {
-      const all = allowed(['category', 'control', 'comment']);
-      if (!all) return false;
+      const fits = allowFields(['category', 'control', 'comment']);
+      if (!fits) return false;
     }
 
     // Check Many() decorator
     if (decorator === 'Many') {
-      const all = allowed(['category', 'comment']);
-      if (!all) return false;
+      const fits = allowFields(['category', 'comment']);
+      if (!fits) return false;
     }
 
     // Check category fields
     if (isCategory) {
-      const all = allowed(
+      const fits = allowFields(
         ['category', 'display', 'required', 'control', 'comment']
       );
-      if (!all) return false;
+      if (!fits) return false;
     }
 
     // Check index definition

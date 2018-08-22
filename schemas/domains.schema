@@ -5,6 +5,7 @@
   PostalCode: { type: 'string', length: 10, control: 'InputBox' },
   Money: { type: 'number', control: 'InputBox' },
   Nomen: { type: 'string', length: 60, control: 'InputBox' },
+  Literal: { type: 'string', control: 'InputBox' },
   Host: { type: 'string', length: 255, control: 'InputBox' },
   URL: { type: 'string', length: 2000, control: 'InputBox' },
   IP: { type: 'string', length: 15, control: 'InputBox' },
