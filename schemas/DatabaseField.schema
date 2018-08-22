@@ -2,13 +2,14 @@
   domain: { domain: 'Nomen' },
   category: { domain: 'Nomen' },
   required: { domain: 'Logical' },
-  unique: { domain: 'Logical' },
-  index: { domain: 'Logical' },
-  default: { domain: 'Nomen' },
+  unique: { domain: 'Logical' }, // single field unique key
+  index: { domain: 'Logical' }, // single field index
+  default: { domain: 'Nomen' }, // default value to be casted to domain
   example: { domain: 'Nomen' },
-  control: { domain: 'Nomen' },
-  validate: { domain: 'Lambda' },
-  expression: { domain: 'Lambda' },
+  display: { domain: 'Logical' }, // true if lookup result
+  control: { domain: 'Nomen' }, // GUI visual control name
+  validate: { domain: 'Lambda' }, // (value) => (Boolean)
+  expression: { domain: 'Lambda' }, // (record) = > (value)
   comment: { domain: 'Text' },
 
   Check: Validate(data => {
@@ -31,14 +32,14 @@
 
     // Validate calculated field
     if (data.expression) {
-      return allowed(['domain', 'category', 'control', 'comment']);
+      return allowed(['domain', 'display', 'category', 'control', 'comment']);
     }
 
     const decorator = data.constructor.name;
 
     // Check Include() decorator
     if (decorator === 'Include') {
-      const all = allowed(['domain', 'category', 'unique', 'index', 'comment']);
+      const all = allowed(['category', 'comment']);
       if (!all) return false;
     }
 
@@ -56,7 +57,9 @@
 
     // Check category fields
     if (isCategory) {
-      const all = allowed(['category', 'required', 'control', 'comment']);
+      const all = allowed(
+        ['category', 'display', 'required', 'control', 'comment']
+      );
       if (!all) return false;
     }
 
