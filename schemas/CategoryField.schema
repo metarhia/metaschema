@@ -5,7 +5,9 @@
   default: { domain: 'Nomen' },
   comment: { domain: 'Text' },
 
-  Check: Validate(data => (
-    +!!data.domain + +!!data.category === 1
-  ))
+  Check: Validate(data => {
+    const isDomain = !!data.domain;
+    const isCategory = !!data.category;
+    return isDomain ? !isCategory : isCategory;
+  })
 }
