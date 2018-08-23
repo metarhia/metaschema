@@ -14,7 +14,6 @@
   Password: { type: 'string', length: 32, control: 'InputBox' },
   PasswordHash: { type: 'string', length: 128 },
   Salt: { type: 'string', length: 32 },
-  UserAccess: Enum('Read', 'Insert', 'Update', 'Delete', 'Execute', 'Audit'),
   Text: { type: 'string', control: 'Multiline' },
   List: { type: 'object', class: 'Array' },
   Enum: { type: 'object', class: 'Enum' },
