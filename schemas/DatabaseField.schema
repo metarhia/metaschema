@@ -27,35 +27,37 @@
 
     // Validate calculated field
     if (data.expression) {
-      return allow(['domain', 'display', 'category', 'control', 'comment']);
+      return allowFields(
+        ['domain', 'display', 'category', 'control', 'comment']
+      );
     }
 
     const decorator = data.constructor.name;
 
     // Check Include() decorator
     if (decorator === 'Include') {
-      const all = allow(['category', 'comment']);
-      if (!all) return false;
+      const fits = allowFields(['category', 'comment']);
+      if (!fits) return false;
     }
 
     // Check Master() decorator
     if (decorator === 'Master') {
-      const all = allow(['category', 'control', 'comment']);
-      if (!all) return false;
+      const fits = allowFields(['category', 'control', 'comment']);
+      if (!fits) return false;
     }
 
     // Check Many() decorator
     if (decorator === 'Many') {
-      const all = allow(['category', 'comment']);
-      if (!all) return false;
+      const fits = allowFields(['category', 'comment']);
+      if (!fits) return false;
     }
 
     // Check category fields
     if (isCategory) {
-      const all = allow(
+      const fits = allowFields(
         ['category', 'display', 'required', 'control', 'comment']
       );
-      if (!all) return false;
+      if (!fits) return false;
     }
 
     // Check index definition
