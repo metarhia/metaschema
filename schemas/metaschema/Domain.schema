@@ -1,5 +1,8 @@
 {
-  type: Enum('string', 'number', 'boolean', 'function', 'object', 'symbol'),
+  type: Enum(
+    'string', 'number', 'bigint', 'boolean',
+    'object', 'function', 'symbol'
+  ),
   class: { type: 'string' },
   control: { type: 'string' },
   length: { type: 'number' },

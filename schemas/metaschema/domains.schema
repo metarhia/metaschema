@@ -1,5 +1,5 @@
 {
-  Id: { type: 'number' },
+  Id: { type: 'bigint' },
   Lambda: { type: 'function' },
   Logical: { type: 'boolean', control: 'CheckBox' },
   PostalCode: { type: 'string', length: 10, control: 'InputBox' },
