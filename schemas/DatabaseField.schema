@@ -25,40 +25,21 @@
     // Check allowed fields
     const allow = allowed => fields.every(f => allowed.includes(f));
 
-    // Validate calculated field
-    if (data.expression) {
-      return allowFields(
-        ['domain', 'display', 'category', 'control', 'comment']
-      );
-    }
+    let kind = data.constructor.name;
+    if (!kind && isCategory) kind = 'Category';
+    if (data.expression) kind = 'Expression';
 
-    const decorator = data.constructor.name;
+    const allowedFields = {
+      Include: ['category', 'comment'],
+      Master: ['category', 'control', 'comment'],
+      Many: ['category', 'comment'],
+      Category: ['category', 'display', 'required', 'control', 'comment'],
+      Expression: ['domain', 'display', 'category', 'control', 'comment']
+    };
 
-    // Check Include() decorator
-    if (decorator === 'Include') {
-      const fits = allowFields(['category', 'comment']);
-      if (!fits) return false;
-    }
-
-    // Check Master() decorator
-    if (decorator === 'Master') {
-      const fits = allowFields(['category', 'control', 'comment']);
-      if (!fits) return false;
-    }
-
-    // Check Many() decorator
-    if (decorator === 'Many') {
-      const fits = allowFields(['category', 'comment']);
-      if (!fits) return false;
-    }
-
-    // Check category fields
-    if (isCategory) {
-      const fits = allowFields(
-        ['category', 'display', 'required', 'control', 'comment']
-      );
-      if (!fits) return false;
-    }
+    const allowed = allowedFields[kind];
+    const fits = allowFields(allowed);
+    if (!fits) return false;
 
     // Check index definition
     return +data.index + +data.unique < 2;
