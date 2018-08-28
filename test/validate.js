@@ -2,7 +2,7 @@
 
 const metaschema = require('..');
 
-const path = './schemas/metaschema/CategoryField.schema';
+const path = './schemas/metaschema/StructureField.schema';
 
 metaschema.loadSchema(path, (err, schema) => {
   if (err) throw err;
