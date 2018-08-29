@@ -11,5 +11,6 @@
   min: { type: 'number' },
   max: { type: 'number' },
   signed: { type: 'boolean' },
-  bytes: { type: 'number' }
+  bytes: { type: 'number' },
+  comment: { type: 'string' }
 }
