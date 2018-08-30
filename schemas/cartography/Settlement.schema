@@ -1,5 +1,5 @@
 Dictionary({
   Name: { domain: 'Nomen', required: true },
-  Type: Enum('City', 'Town', 'Village', 'Hamlet'),
+  Type: { domain: 'SettlementType', required: true },
   Region: { category: 'Region', required: true }
 })
