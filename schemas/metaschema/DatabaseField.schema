@@ -6,7 +6,7 @@
   index: { domain: 'Logical' }, // single field index
   default: { domain: 'Nomen' }, // default value to be casted to domain
   example: { domain: 'Nomen' },
-  display: { domain: 'Logical' }, // true if lookup result
+  lookup: { domain: 'Logical' }, // true if lookup result
   control: { domain: 'Nomen' }, // GUI visual control name
   validate: { domain: 'Lambda' }, // (value) => (Boolean)
   expression: { domain: 'Lambda' }, // (record) = > (value)
@@ -33,8 +33,8 @@
       Include: ['category', 'comment'],
       Master: ['category', 'control', 'comment'],
       Many: ['category', 'comment'],
-      Category: ['category', 'display', 'required', 'control', 'comment'],
-      Expression: ['domain', 'display', 'category', 'control', 'comment']
+      Category: ['category', 'lookup', 'required', 'control', 'comment'],
+      Expression: ['domain', 'lookup', 'category', 'control', 'comment']
     };
 
     const allowed = allowedFields[kind];
