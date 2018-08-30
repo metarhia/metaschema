@@ -1,6 +1,6 @@
 {
   FullName: Include('FullName'),
-  Sex: Enum('female', 'male'),
+  Sex: { domain: 'Sex' },
   Born: { domain: 'DateDay' },
   Languages: Many('Language'),
   NewCentury: Validate(record => record.Born.getYear() >= 2000)
