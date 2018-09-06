@@ -6,7 +6,7 @@ const path = './schemas/metaschema/StructureField.schema';
 
 metaschema.loadSchema(path, (err, schema) => {
   if (err) throw err;
-  metaschema.build({ CategoryField: schema });
+  metaschema.build({ StructureField: schema });
 
   metaschema.build({
     Schema1: { Name: { domain: 'Nomen', required: false } },
@@ -45,14 +45,14 @@ metaschema.loadSchema(path, (err, schema) => {
   // Validate category schema
   {
     const { definition } = metaschema.categories.get('Schema1');
-    const valid = metaschema.validateFields('CategoryField', definition);
+    const valid = metaschema.validateFields('StructureField', definition);
     console.dir(valid);
   }
 
   // Validate category field schema
   {
-    const { definition } = metaschema.categories.get('CategoryField');
-    const valid = metaschema.validateFields('CategoryField', definition);
+    const { definition } = metaschema.categories.get('StructureField');
+    const valid = metaschema.validateFields('StructureField', definition);
     console.dir(valid);
   }
 
