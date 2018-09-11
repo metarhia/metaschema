@@ -13,6 +13,7 @@
   Login: { type: 'string', length: 32 },
   Password: { type: 'string', length: 32, control: 'InputBox' },
   PasswordHash: { type: 'string', length: 128 },
+  CRC32: { type: 'number' },
   SHA256: { type: 'string', length: 32 },
   Salt: { type: 'string', length: 32 },
   Text: { type: 'string', control: 'Multiline' },
