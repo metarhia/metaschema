@@ -8,13 +8,23 @@ const common = require('@metarhia/common');
 
 const metaschema = require('..');
 
-const cwd = process.cwd();
-const apiFile = path.resolve(cwd, process.argv[2]);
+const apiFile = path.resolve(process.argv[2]);
 
 try {
   const imports = require(apiFile);
   const namespace = path.basename(apiFile, '.js');
-  const inventory = metaschema.introspect({ [namespace]: imports });
+  let data = '';
+  for (const module in require.cache) {
+    if (!module.includes('node_modules') &&
+      module !== __filename &&
+      fs.existsSync(module) && common.fileExt(module) !== 'node') {
+      data += fs.readFileSync(module, 'utf8') + '\n';
+    }
+  }
+
+  const inventory = metaschema.introspect(
+    new Map([[namespace, imports]]), data
+  );
   const md = metaschema.generateMd(inventory);
   const mdFile = common.removeExt(apiFile) + '.md';
 
