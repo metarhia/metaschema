@@ -23,7 +23,7 @@
   },
   "readmeFilename": "README.md",
   "scripts": {
-    "test": "npm run lint && npm run docs && node ./test/all.js",
+    "test": "npm run lint && npm run docs && metatests test/",
     "lint": "eslint .",
     "docs": "./bin/cli.js ./test/example.js"
   },

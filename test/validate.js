@@ -1,11 +1,17 @@
 'use strict';
 
+const metatests = require('metatests');
 const metaschema = require('..');
 
 const path = './schemas/metaschema/StructureField.schema';
 
+const getDefinition = name => metaschema.categories.get(name).definition;
+
+const validateTest = metatests.test('validate');
+
 metaschema.loadSchema(path, (err, schema) => {
-  if (err) throw err;
+  validateTest.error(err);
+
   metaschema.build({ StructureField: schema });
 
   metaschema.build({
@@ -14,46 +20,43 @@ metaschema.loadSchema(path, (err, schema) => {
     Schema3: { Name: { domain: 'Unknown' } },
   });
 
-  // Validate data by category, valid
-  {
-    const data = { Name: 'Marcus Aurelius' };
-    const valid = metaschema.validate('Schema1', data);
-    console.dir(valid);
-  }
+  metatests.case('Metaschema / validate', { metaschema }, {
+    'metaschema.validate': [
+      [
+        'Schema1', { Name: 'Marcus Aurelius' },
+        { valid: true, errors: [] }
+      ], [
+        'Schema1', {},
+        { valid: true, errors: [] }
+      ], [
+        'Schema1', { City: 'Kiev' },
+        { valid: false, errors: ['Field City not defined'] }
+      ], [
+        'Schema1', { FirstName: 'Marcus', Surname: 'Aurelius' },
+        { valid: false, errors: [
+          'Field FirstName not defined',
+          'Field Surname not defined'
+        ] }
+      ], [
+        'Schema1', {},
+        { valid: true, errors: [] }
+      ], [
+        'Schema2', {},
+        { valid: false, errors: [
+          'Field Name not found'
+        ] }
+      ]
+    ],
+    'metaschema.validateFields': [
+      [
+        'StructureField', getDefinition('Schema1'),
+        { valid: true, errors: [] }
+      ], [
+        'StructureField', getDefinition('StructureField'),
+        { valid: false, errors: ['Validation failed'] }
+      ]
+    ]
+  });
 
-  // Validate data by category, valid, not required
-  {
-    const data = {};
-    const valid = metaschema.validate('Schema1', data);
-    console.dir(valid);
-  }
-
-  // Validate data by category, field not found
-  {
-    const data = { City: 'Kiev' };
-    const valid = metaschema.validate('Schema1', data);
-    console.dir(valid);
-  }
-
-  // Validate data by category schema, field not defined
-  {
-    const data = { FirstName: 'Marcus', Surname: 'Aurelius' };
-    const valid = metaschema.validate('Schema1', data);
-    console.dir(valid);
-  }
-
-  // Validate category schema
-  {
-    const { definition } = metaschema.categories.get('Schema1');
-    const valid = metaschema.validateFields('StructureField', definition);
-    console.dir(valid);
-  }
-
-  // Validate category field schema
-  {
-    const { definition } = metaschema.categories.get('StructureField');
-    const valid = metaschema.validateFields('StructureField', definition);
-    console.dir(valid);
-  }
-
+  validateTest.end();
 });
