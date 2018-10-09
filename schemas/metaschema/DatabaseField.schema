@@ -3,6 +3,8 @@
   category: { domain: 'Nomen' },
   required: { domain: 'Logical' },
   unique: { domain: 'Logical' }, // single field unique key
+  hidden: { domain: 'Logical' },
+  readOnly: { domain: 'Logical' },
   index: { domain: 'Logical' }, // single field index
   default: { domain: 'Nomen' }, // default value to be casted to domain
   example: { domain: 'Nomen' },
