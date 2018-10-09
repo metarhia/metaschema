@@ -9,7 +9,6 @@
   Host: { type: 'string', length: 255 },
   URL: { type: 'string', length: 2000 },
   IP: { type: 'string', length: 15 },
-  Host: { type: 'string' },
   Port: { type: 'number' },
   Service: { type: 'string' },
   FileName: { type: 'string' },
