@@ -24,3 +24,15 @@ testSync('\'createInstance\' must support Logical domain type', (test) => {
   test.strictSame(metaschema.createInstance('Logical', true), true);
   test.strictSame(metaschema.createInstance('Logical', false), false);
 });
+
+testSync('\'createInstance\' must fail when \'required\' fields are missing',
+  (test) => {
+    const factory = metaschema.build({
+      schema: {
+        field: { domain: 'Nomen', required: true },
+      }
+    });
+
+    const actual = factory('schema', {});
+    test.strictSame(actual, null);
+  });
