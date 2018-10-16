@@ -4,6 +4,7 @@
 
 const path = require('path');
 const metatests = require('metatests');
+const common = require('@metarhia/common');
 const metaschema = require('..');
 
 const { Enum, Many, Include, Master } = require('../lib/decorators').attribute;
@@ -28,6 +29,8 @@ const domains = {
     definition: { type: 'object', class: 'Date', format: 'yyyy-mm-dd' },
   },
 };
+
+domains.sex.definition.Class = common.Enum.from('female', 'male');
 
 const FullName = {
   name: 'FullName',

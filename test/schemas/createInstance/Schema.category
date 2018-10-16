@@ -1,0 +1,7 @@
+{
+  Id: { domain: 'Id' },
+  number: { domain: 'NormalizeParse' },
+  date: { domain: 'DateDay' },
+  enumField: { domain: 'EnumDomain' },
+  flagsField: { domain: 'FlagsDomain' }
+}

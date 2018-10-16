@@ -1,0 +1,13 @@
+{
+  BigInt: { type: 'bigint' },
+  EnumDomain: Enum('value1', 'value2', 'value3'),
+  FlagsDomain: Flags(1, 2, 3),
+  FlagsOfEnumDomain: Flags.of('EnumDomain'),
+  Normalizable: { type: 'string', normalize: value => value.trim() },
+  Parsable: { type: 'number', parse: value => parseInt(value) },
+  NormalizeParse: {
+    type: 'number',
+    normalize: value => value.trim(),
+    parse: value => parseInt(value)
+  },
+}
