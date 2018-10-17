@@ -3,11 +3,11 @@
 const { testSync } = require('metatests');
 const metaschema = require('..');
 
-testSync('\'build\' must support Logical domain type', (test) => {
+testSync('\'build\' must support Logical domain type', test => {
   const factory = metaschema.build({
     schema: {
       field: { domain: 'Logical' },
-    }
+    },
   });
 
   const actualFalse = factory('schema', { field: false });
@@ -20,17 +20,17 @@ testSync('\'build\' must support Logical domain type', (test) => {
   test.strictSame(actualInvalid, null);
 });
 
-testSync('\'createInstance\' must support Logical domain type', (test) => {
+testSync('\'createInstance\' must support Logical domain type', test => {
   test.strictSame(metaschema.createInstance('Logical', true), true);
   test.strictSame(metaschema.createInstance('Logical', false), false);
 });
 
 testSync('\'createInstance\' must fail when \'required\' fields are missing',
-  (test) => {
+  test => {
     const factory = metaschema.build({
       schema: {
         field: { domain: 'Nomen', required: true },
-      }
+      },
     });
 
     const actual = factory('schema', {});

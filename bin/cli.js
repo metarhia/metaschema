@@ -6,12 +6,7 @@ const path = require('path');
 
 const common = require('metarhia-common');
 
-let metaschema;
-try {
-  metaschema = require('metaschema');
-} catch (e) {
-  metaschema = require('..');
-}
+const metaschema = require('..');
 
 const cwd = process.cwd();
 const apiFile = path.resolve(cwd, process.argv[2]);
@@ -23,7 +18,7 @@ try {
   const md = metaschema.generateMd(inventory);
   const mdFile = common.removeExt(apiFile) + '.md';
 
-  fs.writeFile(mdFile, md, (err) => {
+  fs.writeFile(mdFile, md, err => {
     if (err) console.log('Cant save output: ' + mdFile);
     else console.log('Generated API docs: ' + mdFile);
   });

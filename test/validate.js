@@ -11,7 +11,7 @@ metaschema.loadSchema(path, (err, schema) => {
   metaschema.build({
     Schema1: { Name: { domain: 'Nomen', required: false } },
     Schema2: { Name: { domain: 'Nomen', required: true } },
-    Schema3: { Name: { domain: 'Unknown' } }
+    Schema3: { Name: { domain: 'Unknown' } },
   });
 
   // Validate data by category, valid
