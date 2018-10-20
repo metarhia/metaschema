@@ -8,6 +8,8 @@
   Literal: { type: 'string' },
   Host: { type: 'string', length: 255 },
   URL: { type: 'string', length: 2000 },
+  Email: { type: 'string', length: 2000 },
+  PhoneNumber: { type: 'string', length: 32 },
   IP: { type: 'string', length: 15 },
   Port: { type: 'number' },
   Service: { type: 'string' },
