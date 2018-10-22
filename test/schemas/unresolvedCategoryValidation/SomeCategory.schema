@@ -1,0 +1,5 @@
+{
+  Nomen: { domain: 'Nomen' },
+  URL: { domain: 'URL' },
+  IP: { domain: 'IP' }
+}
