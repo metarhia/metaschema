@@ -1,17 +1,79 @@
 'use strict';
 
+/* eslint new-cap: 0 */
+
+const path = require('path');
+const metatests = require('metatests');
 const metaschema = require('..');
+const { attribute: { Enum, Many, Include } } = require('../lib/decorators');
 
-metaschema.load('general', (err, schema) => {
-  if (err) throw err;
-  metaschema.build(schema);
+const domains = {
+  nomen: {
+    domain: 'Nomen',
+    definition: { type: 'string', length: 60 },
+  },
+  nomenRequiredTrue: {
+    domain: 'Nomen',
+    required: true,
+    definition: { type: 'string', length: 60 },
+  },
+  sex: {
+    domain: 'Sex',
+    definition: Enum('female', 'male'),
+  },
+  born: {
+    domain: 'DateDay',
+    definition: { type: 'object', class: 'Date', format: 'yyyy-mm-dd' },
+  },
+};
 
-  const Person = metaschema.categories.get('Person');
-  console.dir(Person, { depth: null });
+const FullName = {
+  name: 'FullName',
+  definition: {
+    FirstName: domains.nomenRequiredTrue,
+    MiddleName: domains.nomen,
+    Patronymic: domains.nomen,
+    Surname: domains.nomenRequiredTrue,
+  },
+};
 
-  const Language = metaschema.categories.get('Language');
-  console.dir(Language, { depth: null });
+const Language = {
+  name: 'Language',
+  definition: {
+    Name: domains.nomenRequiredTrue,
+  },
+};
 
-  const FullName = metaschema.categories.get('FullName');
-  console.dir(FullName, { depth: null });
+const Person = {
+  name: 'Person',
+  definition: {
+    FullName: Include({
+      category: 'FullName',
+      definition: FullName.definition,
+    }),
+    Sex: domains.sex,
+    Born: domains.born,
+    Languages: Many({
+      category: 'Language',
+      definition: Language.definition,
+    }),
+  },
+};
+
+metatests.test('Database / general categories', test => {
+  const generalPath = path.join(__dirname, '..', 'schemas', 'general');
+  metaschema.fs.loadAndCreate(generalPath, null, (err, ms) => {
+    test.error(err);
+    const categories = [FullName, Language, Person];
+    for (const { name, definition } of categories) {
+      const category = ms.categories.get(name);
+
+      test.strictSame(category.name, name);
+      for (const key in definition) {
+        test.strictSame(category.definition[key], definition[key]);
+      }
+    }
+
+    test.end();
+  });
 });
