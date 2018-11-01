@@ -30,6 +30,7 @@
   HashSet: { type: 'object', class: 'HashSet' },
   JSON: { type: 'string', control: 'Multiline' },
   HTML: { type: 'string', control: 'Multiline' },
+  Source: { type: 'string' },
   CountryAlpha2: { type: 'string', length: 2, comment: 'ISO 3166-1 alpha-2' },
   CountryAlpha3: { type: 'string', length: 3, comment: 'ISO 3166-1 alpha-3' },
   CountryNumeric: { type: 'string', length: 3, comment: 'ISO 3166-1 numeric' },
