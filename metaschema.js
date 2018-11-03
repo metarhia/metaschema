@@ -3,6 +3,7 @@
 const introspection = require('./lib/introspection');
 const generator = require('./lib/generator');
 const types = require('./lib/types');
+const decorators = require('./lib/decorators');
 const { create } = require('./lib/schema');
 const schemaFs = require('./lib/schema-fs-loader');
 
@@ -14,5 +15,6 @@ module.exports = Object.assign(
   {
     fs: schemaFs,
     create,
+    decorators: decorators.all,
   }
 );
