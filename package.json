@@ -32,12 +32,12 @@
   },
   "dependencies": {
     "metarhia-common": "^0.0.37",
-    "metasync": "^0.3.29"
+    "metasync": "^0.3.30"
   },
   "devDependencies": {
-    "eslint": "^5.7.0",
-    "eslint-config-metarhia": "^5.0.0",
+    "eslint": "^5.8.0",
+    "eslint-config-metarhia": "^6.0.0",
     "eslint-plugin-import": "^2.14.0",
-    "metatests": "^0.2.1"
+    "metatests": "^0.2.3"
   }
 }
