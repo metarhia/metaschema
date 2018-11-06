@@ -28,12 +28,12 @@ Local({
 
 metatests.testSync('toJs test', test => {
   test.testSync('must convert simple schema', t => {
-    const expected = `module.exports = ${simpleSchema};`;
+    const expected = `module.exports = api => ${simpleSchema};`;
     t.strictSame(toJs(simpleSchema), expected);
   });
 
   test.testSync('must convert simple schema (esm)', t => {
-    const expected = `export default ${simpleSchema};`;
+    const expected = `export default api => ${simpleSchema};`;
     t.strictSame(toJs(simpleSchema, { useEsm: true }), expected);
   });
 
@@ -42,7 +42,7 @@ metatests.testSync('toJs test', test => {
     `const { decorators } = require('metaschema');
 const { Many, Include } = decorators;
 
-module.exports = ${decoratedSchema};`;
+module.exports = api => ${decoratedSchema};`;
     t.strictSame(toJs(decoratedSchema), expected);
   });
 
@@ -51,7 +51,7 @@ module.exports = ${decoratedSchema};`;
     `import { decorators } from 'metaschema';
 const { Many, Include } = decorators;
 
-export default ${decoratedSchema};`;
+export default api => ${decoratedSchema};`;
     t.strictSame(toJs(decoratedSchema, { useEsm: true }), expected);
   });
 
@@ -60,7 +60,7 @@ export default ${decoratedSchema};`;
     `const { decorators } = require('metaschema');
 const { Local, Many, Include } = decorators;
 
-module.exports = ${allDecoratedSchema};`;
+module.exports = api => ${allDecoratedSchema};`;
     t.strictSame(toJs(allDecoratedSchema), expected);
   });
 });
