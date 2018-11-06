@@ -21,11 +21,19 @@
   "bin": {
     "metaschema": "./bin/cli.js"
   },
+  "browser": {
+    "./metaschema.js": "./dist/metaschema.js",
+    "./dist/lib/generator.js": false,
+    "./dist/lib/introspection.js": false,
+    "./dist/lib/schema-fs-loader.js": false
+  },
   "readmeFilename": "README.md",
   "scripts": {
     "test": "npm run lint && npm run docs && metatests test/",
-    "lint": "eslint .",
-    "docs": "./bin/cli.js ./test/example.js"
+    "lint": "eslint --ignore-path .gitignore .",
+    "docs": "./bin/cli.js ./test/example.js",
+    "build": "babel metaschema.js -d dist && babel lib -d dist/lib",
+    "prepublish": "npm run -s build"
   },
   "engines": {
     "node": ">=6.0.0"
@@ -35,6 +43,9 @@
     "metasync": "^0.3.30"
   },
   "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
     "eslint": "^5.8.0",
     "eslint-config-metarhia": "^6.0.0",
     "eslint-plugin-import": "^2.14.0",
