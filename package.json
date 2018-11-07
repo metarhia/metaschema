@@ -1,6 +1,6 @@
 {
   "name": "metaschema",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "description": "Metadata Schema and Interface Definition Language (IDL)",
   "license": "MIT",
@@ -43,9 +43,9 @@
     "metasync": "^0.3.30"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.2",
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.5",
+    "@babel/preset-env": "^7.1.5",
     "eslint": "^5.8.0",
     "eslint-config-metarhia": "^6.0.0",
     "eslint-plugin-import": "^2.14.0",
