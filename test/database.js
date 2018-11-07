@@ -5,7 +5,9 @@
 const path = require('path');
 const metatests = require('metatests');
 const metaschema = require('..');
+
 const { attribute: { Enum, Many, Include } } = require('../lib/decorators');
+const { getSchemaDir } = require('./utils');
 
 const domains = {
   nomen: {
@@ -72,6 +74,22 @@ metatests.test('Database / general categories', test => {
       for (const key in definition) {
         test.strictSame(category.definition[key], definition[key]);
       }
+    }
+
+    test.end();
+  });
+});
+
+metatests.test('Multiple load directories', test => {
+  const schemas = ['schemas1', 'schemas2']
+    .map(s => getSchemaDir(s, 'multipleLoad'));
+  metaschema.fs.loadAndCreate(schemas, null, (err, ms) => {
+    test.error(err);
+    const categories = [FullName, Language];
+    for (const { name, definition } of categories) {
+      const category = ms.categories.get(name);
+      test.strictSame(category.name, name);
+      test.strictSame(category.definition, definition);
     }
 
     test.end();
