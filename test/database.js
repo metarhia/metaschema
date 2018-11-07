@@ -88,11 +88,8 @@ metatests.test('Multiple load directories', test => {
     const categories = [FullName, Language];
     for (const { name, definition } of categories) {
       const category = ms.categories.get(name);
-
       test.strictSame(category.name, name);
-      for (const key in definition) {
-        test.strictSame(category.definition[key], definition[key]);
-      }
+      test.strictSame(category.definition, definition);
     }
 
     test.end();
