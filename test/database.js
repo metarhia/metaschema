@@ -5,6 +5,7 @@
 const path = require('path');
 const metatests = require('metatests');
 const metaschema = require('..');
+
 const { attribute: { Enum, Many, Include } } = require('../lib/decorators');
 const { getSchemaDir } = require('./utils');
 

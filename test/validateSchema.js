@@ -2,6 +2,7 @@
 
 const metatests = require('metatests');
 const metaschema = require('..');
+
 const { getSchemaDir } = require('./utils');
 
 const test = config => metatests.test(config.name, test => {
