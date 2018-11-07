@@ -1,13 +1,11 @@
 'use strict';
 
-const path = require('path');
 const metatests = require('metatests');
 const metaschema = require('..');
-
-const schemaDir = name => path.join(__dirname, 'schemas', name);
+const { getSchemaDir } = require('./utils');
 
 const test = config => metatests.test(config.name, test => {
-  const dir = schemaDir(config.schemaName);
+  const dir = getSchemaDir(config.schemaName);
   metaschema.fs.loadAndCreate(dir, null, error => {
     if (!config.error) {
       test.error(error);
