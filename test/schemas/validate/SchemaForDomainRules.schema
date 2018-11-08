@@ -1,0 +1,6 @@
+{
+  Number: { domain: 'CustomNumber', validate: val => val % 2 === 0 },
+  String: { domain: 'CustomString' },
+  CheckSum: { domain: 'SHA2' },
+  UintArray: { domain: 'CustomUint32Array' },
+}

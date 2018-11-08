@@ -1,0 +1,4 @@
+{
+    Name: { domain: 'Nomen', required: false },
+    Ratio: { domain: 'Ratio', required: false },
+}
