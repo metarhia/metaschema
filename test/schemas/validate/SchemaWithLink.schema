@@ -1,0 +1,5 @@
+{
+  Plain: { category: 'Schema1' },
+  Include: Include('Schema1'),
+  Many: Many('Schema1'),
+}
