@@ -1,9 +1,9 @@
 {
-  Id: { type: 'bigint' },
+  Id: { type: 'bigint', parse: x => new api.common.Uint64(x) },
   Lambda: { type: 'function' },
   Logical: { type: 'boolean', control: 'CheckBox' },
   PostalCode: { type: 'string', length: 10 },
-  Money: { type: 'number' },
+  Money: { type: 'object', class: 'Money' },
   Nomen: { type: 'string', length: 60 },
   Literal: { type: 'string' },
   Host: { type: 'string', length: 255 },
@@ -65,5 +65,5 @@
   Area: { type: 'number', unit: 'Square metre', symbol: 'm²' },
   Volume: { type: 'number', unit: 'Litre', symbol: 'l' },
   Speed: { type: 'number', unit: 'Metres per second', symbol: 'm/s' },
-  Ratio: { type: 'number' }
+  Ratio: { type: 'number' },
 }

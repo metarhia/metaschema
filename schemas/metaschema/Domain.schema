@@ -1,10 +1,9 @@
 {
-  type: Enum(
-    'string', 'number', 'bigint', 'boolean',
-    'object', 'function', 'symbol'
-  ),
+  type: Enum('string', 'number', 'bigint', 'boolean', 'object', 'function'),
+  subtype: { type: Enum('double', 'int'), default: 'double' },
   class: { type: 'string' },
   control: { type: 'string' },
+  default: { type: 'string' },
   length: { type: 'number' },
   unit: { type: 'string' },
   base: { type: 'string' },
@@ -13,7 +12,10 @@
   format: { type: 'string' },
   min: { type: 'number' },
   max: { type: 'number' },
-  signed: { type: 'boolean' },
   bytes: { type: 'number' },
-  comment: { type: 'string' }
+  comment: { type: 'string' },
+  parse: { type: 'function' },
+  serialize: { type: 'function' },
+  check: { type: 'function' }, // (value) => (Boolean)
+  normalize: { type: 'function' }, // (value) => (value)
 }

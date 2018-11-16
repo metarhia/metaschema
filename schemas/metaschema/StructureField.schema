@@ -5,5 +5,5 @@
   default: { domain: 'Nomen' },
   comment: { domain: 'Text' },
 
-  Check: Validate(data => data.domain ? !data.category : !!data.category)
+  Check: Validate(data => data.domain ? !data.category : !!data.category),
 }
