@@ -6,12 +6,13 @@
   hidden: { domain: 'Logical' },
   readOnly: { domain: 'Logical' },
   index: { domain: 'Logical' }, // single field index
-  default: { domain: 'Nomen' }, // default value to be casted to domain
-  example: { domain: 'Nomen' },
+  default: { domain: 'Text' }, // default value to be casted to domain
+  example: { domain: 'Text' },
   lookup: { domain: 'Logical' }, // true if lookup result
   control: { domain: 'Nomen' }, // GUI visual control name
+  expression: { domain: 'Lambda' }, // (record, category) => (value)
   validate: { domain: 'Lambda' }, // (value) => (Boolean)
-  expression: { domain: 'Lambda' }, // (record) = > (value)
+  normalize: { domain: 'Lambda' }, // (value, category, record) => (value)
   comment: { domain: 'Text' },
 
   Check: Validate(data => {
@@ -45,5 +46,5 @@
 
     // Check index definition
     return +data.index + +data.unique < 2;
-  })
+  }),
 }
