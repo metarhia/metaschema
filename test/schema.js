@@ -1,7 +1,7 @@
 'use strict';
 
 const { test } = require('metatests');
-const { duplicate } = require('metarhia-common');
+const { duplicate } = require('@metarhia/common');
 const metaschema = require('..');
 
 const schemaTest = test('Metaschema default schemas test');
