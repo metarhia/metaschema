@@ -199,11 +199,11 @@ metaschema.fs.loadAndCreate([metaschemaPath, schemaPath], null, (err, ms) => {
             }),
           ]),
         ],
-        ['SchemaWithLink', { Plain: new Uint64(2) }, null],
-        ['SchemaWithLink', { Plain: '2' }, null],
+        ['SchemaWithLink', { Plain: new Uint64(2), Include: {} }, null],
+        ['SchemaWithLink', { Plain: '2', Include: {} }, null],
         [
           'SchemaWithLink',
-          { Plain: {} },
+          { Plain: {}, Include: {} },
           new MetaschemaError([
             new ValidationError('invalidClass', 'SchemaWithLink.Plain', {
               expected: ['Uint64', 'String'],
@@ -211,10 +211,10 @@ metaschema.fs.loadAndCreate([metaschemaPath, schemaPath], null, (err, ms) => {
             }),
           ]),
         ],
-        ['SchemaWithLink', { Many: [new Uint64(2)] }, null],
+        ['SchemaWithLink', { Include: {}, Many: [new Uint64(2)] }, null],
         [
           'SchemaWithLink',
-          { Many: [{}] },
+          { Include: {}, Many: [{}] },
           new MetaschemaError([
             new ValidationError('invalidClass', 'SchemaWithLink.Many[0]', {
               expected: ['Uint64', 'String'],
@@ -224,7 +224,7 @@ metaschema.fs.loadAndCreate([metaschemaPath, schemaPath], null, (err, ms) => {
         ],
         [
           'SchemaWithLink',
-          { Many: 42 },
+          { Include: {}, Many: 42 },
           new MetaschemaError([
             new ValidationError('invalidType', 'SchemaWithLink.Many', {
               expected: 'Array',
@@ -241,6 +241,13 @@ metaschema.fs.loadAndCreate([metaschemaPath, schemaPath], null, (err, ms) => {
               expected: 'string',
               actual: 'number',
             }),
+          ]),
+        ],
+        [
+          'SchemaWithLink',
+          {},
+          new MetaschemaError([
+            new ValidationError('missingProperty', 'SchemaWithLink.Include'),
           ]),
         ],
         [

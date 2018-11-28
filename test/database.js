@@ -52,6 +52,7 @@ const Person = {
     FullName: Include({
       category: 'FullName',
       definition: FullName.definition,
+      required: true,
     }),
     Sex: domains.sex,
     Born: domains.born,
