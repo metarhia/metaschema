@@ -49,7 +49,6 @@ metasync.each(
     }
 
     const [error, ms] = metaschema.create(schemas);
-
     validateTest.error(error);
 
     if (error) {

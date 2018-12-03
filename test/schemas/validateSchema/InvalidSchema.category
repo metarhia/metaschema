@@ -1,0 +1,7 @@
+{
+  neitherDomainNorCategory: { required: true },
+  domainAndCategory: { domain: 'Nomen', category: 'ValidCategory' },
+  invalidType: { required: 'true' },
+  notAllowedField: { domain: 'Nomen', lookup: true },
+  indexAndUnique: { domain: 'Nomen', index: true, unique: true }
+}

@@ -1,0 +1,4 @@
+{
+  InvalidDomainType: { type: '_INVAID_TYPE_' },
+  InvalidDomainSubtype: { type: 'number', subtype: 'float' }
+}

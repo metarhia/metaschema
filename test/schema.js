@@ -3,7 +3,7 @@
 const path = require('path');
 
 const { test } = require('metatests');
-const { duplicate } = require('@metarhia/common');
+const { clone } = require('@metarhia/common');
 
 const metaschema = require('..');
 
@@ -35,7 +35,7 @@ metaschema.fs.load(schemasDir, null, true, (err, arr) => {
   arr.forEach(([type, schema]) => schemas[typeToPlural[type]].push(schema));
 
   st.beforeEach((test, callback) => {
-    callback({ schemas: duplicate(schemas) });
+    callback({ schemas: clone(schemas) });
   });
   st.endAfterSubtests();
 

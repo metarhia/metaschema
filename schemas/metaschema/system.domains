@@ -1,0 +1,13 @@
+{
+  Type: Enum('string', 'number', 'bigint', 'boolean', 'object', 'function'),
+  NumberSubtype: Enum('double', 'int'),
+  String: { type: 'string' },
+  Boolean: { type: 'boolean' },
+  Number: { type: 'number' },
+  Function: { type: 'function' },
+  StringsArray: {
+    type: 'object',
+    class: 'Array',
+    check: arr => arr.every(item => typeof item === 'string')
+  }
+}

@@ -1,0 +1,8 @@
+{
+  indexField: Index('field1', 'field2'),
+  uniqueField: Unique('field3', 'field4'),
+  field1: { domain: 'Nomen' },
+  field2: { domain: 'Nomen' },
+  field3: { domain: 'Nomen' },
+  field4: { domain: 'Nomen' }
+}
