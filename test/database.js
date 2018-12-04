@@ -6,7 +6,7 @@ const path = require('path');
 const metatests = require('metatests');
 const metaschema = require('..');
 
-const { attribute: { Enum, Many, Include } } = require('../lib/decorators');
+const { Enum, Many, Include, Master } = require('../lib/decorators').attribute;
 const { getSchemaDir } = require('./utils');
 
 const domains = {
@@ -37,12 +37,24 @@ const FullName = {
     Patronymic: domains.nomen,
     Surname: domains.nomenRequiredTrue,
   },
+  references: {
+    Include: [{ category: 'Person', property: 'FullName' }],
+    Many: [],
+    Master: [{ category: 'Document', property: 'Owner' }],
+    Other: [{ category: 'Document', property: 'IssuedTo' }],
+  },
 };
 
 const Language = {
   name: 'Language',
   definition: {
     Name: domains.nomenRequiredTrue,
+  },
+  references: {
+    Include: [],
+    Many: [{ category: 'Person', property: 'Languages' }],
+    Master: [],
+    Other: [],
   },
 };
 
@@ -61,20 +73,51 @@ const Person = {
       definition: Language.definition,
     }),
   },
+  references: {
+    Include: [],
+    Many: [],
+    Master: [],
+    Other: [],
+  },
+};
+
+const Document = {
+  name: 'Document',
+  definition: {
+    Owner: Master({
+      category: 'FullName', required: true, definition: FullName.definition,
+    }),
+    IssuedTo: {
+      category: 'FullName', required: true, definition: FullName.definition,
+    },
+    Series: domains.nomen,
+  },
+  references: {
+    Include: [],
+    Many: [],
+    Master: [],
+    Other: [],
+  },
 };
 
 metatests.test('Database / general categories', test => {
   const generalPath = path.join(__dirname, '..', 'schemas', 'general');
   metaschema.fs.loadAndCreate(generalPath, null, (err, ms) => {
     test.error(err);
-    const categories = [FullName, Language, Person];
-    for (const { name, definition } of categories) {
+    const categories = [FullName, Language, Person, Document];
+    for (const { name, definition, references } of categories) {
       const category = ms.categories.get(name);
 
-      test.strictSame(category.name, name);
+      test.strictSame(category.name, name, `${name}.name`);
       for (const key in definition) {
-        test.strictSame(category.definition[key], definition[key]);
+        test.strictSame(
+          category.definition[key],
+          definition[key],
+          `${name}.definition.${key}`
+        );
       }
+
+      test.strictSame(category.references, references, `${name}.references`);
     }
 
     test.end();
