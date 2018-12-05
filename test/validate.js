@@ -36,13 +36,12 @@ metaschema.fs.loadAndCreate([metaschemaPath, schemaPath], null, (err, ms) => {
         [
           'Schema1',
           { City: 'Kiev' },
-          new MetaschemaError([
-            new ValidationError('unresolvedProperty', 'Schema1.City'),
-          ]),
+          null,
         ],
         [
           'Schema1',
           { FirstName: 'Marcus', Surname: 'Aurelius' },
+          { allowAdditionalFields: false },
           new MetaschemaError([
             new ValidationError('unresolvedProperty', 'Schema1.FirstName'),
             new ValidationError('unresolvedProperty', 'Schema1.Surname'),
@@ -55,7 +54,7 @@ metaschema.fs.loadAndCreate([metaschemaPath, schemaPath], null, (err, ms) => {
             new ValidationError('missingProperty', 'Schema2.Name'),
           ]),
         ],
-        ['Schema2', {}, true, null],
+        ['Schema2', {}, { patch: true }, null],
         [
           'Schema2',
           { Name: null },
@@ -271,6 +270,7 @@ metaschema.fs.loadAndCreate([metaschemaPath, schemaPath], null, (err, ms) => {
             invalid: { domain: 'Nomen', definition: 42 },
             failsCheck: { required: true },
           },
+          { allowAdditionalFields: false },
           new MetaschemaError([
             new ValidationError(
               'unresolvedProperty',
