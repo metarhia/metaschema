@@ -1,0 +1,11 @@
+View({
+  Category: 'Person',
+  Fields: [
+    'FullName',
+    { Born: 'DOB' },
+    { FirstName: 'FullName.FirstName' },
+    { LastName: 'FullName.LastName' },
+    { MaternalName: 'Mother.FullName.LastName' },
+    { Age: Person => Date.now() - Person.DOB },
+  ],
+})
