@@ -1,0 +1,4 @@
+{
+  Id: { domain: 'Id', required: true },
+  Symbol('allowNotDefinedFields'): false
+}
