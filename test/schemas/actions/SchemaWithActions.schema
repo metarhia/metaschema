@@ -1,5 +1,7 @@
 Dictionary({
   Name: { domain: 'Nomen', required: true },
-  Act: Action(({ Id }, callback) => callback(null, `Resource${Id}`)),
+  Act: Action(
+    (session, { Id }, callback) => callback(null, `Resource${Id}`)
+  ),
   Check: Validate(({ Id }) => true),
 })
