@@ -7,6 +7,7 @@ Dictionary({
       M1: {
         Execute: (session, { Id }, callback) =>
           callback(null, `M1Resource${Id}`),
+        // `Form` will be resolved as 'CustomActionsMethods.M1'
       },
       M2: {
         Execute: (session, { Id }, callback) =>
