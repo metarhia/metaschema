@@ -1,6 +1,6 @@
 {
   "name": "metaschema",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "description": "Metadata Schema and Interface Definition Language (IDL)",
   "license": "MIT",
@@ -28,6 +28,14 @@
     "./dist/lib/schema-fs-loader.js": false
   },
   "readmeFilename": "README.md",
+  "files": [
+    "babel.config.js",
+    "metaschema.js",
+    "bin/",
+    "lib/",
+    "dist/",
+    "schemas/"
+  ],
   "scripts": {
     "test": "npm run lint && npm run docs && metatests test/",
     "lint": "eslint --ignore-path .gitignore .",
@@ -39,15 +47,15 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "@metarhia/common": "^1.0.0",
+    "@metarhia/common": "^1.2.1",
     "metasync": "^0.3.31"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
-    "@babel/preset-env": "^7.1.6",
-    "eslint": "^5.9.0",
-    "eslint-config-metarhia": "^6.0.0",
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "eslint": "^5.10.0",
+    "eslint-config-metarhia": "^6.1.0",
     "eslint-plugin-import": "^2.14.0",
     "metatests": "^0.3.0"
   }
