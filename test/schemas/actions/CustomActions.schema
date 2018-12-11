@@ -1,0 +1,9 @@
+Dictionary({
+  Name: { domain: 'Nomen', required: true },
+  Act: Action({
+    Execute: (session, { Id }, params, callback) => {
+      callback(null, `Resource${Id}`);
+    },
+    Form: 'CustomForm',
+  }),
+})
