@@ -67,4 +67,11 @@
   Volume: { type: 'number', unit: 'Litre', symbol: 'l' },
   Speed: { type: 'number', unit: 'Metres per second', symbol: 'm/s' },
   Ratio: { type: 'number' },
+  ActionType: Enum(
+    'Create', 'Update', 'Delete', 'ShowDetail',
+    'Digicert', 'Steps', 'Custom'
+  ),
+  TransactionMode: Enum('Each', 'All'),
+  ProcessMode: Enum('Any', 'Current', 'Selected'),
+  RefreshMode: Enum('None', 'Current', 'All'),
 }
