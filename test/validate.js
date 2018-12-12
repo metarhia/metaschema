@@ -284,12 +284,12 @@ metaschema.fs.loadAndCreate([metaschemaPath, schemaPath], null, (err, ms) => {
         ],
       ],
       validateForm: [
-        ['Form', { Name: '12' }, null],
+        ['Schema1.Form', { Name: '12' }, null],
         [
-          'Form',
+          'Schema1.Form',
           { Name: 12 },
           new MetaschemaError([
-            new ValidationError('invalidType', 'Form.Name', {
+            new ValidationError('invalidType', 'Schema1.Form.Name', {
               expected: 'string',
               actual: 'number',
             }),

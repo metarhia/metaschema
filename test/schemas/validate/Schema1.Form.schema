@@ -1,0 +1,5 @@
+Form({
+  Args: {
+    Name: { domain: 'Nomen' },
+  },
+})

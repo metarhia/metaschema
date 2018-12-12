@@ -1,0 +1,27 @@
+Form({
+  Args: {
+    OldDOB: { field: 'DOB' },
+    NewDOB: { domain: 'DateTime' },
+    LastName: { field: 'FullName.LastName' },
+  },
+  Markup: {
+    Tabs: {
+      control: 'tabs',
+      children: {
+        tab: {
+          control: 'tab',
+          children: {
+            group: {
+              control: 'group',
+              children: {
+                OldDOB: { control: 'date' },
+                NewDOB: { control: 'date' },
+                LastName: { control: 'text' },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+})

@@ -1,3 +1,0 @@
-Form({
-  Name: { domain: 'Nomen' },
-})
