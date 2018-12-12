@@ -1,8 +1,8 @@
 Dictionary({
   Name: { domain: 'Nomen', required: true },
-  Act: Action(
-    (session, { Id }, callback) => callback(null, `Resource${Id}`)
+  Act: Action((session, { Id }, parameters, callback) => {
     // `Form` will be resolved as 'SchemaWithActions.Act'
-  ),
+    callback(null, `Resource${Id}`);
+  }),
   Check: Validate(({ Id }) => true),
 })

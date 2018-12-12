@@ -1,0 +1,16 @@
+Dictionary({
+  Name: { domain: 'Nomen', required: true },
+  Act: Action((session, { Id }, par, callback) => {
+    callback(null, Execute(Id === 42 ? 'M1' : 'M2'));
+  }),
+  M1: Action((session, { Id }, par, callback) => {
+    // `Form` will be resolved as 'SchemaWithActions.M1'
+    callback(null, `M1Resource${Id}`),
+  }),
+  M2: Action({
+    Form: 'CustomForm',
+    Execute: (session, { Id }, par, callback) => {
+      callback(null, `M2Resource${Id}`);
+    }
+  }),
+})
