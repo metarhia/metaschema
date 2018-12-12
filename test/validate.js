@@ -24,7 +24,7 @@ metaschema.fs.loadAndCreate([metaschemaPath, schemaPath], null, (err, ms) => {
     'Metaschema / validate',
     {
       validateCategory: ms.validateCategory.bind(ms),
-      validateForm: ms.validateForm.bind(ms),
+      validateAction: ms.validateAction.bind(ms),
       validateFields: ms.validateFields.bind(ms),
     },
     {
@@ -283,26 +283,39 @@ metaschema.fs.loadAndCreate([metaschemaPath, schemaPath], null, (err, ms) => {
           ]),
         ],
       ],
-      validateForm: [
-        ['Form', { Name: '12' }, null],
+      validateAction: [
+        ['Schema1', 'DoSome', { Name: '12' }, null],
         [
-          'Form',
+          'Schema1', 'DoSome',
           { Name: 12 },
           new MetaschemaError([
-            new ValidationError('invalidType', 'Form.Name', {
+            new ValidationError('invalidType', 'Schema1.DoSome.Name', {
               expected: 'string',
               actual: 'number',
             }),
           ]),
         ],
         [
-          '__InvalidForm__',
+          '__InvalidCategory__',
+          'DoSome',
           { Name: 21 },
           new MetaschemaError([
             new ValidationError(
               'undefinedEntity',
-              '__InvalidForm__',
-              'form'
+              '__InvalidCategory__',
+              'category'
+            ),
+          ]),
+        ],
+        [
+          'Schema1',
+          '__InvalidAction__',
+          { Name: 21 },
+          new MetaschemaError([
+            new ValidationError(
+              'undefinedEntity',
+              '__InvalidAction__',
+              'action'
             ),
           ]),
         ],

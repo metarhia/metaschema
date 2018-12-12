@@ -1,0 +1,5 @@
+Form({
+  Fields: {
+    Name: { domain: 'Nomen' },
+  },
+})

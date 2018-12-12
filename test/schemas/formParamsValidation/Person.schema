@@ -1,0 +1,16 @@
+{
+  DOB: { domain: 'DateTime' },
+  FullName: { category: 'FullName' },
+  Mother: { category: 'Person' },
+  ChangeDOB: Action({
+    Execute: (session, ctx, args, callback) => callback(null, 'ok'),
+    Args: {
+      OldDOB: { field: 'DOB' },
+      NewDOB: { domain: 'DateTime' },
+      LastName: { field: 'FullName.LastName' },
+    },
+    Returns: {
+      NewDOB: { domain: 'DateTime' },
+    },
+  }),
+}

@@ -1,4 +1,13 @@
 {
     Name: { domain: 'Nomen', required: false },
     Ratio: { domain: 'Ratio', required: false },
+    DoSome: Action({
+      Execute: (session, ctx, args, callback) => callback(null, args.Name),
+      Args: {
+        Name: { domain: 'Nomen' },
+      },
+      Returns: {
+        Name: { domain: 'Nomen' },
+      },
+    }),
 }
