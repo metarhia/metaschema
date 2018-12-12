@@ -24,6 +24,7 @@
   Salt: { type: 'string', length: 32 },
   Secret: { type: 'string' },
   Text: { type: 'string', control: 'Multiline' },
+  Collection: { type: 'object', class: 'Object' },
   List: { type: 'object', class: 'Array' },
   Enum: { type: 'object', class: 'Enum' },
   HashMap: { type: 'object', class: 'HashMap' },
