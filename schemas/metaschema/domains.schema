@@ -71,7 +71,15 @@
     'Create', 'Update', 'Delete', 'ShowDetail',
     'Digicert', 'Steps', 'Custom'
   ),
+  // determines how Action with multiple items will be contained
+  // Each - commit after each item, All - commit after all
   TransactionMode: Enum('Each', 'All'),
+  // determines how Action uses selected items
+  // Any - may use any elements, Current - uses only current element
+  // Selected - uses all user selected items
   ProcessMode: Enum('Any', 'Current', 'Selected'),
+  // determines what rows to update after the Action
+  // None - don't update, Current - update only affected items
+  // All - update whole dataset
   RefreshMode: Enum('None', 'Current', 'All'),
 }
