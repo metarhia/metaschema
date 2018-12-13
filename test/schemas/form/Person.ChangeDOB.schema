@@ -4,6 +4,9 @@ Form({
     NewDOB: { domain: 'DateTime' },
     LastName: { field: 'FullName.LastName' },
   },
+  Returns: {
+    NewDOB: { domain: 'DateTime' },
+  },
   Layout: {
     Tabs: {
       control: 'tabs',
