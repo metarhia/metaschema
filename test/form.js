@@ -5,7 +5,7 @@ const metatests = require('metatests');
 const metaschema = require('..');
 const { getSchemaDir } = require('./utils');
 
-metatests.test('must load Views', test => {
+metatests.test('must load Form', test => {
   metaschema.fs.loadAndCreate(getSchemaDir('form'), null, (error, ms) => {
     test.error(error);
 
