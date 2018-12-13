@@ -4,7 +4,7 @@ Form({
     NewDOB: { domain: 'DateTime' },
     LastName: { field: 'FullName.LastName' },
   },
-  Markup: {
+  Layout: {
     Tabs: {
       control: 'tabs',
       children: {
