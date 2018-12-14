@@ -67,19 +67,20 @@
   Volume: { type: 'number', unit: 'Litre', symbol: 'l' },
   Speed: { type: 'number', unit: 'Metres per second', symbol: 'm/s' },
   Ratio: { type: 'number' },
-  ActionType: Enum(
-    'Create', 'Update', 'Delete', 'ShowDetail',
-    'Digicert', 'Steps', 'Custom'
-  ),
+  ActionType: Enum('Create', 'Update', 'Delete'),
   // determines how Action with multiple items will be contained
-  // Each - commit after each item, All - commit after all
-  TransactionMode: Enum('Each', 'All'),
+  // All - transaction with all data
+  // Sequential - multiple calls single transaction
+  // Parallel - multiple calls multiple transactions
+  TransactionMode: Enum('All', 'Sequential', 'Parallel'),
   // determines how Action uses selected items
-  // Any - may use any elements, Current - uses only current element
+  // Any - may use any elements
+  // Current - uses only current element
   // Selected - uses all user selected items
   ProcessMode: Enum('Any', 'Current', 'Selected'),
   // determines what rows to update after the Action
-  // None - don't update, Current - update only affected items
+  // Current - update only affected items
   // All - update whole dataset
-  RefreshMode: Enum('None', 'Current', 'All'),
+  // None - don't update
+  RefreshMode: Enum('Current', 'All', 'None'),
 }
