@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('path');
 const metatests = require('metatests');
 
 const metaschema = require('..');
@@ -106,6 +107,23 @@ metatests.test('must load Actions', test => {
         t2.strictSame(act.Form, 'CustomForm');
         t2.end();
       });
+    });
+  });
+});
+
+metatests.test('must load context for Actions', test => {
+  const dir = getSchemaDir('actions');
+  const filepath = path.resolve(dir, 'ActionsContext.schema');
+  const ctx = { api: { answer: 42 } };
+  metaschema.fs.loadSchema(filepath, ctx, (error, name, schema) => {
+    test.error(error);
+
+    const { Execute: execute } = schema.Act;
+
+    execute({}, {}, {}, (err, res) => {
+      test.error(err);
+      test.strictSame(res, ctx.api.answer);
+      test.end();
     });
   });
 });

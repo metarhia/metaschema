@@ -1,0 +1,6 @@
+Dictionary({
+  Name: { domain: 'Nomen', required: true },
+  Act: Action((session, ctx, params, callback) => {
+    callback(null, api.answer);
+  }),
+})
