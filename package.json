@@ -18,13 +18,8 @@
     "url": "https://github.com/metarhia/metaschema"
   },
   "main": "./metaschema.js",
-  "bin": {
-    "metaschema": "./bin/cli.js"
-  },
   "browser": {
     "./metaschema.js": "./dist/metaschema.js",
-    "./dist/lib/generator.js": false,
-    "./dist/lib/introspection.js": false,
     "./dist/lib/schema-fs-loader.js": false
   },
   "readmeFilename": "README.md",
@@ -37,9 +32,8 @@
     "schemas/"
   ],
   "scripts": {
-    "test": "npm run lint && npm run docs && metatests test/",
+    "test": "npm run lint && metatests test/",
     "lint": "eslint --ignore-path .gitignore .",
-    "docs": "./bin/cli.js ./test/example.js",
     "build": "babel metaschema.js -d dist && babel lib -d dist/lib",
     "prepublish": "npm run -s build"
   },
