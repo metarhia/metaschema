@@ -2,7 +2,7 @@
     Name: { domain: 'Nomen', required: false },
     Ratio: { domain: 'Ratio', required: false },
     DoSome: Action({
-      Execute: (session, ctx, args, callback) => callback(null, args.Name),
+      Execute: async (session, ctx, args) => args.Name,
       Args: {
         Name: { domain: 'Nomen' },
       },

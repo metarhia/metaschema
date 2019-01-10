@@ -9,9 +9,11 @@ const { getSchemaDir } = require('./utils');
 metatests.test('must load Actions', test => {
 
   const testMethod = (test, method, ctx, expected) => {
-    method({}, ctx, {}, (err, actual) => {
-      test.error(err);
+    method({}, ctx, {}).then(actual => {
       test.strictSame(actual, expected);
+      test.end();
+    }, err => {
+      test.error(err);
       test.end();
     });
   };
@@ -91,20 +93,24 @@ metatests.test('must load Actions', test => {
       const { Execute: execute } = actAction.definition;
 
       const t1 = test.test();
-      execute({}, { Id: 42 }, {}, (err, act) => {
-        t1.error(err);
+      execute({}, { Id: 42 }, {}).then(act => {
         t1.type(act, 'Execute');
         t1.strictSame(act.Action, 'M1');
         t1.strictSame(act.Form, 'CustomForm');
         t1.end();
+      }, err => {
+        t1.error(err);
+        t1.end();
       });
 
       const t2 = test.test();
-      execute({}, { Id: 13 }, {}, (err, act) => {
-        t2.error(err);
+      execute({}, { Id: 13 }, {}).then(act => {
         t2.type(act, 'Execute');
         t2.strictSame(act.Action, 'M2');
         t2.strictSame(act.Form, 'CustomForm');
+        t2.end();
+      }, err => {
+        t2.error(err);
         t2.end();
       });
     });
@@ -120,9 +126,11 @@ metatests.test('must load context for Actions', test => {
 
     const { Execute: execute } = schema.Act;
 
-    execute({}, {}, {}, (err, res) => {
-      test.error(err);
+    execute({}, {}, {}).then(res => {
       test.strictSame(res, ctx.api.answer);
+      test.end();
+    }, err => {
+      test.error(err);
       test.end();
     });
   });

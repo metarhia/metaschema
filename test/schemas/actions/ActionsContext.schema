@@ -1,6 +1,4 @@
 Dictionary({
   Name: { domain: 'Nomen', required: true },
-  Act: Action((session, ctx, params, callback) => {
-    callback(null, api.answer);
-  }),
+  Act: Action(async (session, ctx, params) => api.answer),
 })
