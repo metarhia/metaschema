@@ -1,5 +1,5 @@
 View({
-  Category: 'Person',
+  Base: 'Person',
   Fields: [
     { MaternalName: 'Mother.__FullName__.LastName' },
   ],

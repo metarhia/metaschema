@@ -1,25 +1,49 @@
 'use strict';
 
+const path = require('path');
+
 const { test } = require('metatests');
 const { duplicate } = require('@metarhia/common');
+
 const metaschema = require('..');
 
+const schemasDir = path.join(__dirname, '..', 'schemas');
+
+const schemas = {
+  categories: [],
+  domains: [],
+  views: [],
+  forms: [],
+  actions: [],
+  sources: [],
+};
+
+const typeToPlural = {
+  category: 'categories',
+  domains: 'domains',
+  view: 'views',
+  form: 'forms',
+  action: 'actions',
+  source: 'sources',
+};
+
 const schemaTest = test('Metaschema default schemas test');
-metaschema.fs.load(null, null, (err, schemas) => {
+metaschema.fs.load(schemasDir, null, true, (err, arr) => {
   const st = schemaTest;
   st.error(err);
+
+  arr.forEach(([type, schema]) => schemas[typeToPlural[type]].push(schema));
+
   st.beforeEach((test, callback) => {
     callback({ schemas: duplicate(schemas) });
   });
   st.endAfterSubtests();
 
   st.testSync('must support Logical domain type', (test, { schemas }) => {
-    schemas.push([
-      'schema',
-      {
-        field: { domain: 'Logical' },
-      },
-    ]);
+    schemas.categories.push({
+      name: 'schema',
+      definition: { field: { domain: 'Logical' } },
+    });
 
     const [createErr, ms] = metaschema.create(schemas);
     test.error(createErr);
@@ -47,12 +71,10 @@ metaschema.fs.load(null, null, (err, schemas) => {
   st.testSync(
     "createInstance must fail when 'required' fields are missing",
     (test, { schemas }) => {
-      schemas.push([
-        'schema',
-        {
-          field: { domain: 'Nomen', required: true },
-        },
-      ]);
+      schemas.categories.push({
+        name: 'schema',
+        definition: { field: { domain: 'Nomen', required: true } },
+      });
       const [createErr, ms] = metaschema.create(schemas);
       test.error(createErr);
 

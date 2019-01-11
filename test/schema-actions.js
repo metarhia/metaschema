@@ -27,20 +27,26 @@ metatests.test('must load Actions', test => {
   metaschema.fs.loadAndCreate(getSchemaDir('actions'), null, (error, ms) => {
     test.error(error);
 
-    test.strictSame(ms.actions.get('SchemaWithoutActions').size, 0);
-    test.strictSame(ms.actions.get('SchemaWithActions').size, 1);
+    test.strictSame(ms.categories.get('SchemaWithoutActions').actions.size, 0);
+    test.strictSame(ms.categories.get('SchemaWithActions').actions.size, 1);
 
     test.endAfterSubtests();
 
     test.test('SchemaWithActions test', test => {
-      const action = ms.actions.get('SchemaWithActions').get('Act');
+      const action = ms.categories.get('SchemaWithActions').actions.get('Act');
+
       test.endAfterSubtests();
       testExecute(test.test(), action.definition, { Id: 42 }, 'Resource42');
     });
 
     test.test('CustomActions test', test => {
-      const action = ms.actions.get('CustomActions').get('Act');
-      test.strictSame(action.form, ms.forms.get('CustomActions.CustomForm'));
+      const action = ms.categories.get('CustomActions').actions.get('Act');
+
+      test.strictSame(
+        action.form,
+        ms.categories.get('CustomActions').forms.get('CustomForm').definition
+      );
+
       test.endAfterSubtests();
       testExecute(test.test(), action.definition, { Id: 13 }, 'Resource13');
     });
@@ -48,7 +54,8 @@ metatests.test('must load Actions', test => {
     test.test('ActionsExecute test', test => {
       test.endAfterSubtests();
 
-      const actAction = ms.actions.get('ActionsExecute').get('Act');
+      const actAction = ms.categories.get('ActionsExecute').actions.get('Act');
+
       test.assertNot(actAction.form);
       testExecute(
         test.test(),
@@ -63,19 +70,29 @@ metatests.test('must load Actions', test => {
         { Action: 'M2' }
       );
 
-      const m1Action = ms.actions.get('ActionsExecute').get('M1');
-      test.strictSame(m1Action.form, ms.forms.get('ActionsExecute.M1'));
+      const m1Action = ms.categories.get('ActionsExecute').actions.get('M1');
+
+      test.strictSame(
+        m1Action.form,
+        ms.categories.get('ActionsExecute').forms.get('M1').definition
+      );
       testExecute(test.test(), m1Action.definition, { Id: 42 }, 'M1Resource42');
 
-      const m2Action = ms.actions.get('ActionsExecute').get('M2');
-      test.strictSame(m2Action.form, ms.forms.get('ActionsExecute.CustomForm'));
+      const m2Action = ms.categories.get('ActionsExecute').actions.get('M2');
+
+      test.strictSame(
+        m2Action.form,
+        ms.categories.get('ActionsExecute').forms.get('CustomForm').definition
+      );
       testExecute(test.test(), m2Action.definition, { Id: 42 }, 'M2Resource42');
     });
 
     test.test('ActionsExecuteForm test', test => {
       test.endAfterSubtests();
 
-      const actAction = ms.actions.get('ActionsExecuteForm').get('Act');
+      const actAction = ms.categories
+        .get('ActionsExecuteForm')
+        .actions.get('Act');
       test.assertNot(actAction.form);
       const { Execute: execute } = actAction.definition;
 
@@ -112,9 +129,9 @@ metatests.test('must load Actions', test => {
 
 metatests.test('must load context for Actions', test => {
   const dir = getSchemaDir('actions');
-  const filepath = path.resolve(dir, 'ActionsContext.schema');
+  const filepath = path.resolve(dir, 'ActionsContext.category');
   const ctx = { api: { answer: 42 } };
-  metaschema.fs.loadSchema(filepath, ctx, (error, name, schema) => {
+  metaschema.fs.loadSchema(filepath, ctx, (error, name, type, schema) => {
     test.error(error);
 
     const { Execute: execute } = schema.Act;

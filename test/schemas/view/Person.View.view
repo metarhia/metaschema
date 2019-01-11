@@ -1,5 +1,4 @@
 View({
-  Category: 'Person',
   Fields: [
     'FullName',
     { Born: 'DOB' },

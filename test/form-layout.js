@@ -5,11 +5,11 @@ const metatests = require('metatests');
 const metaschema = require('..');
 const { getSchemaDir } = require('./utils');
 
-metatests.test('must properly resolve Args, Fields and Returns', test => {
+metatests.test('must properly load Layout', test => {
   metaschema.fs.loadAndCreate(getSchemaDir('args'), null, (error, ms) => {
     test.error(error);
 
-    const form = ms.forms.get('Person.ChangeDOB');
+    const form = ms.categories.get('Person').forms.get('ChangeDOB').definition;
     test.strictSame(form.Layout.length, 1);
 
     const [tabs] = form.Layout;

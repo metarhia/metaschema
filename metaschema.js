@@ -1,7 +1,8 @@
 'use strict';
 
 const decorators = require('./lib/decorators');
-const { create, extractDecorator } = require('./lib/schema');
+const { create } = require('./lib/schema');
+const { extractDecorator } = require('./lib/schema-utils');
 const { processSchema } = require('./lib/schema-loader');
 const schemaFs = require('./lib/schema-fs-loader');
 

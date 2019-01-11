@@ -21,17 +21,9 @@ metatests.test('must load Views', test => {
       Age: Person => Date.now() - Person.DOB,
     };
 
-    const projectionDefinition = {
-      FullName: definition.FullName,
-      Born: definition.Born,
-      FirstName: FullName.FirstName,
-      LastName: FullName.LastName,
-    };
-
-    test.strictSame(ms.views.get('PersonView').definition, definition);
     test.strictSame(
-      ms.views.get('PersonProjection').definition,
-      projectionDefinition
+      ms.categories.get('Person').views.get('View').definition.Fields,
+      definition
     );
 
     test.end();

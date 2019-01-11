@@ -1,0 +1,10 @@
+{
+  FirstName: { domain: 'Nomen' },
+  LastName: { domain: 'Nomen' },
+  ChangeName: Action({
+    Execute: async (args, session, ctx) => 'ok',
+    Args: {
+      newName: { field: 'FirstName' },
+    },
+  }),
+}

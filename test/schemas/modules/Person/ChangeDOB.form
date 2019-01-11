@@ -1,0 +1,19 @@
+Form({
+  Fields: {
+    SomeOtherPerson: { field: '::FullName' },
+    SomeOtherPersonsLastName: { field: '::Person.FullName.LastName' },
+  },
+  Layout: [
+    Group('tabs', { control: 'Tabs' },
+      Group('tab', { control: 'Tab' },
+        Group('group', {},
+          Input('OldDOB'),
+          Input('NewDOB'),
+          Input('LastName', { control: 'text' }),
+          Label('SomeOtherPerson', { control: 'number' }),
+          Label('SomeOtherPersonsLastName')
+        )
+      )
+    ),
+  ],
+})

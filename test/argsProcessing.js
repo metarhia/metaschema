@@ -5,7 +5,7 @@ const metatests = require('metatests');
 const metaschema = require('..');
 const { getSchemaDir } = require('./utils');
 
-metatests.test('must properly resolve Args, Fields and Returns', test => {
+metatests.test('must properly resolve Args and Returns', test => {
   metaschema.fs.loadAndCreate(getSchemaDir('args'), null, (error, ms) => {
     test.error(error);
 
@@ -13,7 +13,8 @@ metatests.test('must properly resolve Args, Fields and Returns', test => {
     const dateTime = ms.domains.get('DateTime');
     const nomen = ms.domains.get('Nomen');
 
-    const action = ms.actions.get('Person').get('ChangeDOB').definition;
+    const action = ms.categories.get('Person').actions.get('ChangeDOB')
+      .definition;
     const { Args: args, Returns: returns } = action;
 
     test.strictSame(args.OldDOB, {
@@ -38,8 +39,8 @@ metatests.test('must properly resolve Args, Fields and Returns', test => {
       definition: dateTime,
     });
 
-    const form = ms.forms.get('Person.ChangeDOB');
-    const { Fields: fields } = form;
+    const form = ms.categories.get('Person').forms.get('ChangeDOB');
+    const { Fields: fields } = form.definition;
 
     test.strictSame(fields.SomeOtherPerson, {
       field: '::FullName',

@@ -1,8 +1,6 @@
-Projection({
-  Category: 'PersonView',
+View({
   Fields: [
-    'FullName',
-    'Born',
+    { Born: 'DOB' },
     { FirstName: 'FullName.FirstName' },
     { LastName: 'FullName.LastName' },
   ],

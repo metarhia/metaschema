@@ -1,0 +1,3 @@
+{
+  CountryName: { type: 'string' },
+}

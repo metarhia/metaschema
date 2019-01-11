@@ -87,7 +87,7 @@ metatests.test('must report errors about invalid view params', test => {
     const expected = new MetaschemaError([
       new SchemaValidationError(
         'unresolvedProperty',
-        'PersonView',
+        'Person.View',
         'Fields.MaternalName',
         { property: 'Mother.__FullName__' }
       ),
