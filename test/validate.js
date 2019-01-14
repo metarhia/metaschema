@@ -286,7 +286,8 @@ metaschema.fs.loadAndCreate([metaschemaPath, schemaPath], null, (err, ms) => {
       validateAction: [
         ['Schema1', 'DoSome', { Name: '12' }, null],
         [
-          'Schema1', 'DoSome',
+          'Schema1',
+          'DoSome',
           { Name: 12 },
           new MetaschemaError([
             new ValidationError('invalidType', 'Schema1.DoSome.Name', {

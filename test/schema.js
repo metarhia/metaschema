@@ -14,9 +14,12 @@ metaschema.fs.load(null, null, (err, schemas) => {
   st.endAfterSubtests();
 
   st.testSync('must support Logical domain type', (test, { schemas }) => {
-    schemas.push(['schema', {
-      field: { domain: 'Logical' },
-    }]);
+    schemas.push([
+      'schema',
+      {
+        field: { domain: 'Logical' },
+      },
+    ]);
 
     const [createErr, ms] = metaschema.create(schemas);
     test.error(createErr);
@@ -31,23 +34,30 @@ metaschema.fs.load(null, null, (err, schemas) => {
     test.strictSame(actualInvalid, null);
   });
 
-  st.testSync('createInstance must support Logical domain type',
+  st.testSync(
+    'createInstance must support Logical domain type',
     (test, { schemas }) => {
       const [createErr, ms] = metaschema.create(schemas);
       test.error(createErr);
       test.strictSame(ms.createInstance('Logical', true), true);
       test.strictSame(ms.createInstance('Logical', false), false);
-    });
+    }
+  );
 
-  st.testSync('createInstance must fail when \'required\' fields are missing',
+  st.testSync(
+    "createInstance must fail when 'required' fields are missing",
     (test, { schemas }) => {
-      schemas.push(['schema', {
-        field: { domain: 'Nomen', required: true },
-      }]);
+      schemas.push([
+        'schema',
+        {
+          field: { domain: 'Nomen', required: true },
+        },
+      ]);
       const [createErr, ms] = metaschema.create(schemas);
       test.error(createErr);
 
       const actual = ms.createInstance('schema', {});
       test.strictSame(actual, null);
-    });
+    }
+  );
 });

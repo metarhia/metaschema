@@ -5,22 +5,23 @@ const metaschema = require('..');
 
 const { getSchemaDir } = require('./utils');
 
-const test = config => metatests.test(config.name, test => {
-  const dir = getSchemaDir(config.schemaName);
-  metaschema.fs.loadAndCreate(dir, null, error => {
-    if (!config.error) {
-      test.error(error);
-    } else {
-      test.isError(error);
-      test.equal(error.errors.length, 1, 'must only return one error');
-      const [actual] = error.errors;
-      test.strictSame(actual.type, config.error.type);
-      test.strictSame(actual.source, config.error.source);
-      test.strictSame(actual.property, config.error.property);
-    }
-    test.end();
+const test = config =>
+  metatests.test(config.name, test => {
+    const dir = getSchemaDir(config.schemaName);
+    metaschema.fs.loadAndCreate(dir, null, error => {
+      if (!config.error) {
+        test.error(error);
+      } else {
+        test.isError(error);
+        test.equal(error.errors.length, 1, 'must only return one error');
+        const [actual] = error.errors;
+        test.strictSame(actual.type, config.error.type);
+        test.strictSame(actual.source, config.error.source);
+        test.strictSame(actual.property, config.error.property);
+      }
+      test.end();
+    });
   });
-});
 
 const testConfigs = [
   {
@@ -42,7 +43,7 @@ const testConfigs = [
     },
   },
   {
-    name: 'Validate link to \'Log\' category',
+    name: "Validate link to 'Log' category",
     schemaName: 'linkToLogValidation',
     error: {
       type: 'linkToLog',
@@ -51,7 +52,7 @@ const testConfigs = [
     },
   },
   {
-    name: 'Validate illegal link to \'Local\'',
+    name: "Validate illegal link to 'Local'",
     schemaName: 'illegalLinkToLocalValidation',
     error: {
       type: 'illegalLinkToLocal',

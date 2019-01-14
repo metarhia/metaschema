@@ -28,10 +28,7 @@ const errorSort = (a, b) => {
 metatests.test('must report errors about invalid action params', test => {
   metaschema.fs.loadAndCreate(formPath, null, error => {
     const expected = new MetaschemaError([
-      new SchemaValidationError(
-        'unlinkedForm',
-        'ChangeName'
-      ),
+      new SchemaValidationError('unlinkedForm', 'ChangeName'),
       new SchemaValidationError(
         'unresolvedCategory',
         'FullName',

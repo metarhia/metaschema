@@ -85,10 +85,14 @@ const Document = {
   name: 'Document',
   definition: {
     Owner: Master({
-      category: 'FullName', required: true, definition: FullName.definition,
+      category: 'FullName',
+      required: true,
+      definition: FullName.definition,
     }),
     IssuedTo: {
-      category: 'FullName', required: true, definition: FullName.definition,
+      category: 'FullName',
+      required: true,
+      definition: FullName.definition,
     },
     Series: domains.nomen,
   },
@@ -125,8 +129,9 @@ metatests.test('Database / general categories', test => {
 });
 
 metatests.test('Multiple load directories', test => {
-  const schemas = ['schemas1', 'schemas2']
-    .map(s => getSchemaDir(s, 'multipleLoad'));
+  const schemas = ['schemas1', 'schemas2'].map(s =>
+    getSchemaDir(s, 'multipleLoad')
+  );
   metaschema.fs.loadAndCreate(schemas, null, (err, ms) => {
     test.error(err);
     const categories = [FullName, Language];

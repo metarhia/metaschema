@@ -34,6 +34,7 @@
   "scripts": {
     "test": "npm run lint && metatests test/",
     "lint": "eslint --ignore-path .gitignore .",
+    "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" .eslintrc .prettierrc",
     "build": "babel metaschema.js -d dist && babel lib -d dist/lib",
     "prepublish": "npm run -s build"
   },
@@ -50,7 +51,10 @@
     "@babel/preset-env": "^7.2.0",
     "eslint": "^5.10.0",
     "eslint-config-metarhia": "^6.1.0",
+    "eslint-config-prettier": "^3.4.0",
     "eslint-plugin-import": "^2.14.0",
-    "metatests": "^0.3.0"
+    "eslint-plugin-prettier": "^3.0.1",
+    "metatests": "^0.3.0",
+    "prettier": "1.15.3"
   }
 }
