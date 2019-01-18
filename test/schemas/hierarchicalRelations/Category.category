@@ -1,0 +1,15 @@
+{
+  Name: { domain: 'Nomen' },
+
+  Parent: Hierarchy(),
+  DuplicateParent: Hierarchy(),
+
+  Catalog: Catalog(),
+  DuplicateCatalog: Catalog(),
+
+  Subdivision: Subdivision(),
+  DuplicateSubdivision: Subdivision(),
+
+  Master: Master({ category: 'Master' }),
+  DuplicateMaster: Master({ category: 'Master' }),
+}

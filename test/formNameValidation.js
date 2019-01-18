@@ -8,11 +8,10 @@ const {
   MetaschemaError,
   SchemaValidationError,
 } = require('../lib/schema-errors');
-const { getSchemaDir } = require('./utils');
+const { getSchemaDir, removeStack } = require('./utils');
 
 const formPath = getSchemaDir('invalidFormName');
 
-const removeStack = errors => errors.forEach(error => delete error.stack);
 const errorSort = (a, b) => {
   const aString = a.toString();
   const bString = b.toString();

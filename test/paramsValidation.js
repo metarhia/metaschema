@@ -8,13 +8,11 @@ const {
   MetaschemaError,
   SchemaValidationError,
 } = require('../lib/schema-errors');
-const { getSchemaDir } = require('./utils');
+const { getSchemaDir, removeStack } = require('./utils');
 
 const actionPath = getSchemaDir('actionParamsValidation');
 const formPath = getSchemaDir('formParamsValidation');
 const viewPath = getSchemaDir('viewParamsValidation');
-
-const removeStack = errors => errors.forEach(error => delete error.stack);
 
 metatests.test('must report errors about invalid action params', test => {
   metaschema.fs.loadAndCreate(actionPath, null, error => {
