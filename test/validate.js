@@ -19,6 +19,7 @@ const schemas = {
   views: [],
   forms: [],
   actions: [],
+  displayModes: [],
   sources: [],
 };
 

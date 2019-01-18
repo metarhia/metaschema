@@ -1,0 +1,7 @@
+View({
+  Fields: [
+    'Name',
+    'Surname',
+    { FullName: category => `${category.Name}.${category.Surname}` },
+  ]
+})

@@ -1,0 +1,23 @@
+DisplayMode({
+  datasets: {
+    first: {
+      source: 'View',
+      projection: [],
+      context: {
+        fullName: { field: 'FullName' },
+      },
+    },
+    second: {
+      projection: [],
+      parent: 'first',
+      params: {
+        name: { field: 'Name' },
+      }
+    },
+    unresolved: {
+      source: '__UNRESOLVED__',
+    },
+  },
+  inParams: {},
+  outParams: {},
+})
