@@ -2,7 +2,7 @@
 
 const path = require('path');
 
-const { test } = require('metatests');
+const { test, testSync } = require('metatests');
 const { duplicate } = require('@metarhia/common');
 
 const metaschema = require('..');
@@ -83,4 +83,16 @@ metaschema.fs.load(schemasDir, null, true, (err, arr) => {
       test.strictSame(actual, null);
     }
   );
+});
+
+testSync("must support schemas ending with ';'", test => {
+  const source = "{\n FirstName: { domain: 'Nomen' },\n};\n";
+  const schema = metaschema.processSchema('Schema.category', source);
+  test.strictSame(schema, { FirstName: { domain: 'Nomen' } });
+});
+
+testSync("must support schemas ending with multiple ' ;'", test => {
+  const source = "{\n FirstName: { domain: 'Nomen' },\n} ;  ;\n";
+  const schema = metaschema.processSchema('Schema.category', source);
+  test.strictSame(schema, { FirstName: { domain: 'Nomen' } });
 });
