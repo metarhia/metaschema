@@ -13,32 +13,13 @@ const validateTest = metatests.test('validate');
 const metaschemaPath = path.join(__dirname, '..', 'schemas', 'metaschema');
 const schemaPath = path.join(__dirname, 'schemas', 'validate');
 
-const schemas = {
-  categories: [],
-  domains: [],
-  views: [],
-  forms: [],
-  actions: [],
-  displayModes: [],
-  sources: [],
-};
-
-const typeToPlural = {
-  category: 'categories',
-  domains: 'domains',
-  view: 'views',
-  form: 'forms',
-  action: 'actions',
-  source: 'sources',
-};
+const schemas = [];
 
 metasync.each(
   [metaschemaPath, schemaPath],
   (dir, cb) =>
     metaschema.fs.load(dir, null, true, (err, arr) => {
-      arr.forEach(([type, schema]) => {
-        schemas[typeToPlural[type]].push(schema);
-      });
+      schemas.push(...arr);
       cb(err);
     }),
   err => {
@@ -49,7 +30,7 @@ metasync.each(
       return;
     }
 
-    const [error, ms] = metaschema.create(schemas);
+    const [error, ms] = metaschema.createAndProcess(schemas);
 
     validateTest.error(error);
 
