@@ -23,6 +23,28 @@ const testMs = (test, ms) => {
 
   test.assert(FullName.forms.has('ChangeName'));
   test.assert(FullName.actions.has('ChangeName'));
+
+  const commonRes = ms.resources.common.get('en');
+  const expectedCommonRes = {
+    name: 'en',
+    category: 'common',
+    definition: { resource: 'Resource' },
+  };
+
+  for (const [key, prop] of Object.entries(expectedCommonRes)) {
+    test.strictSame(commonRes[key], prop);
+  }
+
+  const PersonRes = ms.categories.get('Person').resources.get('en');
+  const expectedPersonRes = {
+    name: 'en',
+    category: 'Person',
+    definition: { resource: 'resource' },
+  };
+
+  for (const [key, prop] of Object.entries(expectedPersonRes)) {
+    test.strictSame(PersonRes[key], prop);
+  }
 };
 
 metatests.test('must properly load schemas from modules', test => {
