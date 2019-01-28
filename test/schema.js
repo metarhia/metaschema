@@ -10,9 +10,10 @@ const metaschema = require('..');
 const schemasDir = path.join(__dirname, '..', 'schemas');
 
 const schemas = [];
+const loadOptions = { isRoot: true, names: new Map() };
 
 const schemaTest = test('Metaschema default schemas test');
-metaschema.fs.load(schemasDir, null, true, (err, arr) => {
+metaschema.fs.load(schemasDir, null, loadOptions, (err, arr) => {
   const st = schemaTest;
   st.error(err);
 

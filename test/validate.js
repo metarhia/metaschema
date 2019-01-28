@@ -14,11 +14,12 @@ const metaschemaPath = path.join(__dirname, '..', 'schemas', 'metaschema');
 const schemaPath = path.join(__dirname, 'schemas', 'validate');
 
 const schemas = [];
+const loadOptions = { isRoot: true, names: new Map() };
 
 metasync.each(
   [metaschemaPath, schemaPath],
   (dir, cb) =>
-    metaschema.fs.load(dir, null, true, (err, arr) => {
+    metaschema.fs.load(dir, null, loadOptions, (err, arr) => {
       schemas.push(...arr);
       cb(err);
     }),

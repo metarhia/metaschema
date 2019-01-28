@@ -24,6 +24,8 @@ metatests.test('must detect duplicate names in modules', test => {
 
     test.isError(error);
     for (const err of error.errors) {
+      test.isError(error);
+      test.strictSame(err.type, 'duplicateModule');
       let unmatched = 0;
       for (const tuple of paths) {
         if (err.source === tuple[0]) {
