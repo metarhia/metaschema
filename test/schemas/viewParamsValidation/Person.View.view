@@ -1,6 +1,0 @@
-View({
-  Base: 'Person',
-  Fields: [
-    { MaternalName: 'Mother.__FullName__.LastName' },
-  ],
-})

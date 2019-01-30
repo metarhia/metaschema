@@ -1,16 +1,18 @@
 'use strict';
 
-const decorators = require('./lib/decorators');
-const { create, createAndProcess } = require('./lib/schema');
-const { extractDecorator } = require('./lib/schema-utils');
-const { processSchema } = require('./lib/schema-loader');
-const schemaFs = require('./lib/schema-fs-loader');
+const { Metaschema } = require('./lib/schema');
+const { extractDecorator, extractByPath } = require('./lib/utils');
+const { processSchema } = require('./lib/schema-processor');
+const fs = require('./lib/fs-loader');
+const defaultConfig = require('./lib/config');
+const errors = require('./lib/errors');
 
 module.exports = {
-  fs: schemaFs,
+  Metaschema,
+  fs,
+  default: defaultConfig,
   processSchema,
-  create,
-  createAndProcess,
-  decorators: decorators.all,
   extractDecorator,
+  extractByPath,
+  errors,
 };

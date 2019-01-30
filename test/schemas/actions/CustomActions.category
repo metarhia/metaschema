@@ -1,7 +1,0 @@
-Dictionary({
-  Name: { domain: 'Nomen', required: true },
-  Act: Action({
-    Execute: async (session, { Id }, params) => `Resource${Id}`,
-    Form: 'CustomForm',
-  }),
-})

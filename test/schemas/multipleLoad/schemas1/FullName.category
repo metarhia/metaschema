@@ -1,6 +1,0 @@
-{
-  FirstName: { domain: 'Nomen', required: true },
-  MiddleName: { domain: 'Nomen' },
-  Patronymic: { domain: 'Nomen' },
-  Surname: { domain: 'Nomen', required: true }
-}

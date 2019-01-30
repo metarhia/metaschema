@@ -1,7 +1,0 @@
-Form({
-  Fields: {
-    SomeOtherPerson: { field: '::__INVALID_CATEGORY__' },
-    SomeOtherPersonsLastName: { field: '::FullName.__INVALID_PROP__' },
-  },
-  Layout: [],
-})

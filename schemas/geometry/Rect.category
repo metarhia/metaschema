@@ -1,4 +1,0 @@
-{
-  a: { category: 'Point', required: true },
-  b: { category: 'Point', required: true }
-}

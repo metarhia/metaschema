@@ -1,3 +1,0 @@
-{
-  SettlementType: Enum('City', 'Town', 'Village', 'Hamlet')
-}

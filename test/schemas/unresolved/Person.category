@@ -1,5 +1,4 @@
 {
   DOB: { domain: 'DateTime' },
   FullName: { category: 'FullName' },
-  Citizenship: { domain: 'CountryName' },
 }
