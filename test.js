@@ -1,33 +1,14 @@
 'use strict';
 
 const { load } = require('./src/fs-loader');
-const decorators = require('./lib/decorators');
+const { options, config } = require('./src/config');
 
 (async () => {
   try {
     const [errors, ms] = await load(
       'test/schemas/new',
-      {
-        decorators: decorators.all,
-        extToType: {
-          category: 'category',
-        },
-        order: () => 0,
-      },
-      {
-        processors: {
-          category: {
-            add: (schema, ms) => {
-              if (!ms.categories) {
-                ms.categories = new Map([[schema.name, schema]]);
-              } else {
-                ms.categories.set(schema.name, schema);
-              }
-            },
-          },
-        },
-        order: () => 0,
-      }
+      options,
+      config
     );
 
     console.log(errors, ms);

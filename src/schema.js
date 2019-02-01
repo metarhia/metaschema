@@ -53,12 +53,19 @@ class Metaschema {
       const processors = this.config.processors[type];
 
       if (processors.preprocess) {
-        errors.push(...processors.preprocess(schema));
+        for (const preprocessor of processors.preprocess) {
+          errors.push(...preprocessor(schema));
+        }
       }
       if (processors.validate) {
-        errors.push(...processors.validate(schema));
+        for (const validator of processors.validate) {
+          errors.push(...validator(schema));
+        }
       }
-      processors.add(schema, this);
+
+      for (const add of processors.add) {
+        errors.push(...add(schema, this));
+      }
     }
 
     if (errors.length) {
@@ -70,7 +77,9 @@ class Metaschema {
       const { type } = schema;
       const processors = this.config.processors[type];
       if (processors.postprocess) {
-        errors.push(processors.postprocess(schema, this));
+        for (const postprocessor of processors.postprocess) {
+          errors.push(...postprocessor(schema, this));
+        }
       }
     }
 
@@ -86,6 +95,8 @@ class Metaschema {
   //     definition <Object>
   //     source <string>
   //   config <Object>
+  //     prepare <Function>
+  //       ms - <Metaschema>
   //     processors <Object>
   //       [type] <Object>
   //         preprocess: <Function>, optional
@@ -111,6 +122,9 @@ class Metaschema {
   // Returns: [<Error[]>, <Metaschema>]
   static create(schemas, config) {
     const ms = new Metaschema(config);
+    if (config.prepare) {
+      config.prepare(ms);
+    }
     return [ms.addSchemas(schemas), ms];
   }
 }
