@@ -1,5 +1,0 @@
-Dictionary({
-  Name: { domain: 'Nomen', required: true },
-  Type: { domain: 'SettlementType', required: true },
-  Region: { category: 'Region', required: true }
-})

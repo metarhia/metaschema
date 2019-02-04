@@ -1,7 +1,0 @@
-View({
-  Fields: [
-    { Born: 'DOB' },
-    { FirstName: 'FullName.FirstName' },
-    { LastName: 'FullName.LastName' },
-  ],
-})

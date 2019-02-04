@@ -1,7 +1,0 @@
-Form({
-  Fields: {
-    SomeOtherPerson: { field: '::FullName' },
-    SomeOtherPersonsLastName: { field: '::FullName.LastName' },
-  },
-  Layout: [],
-})

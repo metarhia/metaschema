@@ -1,5 +1,0 @@
-Log({
-  DateTime: { domain: 'DateTime', required: true },
-  IP: { domain: 'IP', required: true },
-  Query: { domain: 'JSON', required: true }
-})

@@ -1,7 +1,0 @@
-{
-  CustomEnum: Enum('One', 'Two'),
-  CustomFlags: Flags.of('CustomEnum'),
-  CustomNumber: { type: 'number', subtype: 'int', min: 10, max: 100, },
-  CustomString: { type: 'string', min: 5, length: 10 },
-  CustomUint32Array: { type: 'object', class: 'Uint32Array', length: 10 },
-}

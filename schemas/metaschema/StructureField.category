@@ -1,9 +1,0 @@
-{
-  domain: { domain: 'Nomen' },
-  category: { domain: 'Nomen' },
-  required: { domain: 'Logical' },
-  default: { domain: 'Nomen' },
-  comment: { domain: 'Text' },
-
-  Check: Validate(data => data.domain ? !data.category : !!data.category),
-}

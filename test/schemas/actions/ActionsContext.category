@@ -1,4 +1,0 @@
-Dictionary({
-  Name: { domain: 'Nomen', required: true },
-  Act: Action(async (session, ctx, params) => api.answer),
-})

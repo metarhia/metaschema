@@ -1,4 +1,0 @@
-{
-  DOB: { domain: 'DateTime' },
-  Mother: { category: 'Person' },
-}

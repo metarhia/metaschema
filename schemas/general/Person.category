@@ -1,7 +1,0 @@
-{
-  FullName: Include('FullName'),
-  Sex: { domain: 'Sex' },
-  Born: { domain: 'DateDay' },
-  Languages: Many('Language'),
-  NewCentury: Validate(record => record.Born.getYear() >= 2000)
-}

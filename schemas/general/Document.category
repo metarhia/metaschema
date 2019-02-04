@@ -1,5 +1,0 @@
-{
-    Owner: Master('FullName'),
-    IssuedTo: { category: 'FullName', required: true },
-    Series: { domain: 'Nomen' },
-}

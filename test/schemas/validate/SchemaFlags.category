@@ -1,3 +1,0 @@
-{
-  Flags: { domain: 'CustomFlags', required: true },
-}
