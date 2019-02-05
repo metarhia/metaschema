@@ -1,0 +1,4 @@
+{
+  DOB: { domain: 'DateTime' },
+  FullName: { category: 'FullName' },
+}

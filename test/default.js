@@ -53,7 +53,7 @@ metatests.test('must properly load schemas', async test => {
   try {
     [errors, ms] = await load(path, options, config);
   } catch (error) {
-    test.error(error);
+    test.fail(error);
     test.end();
     return;
   }
