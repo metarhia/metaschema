@@ -1,0 +1,6 @@
+{
+  Text: { domain: 'Text' },
+  Int: { domain: 'Int' },
+  Flags: { domain: 'CustomFlags' },
+  Enum: { domain: 'CustomEnum' },
+}
