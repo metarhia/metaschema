@@ -12,7 +12,7 @@ const {
 const { getSchemaDir } = require('./utils');
 const path = getSchemaDir('unresolved');
 
-metatests.test('must properly load schemas', async test => {
+metatests.test('must properly validate categories', async test => {
   let errors;
   let ms;
 

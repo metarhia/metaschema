@@ -46,7 +46,7 @@ const Person = {
 
 const categories = { FullName, Person };
 
-metatests.test('must properly load schemas', async test => {
+metatests.test('must properly process schemas', async test => {
   let errors;
   let ms;
 

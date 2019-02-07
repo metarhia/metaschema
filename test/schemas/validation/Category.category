@@ -3,4 +3,6 @@
   Int: { domain: 'Int' },
   Flags: { domain: 'CustomFlags' },
   Enum: { domain: 'CustomEnum' },
+  StringWithLetterA: { domain: 'StringWithLetterA' },
+  CustomUint32Array: { domain: 'CustomUint32Array' },
 }

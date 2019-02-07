@@ -1,12 +1,14 @@
 'use strict';
 
+const { clone } = require('@metarhia/common');
 const metatests = require('metatests');
 
 const {
+  default: def,
   fs: { load },
-  default: { options, config },
 } = require('..');
 
+const { options, config } = clone(def);
 config.processors.category.postprocess = [];
 
 const { getSchemaDir } = require('./utils');
