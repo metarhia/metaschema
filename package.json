@@ -26,10 +26,8 @@
   "files": [
     "babel.config.js",
     "metaschema.js",
-    "bin/",
     "lib/",
-    "dist/",
-    "schemas/"
+    "dist/"
   ],
   "scripts": {
     "test": "npm run lint && metatests test/",
