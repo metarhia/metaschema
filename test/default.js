@@ -47,18 +47,16 @@ const Person = {
 const categories = { FullName, Person };
 
 metatests.test('must properly process schemas', async test => {
-  let errors;
   let ms;
 
   try {
-    [errors, ms] = await load(path, options, config);
+    ms = await load(path, options, config);
   } catch (error) {
     test.fail(error);
     test.end();
     return;
   }
 
-  test.strictSame(errors.length, 0);
   test.strictSame(ms.domains.size, 3);
   test.strictSame(ms.categories.size, 2);
 

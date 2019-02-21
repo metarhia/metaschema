@@ -4,7 +4,7 @@ const metatests = require('metatests');
 
 const { Uint64 } = require('@metarhia/common');
 
-const { ValidationError } = require('../lib/errors');
+const { ValidationError, MetaschemaError } = require('../lib/errors');
 
 const {
   fs: { load },
@@ -15,19 +15,12 @@ const { getSchemaDir } = require('./utils');
 const path = getSchemaDir('validation');
 
 metatests.test('must properly load schemas', async test => {
-  let errors;
   let ms;
 
   try {
-    [errors, ms] = await load(path, options, config);
+    ms = await load(path, options, config);
   } catch (error) {
     test.fail(error);
-    test.end();
-    return;
-  }
-
-  if (errors.length) {
-    test.fail(errors);
     test.end();
     return;
   }
@@ -37,7 +30,7 @@ metatests.test('must properly load schemas', async test => {
     { validate: ms.validate.bind(ms) },
     {
       validate: [
-        ['category', 'Category', {}, {}, []],
+        ['category', 'Category', {}, {}, null],
         [
           'category',
           'Category',
@@ -50,7 +43,7 @@ metatests.test('must properly load schemas', async test => {
             CustomUint32Array: new Uint32Array(),
           },
           {},
-          [],
+          null,
         ],
         [
           'category',
@@ -63,7 +56,7 @@ metatests.test('must properly load schemas', async test => {
             StringWithLetterA: 'gfdb',
           },
           {},
-          [
+          new MetaschemaError([
             new ValidationError('domainValidation', 'Text', 'min'),
             new ValidationError('domainValidation', 'Int', 'min'),
             new ValidationError('domainValidation', 'Int', 'subtype'),
@@ -80,7 +73,7 @@ metatests.test('must properly load schemas', async test => {
               'StringWithLetterA',
               'check'
             ),
-          ],
+          ]),
         ],
         [
           'category',
@@ -90,7 +83,7 @@ metatests.test('must properly load schemas', async test => {
             Double: 'double',
           },
           {},
-          [
+          new MetaschemaError([
             new ValidationError('missingProperty', 'Text'),
             new ValidationError('emptyValue', 'Int'),
             new ValidationError('invalidType', 'Double', {
@@ -98,7 +91,7 @@ metatests.test('must properly load schemas', async test => {
               actual: 'string',
             }),
             new ValidationError('validation', 'Validate'),
-          ],
+          ]),
         ],
         [
           'category',
@@ -109,10 +102,10 @@ metatests.test('must properly load schemas', async test => {
             Double: 42.42,
           },
           { patch: true },
-          [
+          new MetaschemaError([
             new ValidationError('propValidation', 'Text'),
             new ValidationError('immutable', 'Int'),
-          ],
+          ]),
         ],
       ],
     }
