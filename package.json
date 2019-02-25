@@ -17,15 +17,13 @@
     "type": "git",
     "url": "https://github.com/metarhia/metaschema"
   },
-  "main": "./metaschema.js",
+  "main": "metaschema.js",
   "browser": {
     "./metaschema.js": "./dist/metaschema.js",
-    "./dist/lib/schema-fs-loader.js": false
+    "./dist/lib/fs-loader.js": false
   },
   "readmeFilename": "README.md",
   "files": [
-    "babel.config.js",
-    "metaschema.js",
     "lib/",
     "dist/"
   ],
