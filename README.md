@@ -173,6 +173,98 @@ _Returns:_ [`<Metaschema>`][metaschema]
 
 Creates Metaschema object and fills it with schemas
 
+### async fs.applySystemConfig(path, systemConfig, oldConfig)
+
+- `path`: [`<string>`][string] path to the system schema
+- `systemConfig`: [`<Object>`][object]
+  - `options`: [`<Object>`][object]
+    - `decorators`
+    - `localDecorators`: [`<Object>`][object] optional
+      - `[type]`: [`<Object>`][object] decorators specific for this schema type
+    - `pathToType`: [`<Object>`][object]
+      - `[ext]`: [`<string>`][string]
+    - `pathToType`: [`<Function>`][function]
+      - `path`: [`<string>`][string]
+    - _Returns:_ [`<string>`][string]
+    - `loadOrder`: [`<Function>`][function]
+      - `a`: [`<string>`][string]
+      - `b`: [`<string>`][string]
+      - _Returns:_ [`<number>`][number]
+  - `config`: [`<Object>`][object]
+  - `prepare`: [`<Function>`][function]
+    - `ms`: [`<Metaschema>`][metaschema]
+  - `resolve`: [`<Function>`][function]
+    - `ms`: [`<Metaschema>`][metaschema]
+    - `path`: [`<string>`][string]
+    - _Returns:_ `<Schema>`
+  - `processors`: [`<Object>`][object]
+    - `[type]`: [`<Object>`][object]
+      - `add`: [`<Function>`][function]
+        - `schema`: `<Schema>`
+        - `ms`: [`<Metaschema>`][metaschema]
+        - _Returns:_ [`<Error[]>`][error]
+      - `postprocess`: [`<Function>`][function] optional
+        - `schema`: `<Schema>`
+        - `ms`: [`<Metaschema>`][metaschema]
+        - _Returns:_ [`<Error[]>`][error]
+      - `validateInstance`: [`<Function>`][function] optional
+        - `ms`: [`<Metaschema>`][metaschema]
+        - `schema`: `<Schema>`
+        - `instance`: `<any>`
+        - `options`: [`<Object>`][object]
+        - _Returns:_ [`<Error[]>`][error]
+  - `processOrder:`: [`<Function>`][function]|[`<Object>`][object] function is
+    passed to Array.prototype.sort (a: `<Schema>`, b: `<Schema>`) =>
+    [`<number>`][number]. If [`<Object>`][object] is provided it would be used
+    as map from schema type ([`<string>`][string]) to order value
+    ([`<number>`][number]), types with lower values are processed earlier.
+- `oldConfig`: [`<Object>`][object]
+  - `options`: [`<Object>`][object]
+    - `decorators`
+    - `localDecorators`: [`<Object>`][object] optional
+      - `[type]`: [`<Object>`][object] decorators specific for this schema type
+    - `pathToType`: [`<Object>`][object]
+      - `[ext]`: [`<string>`][string]
+    - `pathToType`: [`<Function>`][function]
+      - `path`: [`<string>`][string]
+    - _Returns:_ [`<string>`][string]
+    - `loadOrder`: [`<Function>`][function]
+      - `a`: [`<string>`][string]
+      - `b`: [`<string>`][string]
+      - _Returns:_ [`<number>`][number]
+  - `config`: [`<Object>`][object]
+  - `prepare`: [`<Function>`][function]
+    - `ms`: [`<Metaschema>`][metaschema]
+  - `resolve`: [`<Function>`][function]
+    - `ms`: [`<Metaschema>`][metaschema]
+    - `path`: [`<string>`][string]
+    - _Returns:_ `<Schema>`
+  - `processors`: [`<Object>`][object]
+    - `[type]`: [`<Object>`][object]
+      - `add`: [`<Function>`][function]
+        - `schema`: `<Schema>`
+        - `ms`: [`<Metaschema>`][metaschema]
+        - _Returns:_ [`<Error[]>`][error]
+      - `postprocess`: [`<Function>`][function] optional
+        - `schema`: `<Schema>`
+        - `ms`: [`<Metaschema>`][metaschema]
+        - _Returns:_ [`<Error[]>`][error]
+      - `validateInstance`: [`<Function>`][function] optional
+        - `ms`: [`<Metaschema>`][metaschema]
+        - `schema`: `<Schema>`
+        - `instance`: `<any>`
+        - `options`: [`<Object>`][object]
+        - _Returns:_ [`<Error[]>`][error]
+  - `processOrder:`: [`<Function>`][function]|[`<Object>`][object] function is
+    passed to Array.prototype.sort (a: `<Schema>`, b: `<Schema>`) =>
+    [`<number>`][number]. If [`<Object>`][object] is provided it would be used
+    as map from schema type ([`<string>`][string]) to order value
+    ([`<number>`][number]), types with lower values are processed earlier.
+
+_Returns:_ newConfig [`<Object>`][object]
+
+Create a config to validate schemas according to the system schema
+
 ### class default.decorators.classes.ValuesDecorator
 
 #### default.decorators.classes.ValuesDecorator.prototype.constructor(values)

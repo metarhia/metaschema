@@ -1,0 +1,3 @@
+({
+  invalidDomain: { type: '__INVALID_TYPE__' },
+});
