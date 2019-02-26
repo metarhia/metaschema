@@ -1,0 +1,5 @@
+({
+  Number: { type: 'number' },
+  String: { type: 'string' },
+  Type: Enum('number', 'string', 'object'),
+});

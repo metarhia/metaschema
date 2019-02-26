@@ -1,0 +1,4 @@
+({
+  field: { domain: 'String' },
+  objectReference: { category: 'referable' },
+});
