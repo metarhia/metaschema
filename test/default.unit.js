@@ -20,10 +20,14 @@ metatests.testSync('default config adders', test => {
   test.strictSame(ms.domains.get('Nomen'), { type: 'string' });
 
   test.strictSame(
-    addDomains({ definition: { Nomen: { type: 'string' } } }, ms),
+    addDomains(
+      { name: 'DUPLICATE_DOMAIN', definition: { Nomen: { type: 'string' } } },
+      ms
+    ),
     [
-      new SchemaValidationError('duplicate', 'Nomen', null, {
-        entity: 'domain',
+      new SchemaValidationError('duplicate', 'DUPLICATE_DOMAIN', {
+        type: 'domain',
+        value: 'Nomen',
       }),
     ]
   );
