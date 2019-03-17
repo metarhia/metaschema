@@ -193,6 +193,11 @@ metatests.test('must properly load schemas', async test => {
           { errors: [new ValidationError('domainValidation', '', 'length')] },
         ],
         ['domains', { type: 'object', class: 'Object' }, {}, null],
+        ['domains', 'AnyTypeDomain', 'some string', null],
+        ['domains', 'AnyTypeDomain', 10, null],
+        ['domains', 'AnyTypeDomain', true, null],
+        ['domains', 'AnyTypeDomain', [], null],
+        ['domains', 'AnyTypeDomain', undefined, null],
       ],
     }
   );
