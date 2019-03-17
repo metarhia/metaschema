@@ -6,4 +6,5 @@
   Text: { type: 'string', min: 5, length: 10 },
   StringWithLetterA: { type: 'string', check: text => text.includes('A') },
   CustomUint32Array: { type: 'object', class: 'Uint32Array', length: 10 },
+  AnyTypeDomain: { type: 'any' },
 }
