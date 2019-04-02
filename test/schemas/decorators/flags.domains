@@ -1,0 +1,7 @@
+{
+  EnumDomain: Enum('a', 'b', 'c'),
+  SimpleFlags: Flags('a', 'b', 'c'),
+  FlagsOf: Flags.of('EnumDomain'),
+  FlagsFromValues: Flags({ values: ['a', 'b', 'c'] }),
+  FlagsFromEnum: Flags({ enumDomain: 'EnumDomain' }),
+}
