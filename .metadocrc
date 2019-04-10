@@ -1,0 +1,12 @@
+{
+  "headerFile": "doc/header.md",
+  "footerFile": "doc/footer.md",
+  "minHeaderLevel": 2,
+  "removeInterface": true,
+  "files": ["metaschema.js"],
+  "customLinks": {
+    "Uint64": "https://github.com/metarhia/common#class-uint64",
+    "Metaschema": "#class-metaschema"
+  },
+  "outputFile": "README.md"
+}
