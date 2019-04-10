@@ -1,6 +1,6 @@
 {
   "name": "metaschema",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "description": "Metadata Schema and Interface Definition Language (IDL)",
   "license": "MIT",
