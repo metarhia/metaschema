@@ -56,8 +56,14 @@ metatests.testSync('default config adders', test => {
 metatests.testSync('default decorators', test => {
   const classes = Object.keys(decorators.classes);
   const functions = Object.keys(decorators.functions);
-  test.strictSame(classes, ['ValuesDecorator', 'Enum', 'Flags', 'Validate']);
-  test.strictSame(functions, ['Enum', 'Flags', 'Validate']);
+  test.strictSame(classes, [
+    'ValuesDecorator',
+    'Enum',
+    'Flags',
+    'Validate',
+    'List',
+  ]);
+  test.strictSame(functions, ['Enum', 'Flags', 'Validate', 'List']);
 });
 
 metatests.case(
