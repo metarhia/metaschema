@@ -44,8 +44,8 @@ metatests.testSync('default config adders', test => {
     }),
   ]);
 
-  test.strictSame(options.pathToType('name.domains'), 'domains');
-  test.strictSame(options.pathToType('name.category'), 'category');
+  test.strictSame(options.pathToType.domains, 'domains');
+  test.strictSame(options.pathToType.category, 'category');
 
   test.strictSame(config.processOrder, {
     domains: 0,
