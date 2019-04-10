@@ -42,6 +42,7 @@ metatests.test('must properly load schemas', async test => {
           'category',
           'Category',
           {
+            List: [23, 43, 53],
             Text: '123456',
             Int: 42,
             Flags: new Uint64(2),
@@ -56,6 +57,7 @@ metatests.test('must properly load schemas', async test => {
           'category',
           'Category',
           {
+            List: [true, 10, 2],
             Text: '1234',
             Int: 3.1,
             Flags: 2,
@@ -64,6 +66,11 @@ metatests.test('must properly load schemas', async test => {
           },
           {},
           new MetaschemaError([
+            new ValidationError('invalidType', 'List[0]', {
+              expected: 'number',
+              actual: 'boolean',
+            }),
+            new ValidationError('domainValidation', 'List[2]', 'min'),
             new ValidationError('domainValidation', 'Text', 'min'),
             new ValidationError('domainValidation', 'Int', 'min'),
             new ValidationError('domainValidation', 'Int', 'subtype'),

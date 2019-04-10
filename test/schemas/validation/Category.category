@@ -1,4 +1,5 @@
 {
+  List: List({ domain: 'Int' }),
   Text: { domain: 'Text' },
   Int: { domain: 'Int' },
   Flags: { domain: 'CustomFlags' },
