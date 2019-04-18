@@ -29,8 +29,8 @@
   ],
   "scripts": {
     "test": "npm run lint && metatests test/",
-    "lint": "eslint --ignore-path .gitignore . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\" \"**/*.yml\"",
-    "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\" \"**/*.yml\"",
+    "lint": "eslint \"**/*\" && prettier -c \"*\"",
+    "fmt": "eslint --fix \"**/*\" && prettier --write \"*\"",
     "build": "babel metaschema.js -d dist && babel lib -d dist/lib",
     "prepublish": "npm run -s build"
   },

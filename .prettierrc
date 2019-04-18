@@ -5,6 +5,10 @@
     {
       "files": ".prettierrc",
       "options": { "parser": "json" }
+    },
+    {
+      "files": ["*.category", "*.domains"],
+      "options": { "parser": "babel" }
     }
   ]
 }

@@ -1,5 +1,5 @@
-{
+({
   CountryName: { type: 'string' },
   Nomen: { type: 'string' },
-  DateTime: { type: 'object', class: 'Date'},
-}
+  DateTime: { type: 'object', class: 'Date' },
+});

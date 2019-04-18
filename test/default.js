@@ -25,8 +25,8 @@ const FullName = {
     LastName: { domain: 'Nomen', definition: domains.Nomen },
   },
   source:
-    "{\n  FirstName: { domain: 'Nomen' },\n  " +
-    "LastName: { domain: 'Nomen' },\n}\n",
+    "({\n  FirstName: { domain: 'Nomen' },\n  " +
+    "LastName: { domain: 'Nomen' },\n});\n",
 };
 
 const Person = {
@@ -39,9 +39,9 @@ const Person = {
     Citizenship: { domain: 'CountryName', definition: domains.CountryName },
   },
   source:
-    "{\n  DOB: { domain: 'DateTime' },\n  " +
+    "({\n  DOB: { domain: 'DateTime' },\n  " +
     "FullName: { category: 'FullName' },\n  " +
-    "Citizenship: { domain: 'CountryName' },\n}\n",
+    "Citizenship: { domain: 'CountryName' },\n});\n",
 };
 
 const categories = { FullName, Person };
