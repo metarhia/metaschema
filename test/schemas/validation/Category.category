@@ -1,4 +1,4 @@
-{
+({
   List: List({ domain: 'Int' }),
   Text: { domain: 'Text' },
   Int: { domain: 'Int' },
@@ -6,4 +6,4 @@
   Enum: { domain: 'CustomEnum' },
   StringWithLetterA: { domain: 'StringWithLetterA' },
   CustomUint32Array: { domain: 'CustomUint32Array' },
-}
+});

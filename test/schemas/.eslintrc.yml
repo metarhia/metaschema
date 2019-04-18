@@ -1,0 +1,8 @@
+globals:
+  Validate: false
+  Enum: false
+  Flags: false
+  List: false
+rules:
+  strict: off
+  new-cap: off

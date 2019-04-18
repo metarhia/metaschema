@@ -1,4 +1,5 @@
 # metaschema
+
 Metadata Schema and Interface Definition Language (IDL)
 
 [![TravisCI](https://travis-ci.org/metarhia/metaschema.svg?branch=master)](https://travis-ci.org/metarhia/metaschema)
@@ -17,32 +18,28 @@ $ npm install metaschema
 
 #### create(schemas)
 
-  - `schemas: `[`<Iterable>`] schemas in form [name, schema, source] (the
-        'source' is optional)
+- `schemas:`[`<Iterable>`] schemas in form [name, schema, source] (the
+  'source' is optional)
 
-*Returns:* `[ `[`<MetaschemaError>`]`, `[`<Metaschema>`]` ]`
-
+_Returns:_ `[`[`<MetaschemaError>`]`,`[`<Metaschema>`]`]`
 
 Creates Metaschema instance
 
-
 #### extractDecorator(schema)
 
-  - `schema: `[`<Object>`]
+- `schema:`[`<Object>`]
 
-*Returns:* [`<string>`]
-
+_Returns:_ [`<string>`]
 
 Extracts schema decorator
 
-
 ## Contributors
 
-  - Timur Shemsedinov (marcusaurelius)
-  - See github for full [contributors list](https://github.com/metarhia/metaschema/graphs/contributors)
+- Timur Shemsedinov (marcusaurelius)
+- See github for full [contributors list](https://github.com/metarhia/metaschema/graphs/contributors)
 
-[`<Metaschema>`]: lib/schema.js
-[`<MetaschemaError>`]: lib/schema.js
-[`<Object>`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
+[`<metaschema>`]: lib/schema.js
+[`<metaschemaerror>`]: lib/schema.js
+[`<object>`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
 [`<string>`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type
-[`<Iterable>`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
+[`<iterable>`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
