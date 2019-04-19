@@ -65,18 +65,3 @@ metatests.testSync('default decorators', test => {
   ]);
   test.strictSame(functions, ['Enum', 'Flags', 'Validate', 'List']);
 });
-
-metatests.case(
-  'default config load order',
-  { options },
-  {
-    'options.loadOrder': [
-      ['without dot', 'with dot .', 2],
-      ['with dot .', 'without dot', -2],
-      ['without dot', 'endsWith.category', 1],
-      ['endsWith.category', 'without dot', -1],
-      ['endsWith.domains', 'without dot', -2],
-      ['without dot', 'endsWith.domains', 2],
-    ],
-  }
-);
