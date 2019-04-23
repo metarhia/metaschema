@@ -1,39 +1,38 @@
 'use strict';
 
-const { clone } = require('@metarhia/common');
+const { Uint64 } = require('@metarhia/common');
 const metatests = require('metatests');
 
 const { Flags } = require('../lib/decorators').classes;
 
 const {
-  default: def,
+  default: { options, config },
   fs: { load },
 } = require('..');
 
-const { options, config } = clone(def);
+const FLAGS = ['FlagsFromValues', 'FlagsFromEnum', 'FlagsOf'];
 
 metatests.test('Decorators / Flags', async test => {
   const schema = await load('test/schemas/decorators', options, config);
 
-  const SimpleFlags = schema.domains.get('SimpleFlags');
-  test.assert(SimpleFlags instanceof Flags);
-  test.strictSame(SimpleFlags.values, ['a', 'b', 'c']);
-  test.strictSame(SimpleFlags.enum, undefined);
+  for (const name of FLAGS) {
+    const flags = schema.domains.get(name);
+    test.assert(flags instanceof Flags);
+    test.strictSame(flags.values, ['a', 'b', 'c']);
+    test.strictSame(
+      flags.enum,
+      name === 'FlagsFromValues' ? undefined : 'EnumDomain'
+    );
+    test.strictSame(flags.Class.name, 'FlagsClass');
+    const ab = flags.Class.from(new Uint64(3));
+    test.assert(ab.get('a'));
+    test.assert(ab.get('b'));
+    test.assertNot(ab.get('c'));
+  }
 
-  const FlagsFromValues = schema.domains.get('FlagsFromValues');
-  test.assert(FlagsFromValues instanceof Flags);
-  test.strictSame(FlagsFromValues.values, ['a', 'b', 'c']);
-  test.strictSame(FlagsFromValues.enum, undefined);
-
-  const FlagsFromEnum = schema.domains.get('FlagsFromEnum');
-  test.assert(FlagsFromEnum instanceof Flags);
-  test.strictSame(FlagsFromEnum.values, ['a', 'b', 'c']);
-  test.strictSame(FlagsFromEnum.enum, 'EnumDomain');
-
-  const FlagsOf = schema.domains.get('FlagsOf');
-  test.assert(FlagsOf instanceof Flags);
-  test.strictSame(FlagsOf.values, ['a', 'b', 'c']);
-  test.strictSame(FlagsOf.enum, 'EnumDomain');
+  const EnumDomain = schema.domains.get('EnumDomain');
+  test.strictSame(EnumDomain.Class.name, 'EnumClass');
+  test.strictSame(EnumDomain.Class.from('a'), { index: 0, value: 'a' });
 
   test.end();
 });
