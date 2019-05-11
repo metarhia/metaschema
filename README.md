@@ -108,6 +108,133 @@ Creates an instance of given schema
 
 Adds multiple schemas
 
+### async fs.load(dir, options, config)
+
+- `dir`: [`<string>`][string]|[`<string[]>`][string]
+- `options`: [`<Object>`][object]
+  - `context`: [`<Object>`][object]
+  - `decorators`: [`<Object>`][object]
+  - `localDecorators`: [`<Object>`][object] optional
+    - `[type]`: [`<Object>`][object] decorators specific for this schema type
+  - `pathToType`: [`<Object>`][object]
+    - `[ext]`: [`<string>`][string]
+  - `pathToType`: [`<Function>`][function]
+    - `path`: [`<string>`][string]
+  - _Returns:_ [`<string>`][string]
+  - `preprocessor:`: [`<Function>`][function] optional
+    - `schemas`: `<Schema[]>`
+  - _Returns:_ `<Schema[]>`
+- `config`: [`<Object>`][object]
+  - `prepare`: [`<Function>`][function]
+    - `ms`: [`<Metaschema>`][metaschema]
+  - `resolve`: [`<Function>`][function]
+    - `ms`: [`<Metaschema>`][metaschema]
+    - `path`: [`<string>`][string]
+    - _Returns:_ `<Schema>`
+  - `processors`: [`<Object>`][object]
+    - `[type]`: [`<Object>`][object]
+      - `preprocess`: [`<Function[]>`][function] optional
+        - `schema`: `<Schema>`
+        - _Returns:_ [`<Error[]>`][error]
+      - `validateSchema`: [`<Function[]>`][function] optional
+        - `schema`: `<Schema>`
+        - _Returns:_ [`<Error[]>`][error]
+      - `add`: [`<Function>`][function]
+        - `schema`: `<Schema>`
+        - `ms`: [`<Metaschema>`][metaschema]
+        - _Returns:_ [`<Error[]>`][error]
+      - `postprocess`: [`<Function[]>`][function] optional
+        - `schema`: `<Schema>`
+        - `ms`: [`<Metaschema>`][metaschema]
+        - _Returns:_ [`<Error[]>`][error]
+      - `serialize`: [`<Function>`][function] optional
+        - `schema`: `<Schema>`
+        - `ms`: [`<Metaschema>`][metaschema]
+        - _Returns:_ [`<string>`][string]
+      - `validateInstance`: [`<Function>`][function] optional
+        - `ms`: [`<Metaschema>`][metaschema]
+        - `schema`: `<Schema>`
+        - `instance`: `<any>`
+        - `options`: [`<Object>`][object]
+        - _Returns:_ [`<Error[]>`][error]
+      - `creator`: [`<Function>`][function] optional
+        - `ms`: [`<Metaschema>`][metaschema]
+        - `schema`: `<Schema>`
+        - `args`: `<any>`
+        - `options`: [`<Object>`][object]
+        - _Returns:_ [ [`<Error[]>`][error], `<any>` ]
+  - `processOrder:`: [`<Function>`][function]|[`<Object>`][object] function is
+    passed to Array.prototype.sort (a: `<Schema>`, b: `<Schema>`) =>
+    [`<number>`][number]. If [`<Object>`][object] is provided it would be used
+    as map from schema type ([`<string>`][string]) to order value
+    ([`<number>`][number]), types with lower values are processed earlier.
+
+_Returns:_ [`<Metaschema>`][metaschema]
+
+Creates Metaschema object and fills it with schemas
+
+### class default.decorators.classes.ValuesDecorator
+
+#### default.decorators.classes.ValuesDecorator.prototype.constructor(values)
+
+### class default.decorators.classes.Enum extends ValuesDecorator
+
+#### default.decorators.classes.Enum.prototype.constructor()
+
+### class default.decorators.classes.Flags extends ValuesDecorator
+
+#### default.decorators.classes.Flags.prototype.constructor({ values = \[\], enumDomain })
+
+#### default.decorators.classes.Flags.prototype.parse(value)
+
+### class default.decorators.classes.Validate
+
+#### default.decorators.classes.Validate.prototype.constructor(fn)
+
+### class default.decorators.classes.List
+
+#### default.decorators.classes.List.prototype.constructor(def)
+
+### default.decorators.functions.Enum(...values)
+
+### default.decorators.functions.Flags(...args)
+
+#### default.decorators.functions.Flags.of(enumDomain)
+
+### default.decorators.functions.Validate(fn)
+
+Function decorators
+
+### default.decorators.functions.List(def)
+
+### default.options.decorators.Validate(fn)
+
+Function decorators
+
+### default.options.localDecorators.domains.Enum(...values)
+
+### default.options.localDecorators.domains.Flags(...args)
+
+#### default.options.localDecorators.domains.Flags.of(enumDomain)
+
+### default.options.localDecorators.category.List(def)
+
+### default.config.prepare(ms)
+
+### default.config.resolve(ms, type, name)
+
+### default.config.processors.domains.add\[0\](domains, ms)
+
+### default.config.processors.domains.postprocess\[0\](domains, ms)
+
+### default.config.processors.domains.validateInstance(ms, domain, instance, { path = '' } = {})
+
+### default.config.processors.category.add\[0\](category, ms)
+
+### default.config.processors.category.postprocess\[0\](category, ms)
+
+### default.config.processors.category.validateInstance(ms, { definition: schema }, instance, options = {})
+
 ### processSchema(name, source, options, evaluator)
 
 - `name`: [`<string>`][string] schema name
@@ -145,6 +272,24 @@ Extracts schema decorator
 _Returns:_ [`<Object>`][object]
 
 Extract definition of a nested property
+
+### class errors.SchemaValidationError extends [Error][error]
+
+#### errors.SchemaValidationError.prototype.constructor(type, source, info)
+
+#### errors.SchemaValidationError.prototype.toString()
+
+### class errors.ValidationError extends [Error][error]
+
+#### errors.ValidationError.prototype.constructor(type, property, info)
+
+#### errors.ValidationError.prototype.toString()
+
+### class errors.MetaschemaError extends [Error][error]
+
+#### errors.MetaschemaError.prototype.constructor(errors)
+
+#### errors.MetaschemaError.prototype.toString()
 
 ## Contributors
 
