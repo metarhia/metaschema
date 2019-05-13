@@ -1,0 +1,3 @@
+({
+  TooManyFlags: Flags(...Array.from({ length: 65 }, (v, i) => `value${i + 1}`)),
+});
