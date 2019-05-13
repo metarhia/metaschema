@@ -12,7 +12,7 @@ const {
 
 const FLAGS = ['FlagsFromValues', 'FlagsFromEnum', 'FlagsOf'];
 
-metatests.test('Decorators / Flags', async test => {
+metatests.test('must properly create Flags', async test => {
   const schema = await load('test/schemas/decorators', options, config);
 
   for (const name of FLAGS) {
@@ -33,17 +33,18 @@ metatests.test('Decorators / Flags', async test => {
   const EnumDomain = schema.domains.get('EnumDomain');
   test.strictSame(EnumDomain.Class.name, 'EnumClass');
   test.strictSame(EnumDomain.Class.from('a'), { index: 0, value: 'a' });
-
-  test.end();
 });
 
-metatests.test('Invalid decorators / Flags', async test => {
-  const error = await test.rejects(
-    load('test/schemas/decorators-invalid', options, config)
-  );
-  test.strictSame(error.errors.length, 1);
-  test.isError(
-    error.errors[0],
-    new TypeError('Flags does not support more than 64 values')
-  );
-});
+metatests.test(
+  'must fail if more than 64 values are passed to the Flags',
+  async test => {
+    const error = await test.rejects(
+      load('test/schemas/decorators-invalid', options, config)
+    );
+    test.strictSame(error.errors.length, 1);
+    test.isError(
+      error.errors[0],
+      new TypeError('Flags does not support more than 64 values')
+    );
+  }
+);

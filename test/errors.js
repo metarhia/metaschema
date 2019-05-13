@@ -3,7 +3,9 @@
 const metatests = require('metatests');
 const { SchemaValidationError, ValidationError } = require('../lib/errors.js');
 
-const errorsTest = metatests.testSync('errors test');
+const errorsTest = metatests.testSync(
+  'must correctly serialize validation errors'
+);
 
 [
   {

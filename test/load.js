@@ -50,16 +50,8 @@ const Person = {
 
 const categories = { FullName, Person };
 
-metatests.test('must properly load schemas', async test => {
-  let ms;
-
-  try {
-    ms = await load(path, options, config);
-  } catch (error) {
-    test.fail(error);
-    test.end();
-    return;
-  }
+metatests.test('must properly load schema', async test => {
+  const ms = await load(path, options, config);
 
   test.strictSame(ms.domains.size, 3);
   test.strictSame(ms.categories.size, 2);
@@ -71,6 +63,4 @@ metatests.test('must properly load schemas', async test => {
   for (const [name, category] of ms.categories) {
     test.strictSame(category, categories[name]);
   }
-
-  test.end();
 });

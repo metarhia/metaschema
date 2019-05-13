@@ -46,27 +46,20 @@ const Person = {
 
 const categories = { FullName, Person };
 
-metatests.test('must properly process schemas', async test => {
-  let ms;
+metatests.test(
+  'must properly create schema with default options',
+  async test => {
+    const ms = await load(path, options, config);
 
-  try {
-    ms = await load(path, options, config);
-  } catch (error) {
-    test.fail(error);
-    test.end();
-    return;
+    test.strictSame(ms.domains.size, 3);
+    test.strictSame(ms.categories.size, 2);
+
+    for (const [name, domain] of ms.domains) {
+      test.strictSame(domain, domains[name]);
+    }
+
+    for (const [name, category] of ms.categories) {
+      test.strictSame(category, categories[name]);
+    }
   }
-
-  test.strictSame(ms.domains.size, 3);
-  test.strictSame(ms.categories.size, 2);
-
-  for (const [name, domain] of ms.domains) {
-    test.strictSame(domain, domains[name]);
-  }
-
-  for (const [name, category] of ms.categories) {
-    test.strictSame(category, categories[name]);
-  }
-
-  test.end();
-});
+);

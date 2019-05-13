@@ -12,27 +12,22 @@ const {
 const { getSchemaDir } = require('./utils');
 const path = getSchemaDir('unresolved');
 
-metatests.test('must properly validate categories', async test => {
-  let error;
+metatests.test(
+  'must fail if a schema validation error occurred',
+  async test => {
+    const error = await test.rejects(load(path, options, config));
 
-  try {
-    await load(path, options, config);
-  } catch (err) {
-    error = err;
+    const expected = new MetaschemaError([
+      new SchemaValidationError('unresolved', 'Person.DOB', {
+        type: 'domain',
+        value: 'DateTime',
+      }),
+      new SchemaValidationError('unresolved', 'Person.FullName', {
+        type: 'category',
+        value: 'FullName',
+      }),
+    ]);
+
+    test.strictSame(error, expected);
   }
-
-  const expected = new MetaschemaError([
-    new SchemaValidationError('unresolved', 'Person.DOB', {
-      type: 'domain',
-      value: 'DateTime',
-    }),
-    new SchemaValidationError('unresolved', 'Person.FullName', {
-      type: 'category',
-      value: 'FullName',
-    }),
-  ]);
-
-  test.strictSame(error, expected);
-
-  test.end();
-});
+);

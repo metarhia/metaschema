@@ -13,20 +13,12 @@ const schemaConfig = clone(metaschema.default.config);
 schemaConfig.processors.domains.creator = (ms, schema, instance) =>
   typeof schema === 'object' ? [[], instance] : [[]];
 
-metatests.testAsync('Metaschema create', async test => {
-  let ms;
-
-  try {
-    ms = await metaschema.fs.load(
-      path,
-      metaschema.default.options,
-      schemaConfig
-    );
-  } catch (error) {
-    test.fail(error);
-    test.end();
-    return;
-  }
+metatests.testAsync('ms.create must properly create schema', async test => {
+  const ms = await metaschema.fs.load(
+    path,
+    metaschema.default.options,
+    schemaConfig
+  );
 
   test.strictSame(ms.create('domains', 'Nomen', 'nomen'), 'nomen');
   test.strictSame(
@@ -38,11 +30,9 @@ metatests.testAsync('Metaschema create', async test => {
     () => ms.create('category', { definition: {} }, {}),
     new TypeError(`No creator defined for type: 'category'`)
   );
-
-  test.end();
 });
 
-metatests.testAsync('Metaschema addSchemas', async test => {
+metatests.testAsync('ms.addSchemas must properly add schema', async test => {
   const { config } = metaschema.default;
   const ms = new metaschema.Metaschema(config);
 
@@ -60,6 +50,4 @@ metatests.testAsync('Metaschema addSchemas', async test => {
       source: undefined,
     },
   ]);
-
-  test.end();
 });
