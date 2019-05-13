@@ -36,3 +36,14 @@ metatests.test('Decorators / Flags', async test => {
 
   test.end();
 });
+
+metatests.test('Invalid decorators / Flags', async test => {
+  const error = await test.rejects(
+    load('test/schemas/decorators-invalid', options, config)
+  );
+  test.strictSame(error.errors.length, 1);
+  test.isError(
+    error.errors[0],
+    new TypeError('Flags does not support more than 64 values')
+  );
+});
