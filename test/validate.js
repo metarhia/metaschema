@@ -16,16 +16,8 @@ const path = getSchemaDir('validation');
 
 config.processors.type = {};
 
-metatests.test('must properly load schemas', async test => {
-  let ms;
-
-  try {
-    ms = await load(path, options, config);
-  } catch (error) {
-    test.fail(error);
-    test.end();
-    return;
-  }
+metatests.test('must properly load schema (validation test)', async test => {
+  const ms = await load(path, options, config);
 
   test.throws(
     () => ms.validate('type', {}),
@@ -33,7 +25,7 @@ metatests.test('must properly load schemas', async test => {
   );
 
   metatests.case(
-    'Metaschema.validate',
+    'metaschema / validate',
     { validate: ms.validate.bind(ms) },
     {
       validate: [
@@ -208,6 +200,4 @@ metatests.test('must properly load schemas', async test => {
       ],
     }
   );
-
-  test.end();
 });

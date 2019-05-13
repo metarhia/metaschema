@@ -16,7 +16,7 @@ const {
 const { getSchemaDir } = require('./utils');
 const systemSchemaPath = getSchemaDir('systemSchema');
 
-metatests.test('Must properly apply system config', async test => {
+metatests.test('must properly apply system config', async test => {
   const newConfig = await applySystemConfig(
     systemSchemaPath,
     defaultConfig,
@@ -29,12 +29,10 @@ metatests.test('Must properly apply system config', async test => {
   test.assert(
     newConfig.config.processors.category.hasOwnProperty('validateSchema')
   );
-
-  test.end();
 });
 
 metatests.test(
-  'Must properly validate schemas with system schemas',
+  'must properly validate schemas with system schemas',
   async test => {
     const validSchemaPath = getSchemaDir('validSchema');
     const invalidSchemaPath = getSchemaDir('invalidSchema');
@@ -48,44 +46,34 @@ metatests.test(
 
     await load(validSchemaPath, newConfig.options, newConfig.config);
 
-    try {
-      await load(invalidSchemaPath, newConfig.options, newConfig.config);
-      test.fail();
-    } catch (err) {
-      test.strictSame(
-        err,
-        new MetaschemaError([
-          new ValidationError(
-            'notAllowedAdditionalProp',
-            'invalidSchema.invalidDomain',
-            {
-              allowed: ['domain'],
-            }
-          ),
-        ])
-      );
-    }
+    let error = await test.rejects(
+      load(invalidSchemaPath, newConfig.options, newConfig.config)
+    );
+    test.strictSame(
+      error,
+      new MetaschemaError([
+        new ValidationError(
+          'notAllowedAdditionalProp',
+          'invalidSchema.invalidDomain',
+          {
+            allowed: ['domain'],
+          }
+        ),
+      ])
+    );
 
-    try {
-      await load(
-        invalidSchemaReferencePath,
-        newConfig.options,
-        newConfig.config
-      );
-      test.fail();
-    } catch (err) {
-      test.strictSame(
-        err,
-        new MetaschemaError([
-          new SchemaValidationError(
-            'unresolved',
-            'invalidSchemaReference.objectReference',
-            { type: 'category', value: 'UNRESOLVED_CATEGORY' }
-          ),
-        ])
-      );
-    }
-
-    test.end();
+    error = await test.rejects(
+      load(invalidSchemaReferencePath, newConfig.options, newConfig.config)
+    );
+    test.strictSame(
+      error,
+      new MetaschemaError([
+        new SchemaValidationError(
+          'unresolved',
+          'invalidSchemaReference.objectReference',
+          { type: 'category', value: 'UNRESOLVED_CATEGORY' }
+        ),
+      ])
+    );
   }
 );

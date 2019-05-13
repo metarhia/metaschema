@@ -13,16 +13,8 @@ const {
 const { getSchemaDir } = require('./utils');
 const path = getSchemaDir('utils');
 
-metatests.test('must properly load schemas', async test => {
-  let ms;
-
-  try {
-    ms = await load(path, options, config);
-  } catch (error) {
-    test.fail(error);
-    test.end();
-    return;
-  }
+metatests.test('must properly load schema (utils test)', async test => {
+  const ms = await load(path, options, config);
 
   test.strictSame(ms.domains.size, 1);
   test.strictSame(ms.categories.size, 2);
