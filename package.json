@@ -40,7 +40,10 @@
   },
   "dependencies": {
     "@metarhia/common": "^1.2.1",
-    "metasync": "^0.3.31"
+    "metasync": "^0.3.31",
+    "@babel/generator": "^7.4.4",
+    "@babel/parser": "^7.4.5",
+    "@babel/traverse": "^7.4.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.3",
