@@ -24,10 +24,16 @@ metatests.test('must properly apply system config', async test => {
   );
 
   test.assert(
-    newConfig.config.processors.domains.hasOwnProperty('validateSchema')
+    Object.hasOwnProperty.call(
+      newConfig.config.processors.domains,
+      'validateSchema'
+    )
   );
   test.assert(
-    newConfig.config.processors.category.hasOwnProperty('validateSchema')
+    Object.hasOwnProperty.call(
+      newConfig.config.processors.category,
+      'validateSchema'
+    )
   );
 });
 
