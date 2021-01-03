@@ -39,7 +39,7 @@
     "node": ">=8.6.0"
   },
   "dependencies": {
-    "@metarhia/common": "^2.1.0",
+    "@metarhia/common": "^2.2.0",
     "metasync": "^0.3.31",
     "@babel/generator": "^7.4.4",
     "@babel/parser": "^7.4.5",
