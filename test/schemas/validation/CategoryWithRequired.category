@@ -1,7 +1,0 @@
-({
-  Text: { domain: 'Text', required: true, validate: text => text === '12345' },
-  Int: { domain: 'Int', required: true, readOnly: true },
-  Double: { domain: 'Double', required: true },
-
-  Validate: Validate(val => val.Text === '12345'),
-});
