@@ -3,12 +3,8 @@
   "trailingComma": "es5",
   "overrides": [
     {
-      "files": [".prettierrc", ".metadocrc"],
+      "files": ".prettierrc",
       "options": { "parser": "json" }
-    },
-    {
-      "files": ["*.category", "*.domains"],
-      "options": { "parser": "babel" }
     }
   ]
 }
