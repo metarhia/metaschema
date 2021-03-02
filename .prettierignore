@@ -1,6 +1,0 @@
-dist/
-.eslintignore
-.gitignore
-.prettierignore
-package-lock.json
-LICENSE
