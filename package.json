@@ -1,6 +1,6 @@
 {
   "name": "metaschema",
-  "version": "0.4.0",
+  "version": "1.0.0-alpha.0",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "description": "Metadata Schema and Interface Definition Language (IDL)",
   "license": "MIT",
@@ -17,46 +17,38 @@
     "type": "git",
     "url": "https://github.com/metarhia/metaschema"
   },
-  "main": "metaschema.js",
-  "browser": {
-    "./metaschema.js": "./dist/metaschema.js",
-    "./dist/lib/fs-loader.js": false
+  "bugs": {
+    "url": "https://github.com/metarhia/metaschema/issues",
+    "email": "timur.shemsedinov@gmail.com"
   },
-  "readmeFilename": "README.md",
+  "homepage": "https://metarhia.com",
+  "funding": {
+    "type": "patreon",
+    "url": "https://www.patreon.com/tshemsedinov"
+  },
+  "main": "metaschema.js",
   "files": [
-    "lib/",
-    "dist/"
+    "lib/"
   ],
+  "readmeFilename": "README.md",
   "scripts": {
-    "doc": "metadoc",
     "test": "npm run lint && metatests test/",
-    "lint": "eslint \"**/*\" && prettier -c \"*\"",
-    "fmt": "eslint --fix \"**/*\" && prettier --write \"*\"",
-    "build": "babel metaschema.js -d dist && babel lib -d dist/lib",
-    "prepublish": "npm run -s build"
+    "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\"",
+    "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\""
   },
   "engines": {
-    "node": ">=8.6.0"
+    "node": "^12.9 || 14 || 15"
   },
   "dependencies": {
-    "@metarhia/common": "^2.1.0",
-    "metasync": "^0.3.31",
-    "@babel/generator": "^7.4.4",
-    "@babel/parser": "^7.4.5",
-    "@babel/traverse": "^7.4.5"
+    "metautil": "^3.5.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.7",
-    "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.7",
-    "@metarhia/doc": "^0.6.0",
-    "eslint": "^6.8.0",
-    "eslint-config-metarhia": "^7.0.0",
-    "eslint-config-prettier": "^6.9.0",
-    "eslint-plugin-import": "^2.19.1",
-    "eslint-plugin-prettier": "^3.1.2",
-    "metatests": "^0.7.1",
-    "prettier": "^1.19.1",
-    "diff": "^3.5.0"
+    "eslint": "^7.21.0",
+    "eslint-config-metarhia": "^7.0.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "metatests": "^0.7.2",
+    "prettier": "^2.2.1"
   }
 }
