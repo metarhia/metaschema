@@ -1,6 +1,0 @@
-({
-  [Symbol.for('additionallyAllowedProperties')]: [
-    { category: 'reference' },
-    'field',
-  ],
-});

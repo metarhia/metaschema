@@ -1,4 +1,0 @@
-({
-  type: { domain: 'Type' },
-  class: { domain: 'String' },
-});

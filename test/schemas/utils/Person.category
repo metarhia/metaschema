@@ -1,5 +1,0 @@
-({
-  FullName: { category: 'FullName' },
-  Parent: { category: 'Person' },
-  Validate: Validate(() => null),
-});
