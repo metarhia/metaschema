@@ -40,7 +40,8 @@
     "node": "^12.9 || 14 || 15"
   },
   "dependencies": {
-    "metautil": "^3.5.0"
+    "metautil": "^3.5.0",
+    "metavm": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "^7.21.0",

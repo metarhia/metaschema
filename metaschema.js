@@ -1,7 +1,6 @@
 'use strict';
 
-const { Schema } = require('./lib/schema.js');
+const schema = require('./lib/schema.js');
+const loader = require('./lib/loader.js');
 
-module.exports = {
-  Schema,
-};
+module.exports = { ...schema, ...loader };
