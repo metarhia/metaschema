@@ -3,6 +3,7 @@
 ## [Unreleased][unreleased]
 
 - Fix database schema: index detection
+- Add loaders from string and file
 
 ## [1.0.0][] - 2021-03-02
 
