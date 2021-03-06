@@ -1,5 +1,3 @@
 node_modules
-doc
-test
 *.log
 .DS_Store
