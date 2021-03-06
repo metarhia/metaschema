@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Fix database schema: index detection
+
 ## [1.0.0][] - 2021-03-02
 
 - See specs: https://github.com/metarhia/Contracts
