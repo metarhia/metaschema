@@ -147,6 +147,18 @@ metatests.test('lib/schema check scalar', (test) => {
   test.end();
 });
 
+metatests.test('lib/schema check enum', (test) => {
+  const definition = { field: { enum: ['uno', 'due', 'tre'] } };
+  const schema = Schema.from(definition);
+  test.strictSame(schema.check({ field: 'uno' }).valid, true);
+  test.strictSame(schema.check({ field: 'due' }).valid, true);
+  test.strictSame(schema.check({ field: 'tre' }).valid, true);
+  test.strictSame(schema.check({ field: 'quatro' }).valid, false);
+  test.strictSame(schema.check({ field: 100 }).valid, false);
+  test.strictSame(schema.check({}).valid, false);
+  test.end();
+});
+
 metatests.test('lib/schema check collections', (test) => {
   const def1 = {
     field1: { array: 'number' },
