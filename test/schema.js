@@ -159,6 +159,40 @@ metatests.test('lib/schema check enum', (test) => {
   test.end();
 });
 
+metatests.test('lib/schema check not required', (test) => {
+  {
+    const def = { field: { enum: ['uno', 'due', 'tre'], required: false } };
+    const schema = Schema.from(def);
+    test.strictSame(schema.check({ field: 'uno' }).valid, true);
+  }
+  {
+    const def = { field: { enum: ['uno', 'due', 'tre'], required: false } };
+    const schema = Schema.from(def);
+    test.strictSame(schema.check({ field: 'quatro' }).valid, false);
+  }
+  {
+    const def = { field: { enum: ['uno', 'due', 'tre'], required: false } };
+    const schema = Schema.from(def);
+    test.strictSame(schema.check({}).valid, true);
+  }
+  {
+    const def = { field: { array: 'number', required: false } };
+    const schema = Schema.from(def);
+    test.strictSame(schema.check({ field: [1, 2, 3] }).valid, true);
+  }
+  {
+    const def = { field: { array: 'number', required: false } };
+    const schema = Schema.from(def);
+    test.strictSame(schema.check({ field: ['uno', 2, 3] }).valid, false);
+  }
+  {
+    const def = { field: { array: 'number', required: false } };
+    const schema = Schema.from(def);
+    test.strictSame(schema.check({}).valid, true);
+  }
+  test.end();
+});
+
 metatests.test('lib/schema check collections', (test) => {
   const def1 = {
     field1: { array: 'number' },
