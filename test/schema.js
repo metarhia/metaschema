@@ -154,10 +154,7 @@ metatests.test('lib/schema check enum', (test) => {
   test.strictSame(schema.check({ field: 'quatro' }).valid, false);
   test.strictSame(schema.check({ field: 100 }).valid, false);
   test.strictSame(schema.check({}).valid, false);
-  test.end();
-});
 
-metatests.test('lib/schema check not required', (test) => {
   const def1 = { field: { enum: ['uno', 'due', 'tre'], required: false } };
   const schema1 = Schema.from(def1);
   test.strictSame(schema1.check({ field: 'uno' }).valid, true);
@@ -181,6 +178,28 @@ metatests.test('lib/schema check not required', (test) => {
   const def6 = { field: { array: 'number', required: false } };
   const schema6 = Schema.from(def6);
   test.strictSame(schema6.check({}).valid, true);
+
+  test.end();
+});
+
+metatests.test('lib/schema check enum value', (test) => {
+  const def1 = { enum: ['uno', 'due', 'tre'] };
+  const schema1 = Schema.from(def1);
+  test.strictSame(schema1.check('uno').valid, true);
+  test.strictSame(schema1.check('due').valid, true);
+  test.strictSame(schema1.check('tre').valid, true);
+  test.strictSame(schema1.check('quatro').valid, false);
+  test.strictSame(schema1.check(100).valid, false);
+  test.strictSame(schema1.check({}).valid, false);
+
+  const def2 = { enum: ['uno', 'due', 'tre'], required: false };
+  const schema2 = Schema.from(def2);
+  test.strictSame(schema2.check('uno').valid, true);
+  test.strictSame(schema2.check('due').valid, true);
+  test.strictSame(schema2.check('tre').valid, true);
+  test.strictSame(schema2.check('quatro').valid, false);
+  test.strictSame(schema2.check(100).valid, false);
+  test.strictSame(schema2.check({}).valid, false);
 
   test.end();
 });
