@@ -2,6 +2,12 @@
 
 ## [Unreleased][unreleased]
 
+## [1.0.2][] - 2021-03-11
+
+- Support enumerated type
+- Fix single value validation
+- Fix bugs in not required fields checking
+
 ## [1.0.1][] - 2021-03-06
 
 - Fix database schema: index detection
@@ -18,7 +24,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/impress/compare/v1.0.1...HEAD
+[unreleased]: https://github.com/metarhia/impress/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/metarhia/metacom/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/metarhia/metacom/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/metarhia/metacom/compare/v0.x...v1.0.0
 [0.x]: https://github.com/metarhia/impress/releases/tag/v0.x
