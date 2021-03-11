@@ -190,7 +190,6 @@ metatests.test('lib/schema check enum value', (test) => {
   test.strictSame(schema1.check('tre').valid, true);
   test.strictSame(schema1.check('quatro').valid, false);
   test.strictSame(schema1.check(100).valid, false);
-  test.strictSame(schema1.check({}).valid, false);
 
   const def2 = { enum: ['uno', 'due', 'tre'], required: false };
   const schema2 = Schema.from(def2);
@@ -199,7 +198,6 @@ metatests.test('lib/schema check enum value', (test) => {
   test.strictSame(schema2.check('tre').valid, true);
   test.strictSame(schema2.check('quatro').valid, false);
   test.strictSame(schema2.check(100).valid, false);
-  test.strictSame(schema2.check({}).valid, false);
 
   test.end();
 });
