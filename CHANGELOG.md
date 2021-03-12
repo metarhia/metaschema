@@ -24,8 +24,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/impress/compare/v1.0.2...HEAD
-[1.0.2]: https://github.com/metarhia/metacom/compare/v1.0.1...v1.0.2
-[1.0.1]: https://github.com/metarhia/metacom/compare/v1.0.0...v1.0.1
-[1.0.0]: https://github.com/metarhia/metacom/compare/v0.x...v1.0.0
-[0.x]: https://github.com/metarhia/impress/releases/tag/v0.x
+[unreleased]: https://github.com/metarhia/metaschema/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/metarhia/metaschema/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/metarhia/metaschema/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/metarhia/metaschema/compare/v0.x...v1.0.0
+[0.x]: https://github.com/metarhia/metaschema/releases/tag/v0.x
