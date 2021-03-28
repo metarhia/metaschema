@@ -333,3 +333,56 @@ metatests.test('lib/schema check collections value', (test) => {
 
   test.end();
 });
+
+metatests.test(
+  'lib/schema check collections value if long form definition specified',
+  (test) => {
+    const def1 = { type: 'array', value: 'number' };
+    const obj1 = [1, 2, 3];
+    const schema1 = Schema.from(def1);
+    test.strictSame(schema1.check(obj1).valid, true);
+
+    const def2 = { type: 'array', value: 'number' };
+    const obj2 = ['uno', 2, 3];
+    const schema2 = Schema.from(def2);
+    test.strictSame(schema2.check(obj2).valid, false);
+
+    const def3 = { type: 'object', key: 'string', value: 'string' };
+    const obj3 = { a: 'A', b: 'B' };
+    const schema3 = Schema.from(def3);
+    test.strictSame(schema3.check(obj3).valid, true);
+
+    const def4 = { type: 'object', key: 'string', value: 'string' };
+    const obj4 = { a: 1, b: 'B' };
+    const schema4 = Schema.from(def4);
+    test.strictSame(schema4.check(obj4).valid, false);
+
+    const def5 = { type: 'set', value: 'number' };
+    const obj5 = new Set([1, 2, 3]);
+    const schema5 = Schema.from(def5);
+    test.strictSame(schema5.check(obj5).valid, true);
+
+    const def6 = { type: 'set', value: 'number' };
+    const obj6 = new Set(['uno', 2, 3]);
+    const schema6 = Schema.from(def6);
+    test.strictSame(schema6.check(obj6).valid, false);
+
+    const def7 = { type: 'map', key: 'string', value: 'string' };
+    const obj7 = new Map([
+      ['a', 'A'],
+      ['b', 'B'],
+    ]);
+    const schema7 = Schema.from(def7);
+    test.strictSame(schema7.check(obj7).valid, true);
+
+    const def8 = { type: 'map', key: 'string', value: 'string' };
+    const obj8 = new Set([
+      ['a', 1],
+      ['b', 'B'],
+    ]);
+    const schema8 = Schema.from(def8);
+    test.strictSame(schema8.check(obj8).valid, false);
+
+    test.end();
+  }
+);
