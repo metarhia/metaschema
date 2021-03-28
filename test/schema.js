@@ -383,6 +383,12 @@ metatests.test(
     const schema8 = Schema.from(def8);
     test.strictSame(schema8.check(obj8).valid, false);
 
+    const def9 = { type: 'enum', enum: ['foo', 'bar'] };
+    const schema9 = Schema.from(def9);
+    test.strictSame(schema9.check('foo').valid, true);
+    test.strictSame(schema9.check('bar').valid, true);
+    test.strictSame(schema9.check('baz').valid, false);
+
     test.end();
   }
 );
