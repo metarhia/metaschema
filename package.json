@@ -27,14 +27,17 @@
     "url": "https://www.patreon.com/tshemsedinov"
   },
   "main": "metaschema.js",
+  "types": "types/metaschema.d.ts",
   "files": [
-    "lib/"
+    "lib/",
+    "types/"
   ],
   "readmeFilename": "README.md",
   "scripts": {
-    "test": "npm run lint && metatests test/",
-    "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\"",
-    "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\""
+    "test": "npm run lint && npm run types && metatests test/",
+    "types": "tsc -p types/tsconfig.json",
+    "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.ts\"",
+    "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.ts\""
   },
   "engines": {
     "node": "^12.9 || 14 || 15"
@@ -44,12 +47,14 @@
     "metavm": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "^7.21.0",
+    "@types/node": "^14.14.37",
+    "eslint": "^7.24.0",
     "eslint-config-metarhia": "^7.0.1",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
     "metatests": "^0.7.2",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.4"
   }
 }
