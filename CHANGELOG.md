@@ -2,6 +2,9 @@
 
 ## [Unreleased][unreleased]
 
+## [1.0.3][] - 2021-04-13
+
+- Add .d.ts typings
 - Update metavm (added typings)
 
 ## [1.0.2][] - 2021-03-11
@@ -26,7 +29,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v1.0.2...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v1.0.3...HEAD
+[1.0.3]: https://github.com/metarhia/metaschema/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/metarhia/metaschema/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/metarhia/metaschema/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/metarhia/metaschema/compare/v0.x...v1.0.0
