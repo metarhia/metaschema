@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Update metavm (added typings)
+
 ## [1.0.2][] - 2021-03-11
 
 - Support enumerated type
