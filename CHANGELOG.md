@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Move Schema.prototype.toInterface from metasql
+
 ## [1.0.3][] - 2021-04-13
 
 - Add .d.ts typings
