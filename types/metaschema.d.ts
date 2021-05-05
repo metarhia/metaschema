@@ -32,3 +32,4 @@ export class Schema {
 
 export function createSchema(name: string, src: string): Schema;
 export function loadSchema(fileName: string): Promise<Schema>;
+export function readDirectory(dirPath: string): Promise<Map<string, object>>;
