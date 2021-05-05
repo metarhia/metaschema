@@ -392,3 +392,20 @@ metatests.test(
     test.end();
   }
 );
+
+metatests.test('Schema to interface', (test) => {
+  const raw = {
+    Company: 'global dictionary',
+    name: { type: 'string', unique: true },
+    addresses: { many: 'Address' },
+  };
+
+  const expected = `interface Company {
+  companyId: number;
+  name: string;\n}`;
+
+  const schema = new Schema('Company', raw);
+  const iface = schema.toInterface();
+  test.strictEqual(iface, expected);
+  test.end();
+});
