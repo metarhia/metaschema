@@ -3,7 +3,7 @@
 const metatests = require('metatests');
 const { Schema } = require('..');
 
-metatests.test('lib/schema database', (test) => {
+metatests.test('Schema: database', (test) => {
   const raw = {
     Address: 'global registry',
 

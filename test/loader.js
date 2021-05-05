@@ -3,7 +3,7 @@
 const metatests = require('metatests');
 const { createSchema, loadSchema } = require('..');
 
-metatests.test('lib/schema create schema', (test) => {
+metatests.test('Schema: createSchema', (test) => {
   const definition = `({ field1: 'string' })`;
   const schema = createSchema('StructName', definition);
   test.strictSame(typeof schema.fields, 'object');
@@ -11,7 +11,7 @@ metatests.test('lib/schema create schema', (test) => {
   test.end();
 });
 
-metatests.test('lib/schema load schema', async (test) => {
+metatests.test('Schema: loadSchema', async (test) => {
   const schema = await loadSchema('./test/examples/struct.js');
   test.strictSame(schema.fields.field1.type, 'string');
   test.strictSame(schema.fields.field2.type, 'number');
