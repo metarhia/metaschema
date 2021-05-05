@@ -33,3 +33,16 @@ export class Schema {
 export function createSchema(name: string, src: string): Schema;
 export function loadSchema(fileName: string): Promise<Schema>;
 export function readDirectory(dirPath: string): Promise<Map<string, object>>;
+
+export class Model {
+  types: object;
+  entities: Map<string, object>;
+  database: object;
+  order: Set<string>;
+  constructor(types: object, entities: Map<string, object>, database: object);
+  static load(modelPath: string, systemTypes: object): Promise<Model>;
+  preprocess(): void;
+  checkReferences(name: string): void;
+  reorderEntity(name: string, base?: string): void;
+  saveTypes(outputFile: string): Promise<void>;
+}

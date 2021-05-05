@@ -4,6 +4,10 @@
 
 - Move Schema.prototype.toInterface from metasql
 - Move Directory loader from metasql
+- Move Model class from metasql (previous name DomainModel)
+- Move Reference checker from metasql
+- Move Entity reordering algorithm from metasql
+- Improve Model and Schema classes
 
 ## [1.0.3][] - 2021-04-13
 
