@@ -39,8 +39,8 @@ export class Model {
   entities: Map<string, object>;
   database: object;
   order: Set<string>;
-  constructor(types: object, entities: Map<string, object>, database: object);
-  static load(modelPath: string, systemTypes: object): Promise<Model>;
+  constructor(types: object, entities: Map<string, object>, database?: object);
+  static load(modelPath: string, systemTypes?: object): Promise<Model>;
   preprocess(): void;
   checkReferences(name: string): void;
   reorderEntity(name: string, base?: string): void;
