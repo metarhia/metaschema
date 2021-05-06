@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+## [1.1.0][] - 2021-05-06
+
 - Move Schema.prototype.toInterface from metasql
 - Move Directory loader from metasql
 - Move Model class from metasql (previous name DomainModel)
@@ -36,7 +38,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v1.0.3...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/metarhia/metaschema/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/metarhia/metaschema/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/metarhia/metaschema/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/metarhia/metaschema/compare/v1.0.0...v1.0.1
