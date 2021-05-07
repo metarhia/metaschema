@@ -49,6 +49,8 @@ metatests.test('Model: from struct', (test) => {
 metatests.test('Model: loader', async (test) => {
   const model = await Model.load(process.cwd() + '/test/schemas');
   test.strictEqual(model.entities.size, 12);
+  const user = model.entities.get('SystemUser');
+  test.strictEqual(user.fields.fullName.constructor.name, 'Schema');
   test.strictEqual(model.order.size, 12);
   test.strictEqual(typeof model.types, 'object');
   test.strictEqual(typeof model.database, 'object');
