@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Shorthand for optional (not required) fields
+
 ## [1.1.1][] - 2021-05-07
 
 - Support nested schemas for Model class
