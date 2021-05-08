@@ -62,6 +62,28 @@ metatests.test('Schema: check', (test) => {
   test.end();
 });
 
+metatests.test('Schema: nested json', (test) => {
+  const definition = {
+    field1: 'string',
+    field2: {
+      json: {
+        subfield1: 'number',
+        subfield2: 'string',
+      },
+    },
+  };
+  const obj = {
+    field1: 'value',
+    field2: {
+      subfield1: 500,
+      subfield2: 'value',
+    },
+  };
+  const schema = Schema.from(definition);
+  test.strictSame(schema.check(obj).valid, true);
+  test.end();
+});
+
 metatests.test('Schema: shorthand', (test) => {
   const definition = {
     field1: {

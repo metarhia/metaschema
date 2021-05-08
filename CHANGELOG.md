@@ -3,6 +3,7 @@
 ## [Unreleased][unreleased]
 
 - Shorthand for optional (not required) fields
+- Nested schema of json type (for pg json fields)
 
 ## [1.1.1][] - 2021-05-07
 
