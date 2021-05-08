@@ -83,6 +83,22 @@ metatests.test('Schema: shorthand', (test) => {
   test.end();
 });
 
+metatests.test('Schema: required shorthand', (test) => {
+  const definition = { name: '?string' };
+  const schema = Schema.from(definition);
+
+  const obj1 = { name: 'value' };
+  test.strictSame(schema.check(obj1).valid, true);
+
+  const obj2 = {};
+  test.strictSame(schema.check(obj2).valid, true);
+
+  const obj3 = { name: 100 };
+  test.strictSame(schema.check(obj3).valid, false);
+
+  test.end();
+});
+
 metatests.test('Schema: negative check', (test) => {
   const definition = {
     field1: 'string',
