@@ -5,7 +5,7 @@ const { Schema } = require('..');
 
 metatests.test('Schema: database', (test) => {
   const raw = {
-    Address: 'global registry',
+    Registry: {},
 
     name: { type: 'string', unique: true },
     street: 'string',
@@ -18,8 +18,10 @@ metatests.test('Schema: database', (test) => {
 
   const expected = {
     name: 'Address',
-    scope: 'global',
     kind: 'registry',
+    scope: 'application',
+    store: 'persistent',
+    allow: 'write',
     fields: {
       name: { type: 'string', unique: true, required: true },
       street: { type: 'string', required: true },

@@ -3,17 +3,27 @@
 const metatests = require('metatests');
 const { Model } = require('..');
 
+const database = {
+  name: 'example',
+  description: 'Example database schema',
+  version: 3,
+  driver: 'pg',
+};
+
+const types = {
+  string: 'varchar',
+  number: 'integer',
+  boolean: 'boolean',
+  datetime: 'timestamp with time zone',
+  text: 'text',
+  json: 'jsonb',
+};
+
 metatests.test('Model: from struct', (test) => {
-  const database = {
-    name: 'example',
-    description: 'Example database schema',
-    version: 3,
-    driver: 'pg',
-  };
-  const types = { string: 'varchar' };
   const entities = new Map();
+
   entities.set('Company', {
-    Company: 'global dictionary',
+    Dictionary: {},
     name: { type: 'string', unique: true },
     addresses: { many: 'Address' },
   });
@@ -27,12 +37,21 @@ metatests.test('Model: from struct', (test) => {
     driver: 'pg',
   });
 
-  test.strictEqual(model.types, { string: 'varchar' });
+  test.strictEqual(model.types, {
+    boolean: 'boolean',
+    datetime: 'timestamp with time zone',
+    json: 'jsonb',
+    number: 'integer',
+    string: 'varchar',
+    text: 'text',
+  });
 
   test.strictEqual(model.entities.get('Company'), {
     name: 'Company',
-    scope: 'global',
     kind: 'dictionary',
+    scope: 'application',
+    store: 'persistent',
+    allow: 'write',
     fields: { name: { type: 'string', unique: true, required: true } },
     indexes: { addresses: { many: 'Address' } },
     validate: null,
@@ -47,11 +66,11 @@ metatests.test('Model: from struct', (test) => {
 });
 
 metatests.test('Model: loader', async (test) => {
-  const model = await Model.load(process.cwd() + '/test/schemas');
-  test.strictEqual(model.entities.size, 12);
-  const user = model.entities.get('SystemUser');
-  test.strictEqual(user.fields.fullName.constructor.name, 'Schema');
-  test.strictEqual(model.order.size, 12);
+  const model = await Model.load(process.cwd() + '/test/schemas', types);
+  test.strictEqual(model.entities.size, 11);
+  const Account = model.entities.get('Account');
+  test.strictEqual(Account.fields.fullName.constructor.name, 'Schema');
+  test.strictEqual(model.order.size, 11);
   test.strictEqual(typeof model.types, 'object');
   test.strictEqual(typeof model.database, 'object');
   test.end();

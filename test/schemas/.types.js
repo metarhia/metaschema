@@ -1,3 +1,3 @@
 ({
-  point: 'geometry(Point, 4326)',
+  ip: 'inet',
 });
