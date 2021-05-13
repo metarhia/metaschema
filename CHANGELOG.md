@@ -2,7 +2,10 @@
 
 ## [Unreleased][unreleased]
 
-- Breaking changes: Schema fields `{ kind, scope, store, allow }`
+## [1.2.0][] - 2021-05-15
+
+- Change Schema metadata `{ kind, scope, store, allow }`
+- Update dependencies and fix security issue
 
 ## [1.1.2][] - 2021-05-08
 
@@ -49,7 +52,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v1.1.2...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/metarhia/metaschema/compare/v1.1.2...v1.2.0
 [1.1.2]: https://github.com/metarhia/metaschema/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/metarhia/metaschema/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/metarhia/metaschema/compare/v1.0.3...v1.1.0
