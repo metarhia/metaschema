@@ -1,8 +1,11 @@
 ({
-  SystemUser: 'system entity',
+  Registry: {},
 
-  login: { type: 'string', unique: true, length: 30 },
-  password: { type: 'string', length: { min: 10 } },
+  login: { type: 'string', unique: true },
+  password: 'string',
+  blocked: { type: 'boolean', default: false },
+  unit: 'Unit',
+  roles: { many: 'Role' },
 
   fullName: {
     givenName: { type: 'string', required: false },

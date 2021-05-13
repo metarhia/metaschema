@@ -7,8 +7,10 @@ metatests.test('Schema: constructor', (test) => {
   const definition = { field1: 'string' };
   const schema = new Schema('StructName', definition);
   test.strictSame(schema.name, 'StructName');
-  test.strictSame(schema.scope, 'system');
-  test.strictSame(schema.kind, 'entity');
+  test.strictSame(schema.kind, 'struct');
+  test.strictSame(schema.scope, 'local');
+  test.strictSame(schema.store, 'memory');
+  test.strictSame(schema.allow, 'write');
   test.strictSame(typeof schema.fields, 'object');
   test.strictSame(typeof schema.indexes, 'object');
   test.strictSame(schema.validate, null);
