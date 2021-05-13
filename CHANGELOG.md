@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Breaking changes: Schema fields `{ kind, scope, store, allow }`
+
 ## [1.1.2][] - 2021-05-08
 
 - Shorthand for optional (not required) fields
