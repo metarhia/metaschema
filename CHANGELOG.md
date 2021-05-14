@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Move Identifier ahead of entity order
+
 ## [1.2.0][] - 2021-05-15
 
 - Change Schema metadata `{ kind, scope, store, allow }`
