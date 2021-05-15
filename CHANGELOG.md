@@ -6,6 +6,7 @@
 - Collect all references: Schema.prototype.references
 - Improve check references for Model
 - Reorder entities including many-to-many references
+- Fix recursion detection on many-to-many and parent
 
 ## [1.2.0][] - 2021-05-15
 
