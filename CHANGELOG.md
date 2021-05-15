@@ -3,6 +3,7 @@
 ## [Unreleased][unreleased]
 
 - Move Identifier ahead of entity order
+- Collect all references: Schema.prototype.references
 
 ## [1.2.0][] - 2021-05-15
 
