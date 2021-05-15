@@ -2,13 +2,15 @@
 
 ## [Unreleased][unreleased]
 
+## [1.2.1][] - 2021-05-15
+
 - Move Identifier ahead of entity order
 - Collect all references: Schema.prototype.references
 - Improve check references for Model
 - Reorder entities including many-to-many references
 - Fix recursion detection on many-to-many and parent
 
-## [1.2.0][] - 2021-05-15
+## [1.2.0][] - 2021-05-13
 
 - Change Schema metadata `{ kind, scope, store, allow }`
 - Update dependencies and fix security issue
@@ -58,7 +60,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v1.2.0...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/metarhia/metaschema/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/metarhia/metaschema/compare/v1.1.2...v1.2.0
 [1.1.2]: https://github.com/metarhia/metaschema/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/metarhia/metaschema/compare/v1.1.0...v1.1.1
