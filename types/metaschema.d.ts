@@ -19,6 +19,7 @@ export class Schema {
   kind: Kind;
   fields: object;
   indexes: object;
+  references: Array<string>;
   validate: Function | null;
   format: Function | null;
   parse: Function | null;

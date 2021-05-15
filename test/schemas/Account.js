@@ -17,4 +17,9 @@
     date: { type: 'string', required: false },
     place: { type: 'string', required: false },
   },
+
+  address: {
+    country: 'Country',
+    city: 'City',
+  },
 });

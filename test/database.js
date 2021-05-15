@@ -11,8 +11,11 @@ metatests.test('Schema: database', (test) => {
     street: 'string',
     building: 'string',
     apartment: 'string',
+    location: {
+      country: 'Country',
+    },
+    persons: { many: 'Person' },
 
-    addresses: { many: 'Person' },
     naturalKey: { primary: ['street', 'building', 'apartment'] },
   };
 
@@ -27,11 +30,28 @@ metatests.test('Schema: database', (test) => {
       street: { type: 'string', required: true },
       building: { type: 'string', required: true },
       apartment: { type: 'string', required: true },
+      location: {
+        name: '',
+        kind: 'struct',
+        scope: 'local',
+        store: 'memory',
+        allow: 'write',
+        fields: {
+          country: { required: true, type: 'Country' },
+        },
+        indexes: {},
+        references: ['Country'],
+        validate: null,
+        format: null,
+        parse: null,
+        serialize: null,
+      },
     },
     indexes: {
-      addresses: { many: 'Person' },
+      persons: { many: 'Person' },
       naturalKey: { primary: ['street', 'building', 'apartment'] },
     },
+    references: ['Country', 'Person'],
     validate: null,
     format: null,
     parse: null,

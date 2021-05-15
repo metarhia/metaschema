@@ -54,6 +54,7 @@ metatests.test('Model: from struct', (test) => {
     allow: 'write',
     fields: { name: { type: 'string', unique: true, required: true } },
     indexes: { addresses: { many: 'Address' } },
+    references: ['Address'],
     validate: null,
     format: null,
     parse: null,
