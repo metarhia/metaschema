@@ -5,6 +5,7 @@
 - Move Identifier ahead of entity order
 - Collect all references: Schema.prototype.references
 - Improve check references for Model
+- Reorder entities including many-to-many references
 
 ## [1.2.0][] - 2021-05-15
 
