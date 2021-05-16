@@ -17,6 +17,7 @@ metatests.test('Schema: database', (test) => {
     persons: { many: 'Person' },
 
     naturalKey: { primary: ['street', 'building', 'apartment'] },
+    altKey: { unique: ['name', 'street'] },
   };
 
   const expected = {
@@ -50,6 +51,7 @@ metatests.test('Schema: database', (test) => {
     indexes: {
       persons: { many: 'Person' },
       naturalKey: { primary: ['street', 'building', 'apartment'] },
+      altKey: { unique: ['name', 'street'] },
     },
     references: ['Country', 'Person'],
     validate: null,
