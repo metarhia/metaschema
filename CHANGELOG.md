@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Fix unique alternative keys
+
 ## [1.2.1][] - 2021-05-15
 
 - Move Identifier ahead of entity order
