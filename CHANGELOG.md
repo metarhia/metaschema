@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Add warning for top level 'type' property on an entity
+
 ## [1.2.2][] - 2021-05-17
 
 - Fix unique alternative keys

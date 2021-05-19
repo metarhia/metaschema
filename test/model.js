@@ -76,3 +76,19 @@ metatests.test('Model: loader', async (test) => {
   test.strictEqual(typeof model.database, 'object');
   test.end();
 });
+
+metatests.test(
+  `Model: top level 'type' property on an entity warning`,
+  (test) => {
+    const model = new Model(
+      { string: 'string' },
+      new Map([['FailingEntity', { type: 'string' }]])
+    );
+    test.strictEqual(model.warnings, [
+      `Warning: top level 'type' property on a 'FailingEntity'.\n` +
+        'This will result in it being treated as a scalar type.\n' +
+        'Rename property or move the entity to dedicated types file.',
+    ]);
+    test.end();
+  }
+);
