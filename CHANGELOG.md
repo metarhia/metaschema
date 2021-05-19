@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Restrict 'type' property in db schemas
+
 ## [1.2.2][] - 2021-05-17
 
 - Fix unique alternative keys

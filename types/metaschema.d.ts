@@ -40,6 +40,7 @@ export class Model {
   entities: Map<string, object>;
   database: object;
   order: Set<string>;
+  warnings: Array<string>;
   constructor(types: object, entities: Map<string, object>, database?: object);
   static load(modelPath: string, systemTypes?: object): Promise<Model>;
   preprocess(): void;

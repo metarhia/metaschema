@@ -76,3 +76,12 @@ metatests.test('Model: loader', async (test) => {
   test.strictEqual(typeof model.database, 'object');
   test.end();
 });
+
+metatests.test(`Model: restricted 'type' property in db schemas`, (test) => {
+  const model = new Model(
+    { string: 'string' },
+    new Map([['FailingEntity', { type: 'string' }]])
+  );
+  test.strictEqual(model.warnings.length, 1);
+  test.end();
+});
