@@ -2,8 +2,7 @@
 
 ## [Unreleased][unreleased]
 
-- Add warning for top level 'type' property on an entity
-- Add 'Model.warnings' typings
+- Restrict 'type' property in db schemas
 
 ## [1.2.2][] - 2021-05-17
 
