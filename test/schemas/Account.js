@@ -4,8 +4,7 @@
   login: { type: 'string', unique: true },
   password: 'string',
   blocked: { type: 'boolean', default: false },
-  unit: 'Unit',
-  roles: { many: 'Role' },
+  company: 'Company',
 
   fullName: {
     given: { type: 'string', required: false },
@@ -18,8 +17,5 @@
     place: { type: 'string', required: false },
   },
 
-  address: {
-    country: 'Country',
-    city: 'City',
-  },
+  addresses: { many: 'Address' },
 });
