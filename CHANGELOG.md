@@ -2,7 +2,10 @@
 
 ## [Unreleased][unreleased]
 
+## [1.2.3][] - 2021-05-22
+
 - Restrict 'type' property in db schemas
+- Simplify schema examples
 
 ## [1.2.2][] - 2021-05-17
 
@@ -66,7 +69,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v1.2.2...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v1.2.3...HEAD
+[1.2.3]: https://github.com/metarhia/metaschema/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/metarhia/metaschema/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/metarhia/metaschema/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/metarhia/metaschema/compare/v1.1.2...v1.2.0
