@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Fix lost json subfields checking
+
 ## [1.2.3][] - 2021-05-22
 
 - Restrict 'type' property in db schemas
