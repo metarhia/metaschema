@@ -15,7 +15,7 @@ type Kind =
 
 export class Schema {
   name: string;
-  namespaces: Array<Model>;
+  namespaces: Set<Model>;
   scope: Scope;
   kind: Kind;
   fields: object;
@@ -26,11 +26,13 @@ export class Schema {
   parse: Function | null;
   serialize: Function | null;
 
-  constructor(name: string, raw: object);
+  constructor(name: string, raw: object, namespaces?: Array<Model>);
   preprocess(defs: object): void;
   preprocessIndex(key: string, def: object): object;
   static from(raw: object): Schema;
   check(value: any): { valid: boolean; errors: Array<string> };
+  attach(...namespaces: Array<Model>): void;
+  detouch(...namespaces: Array<Model>): void;
 
   static KIND: Array<string>;
   static KIND_STORED: Array<string>;

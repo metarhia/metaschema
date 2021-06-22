@@ -4,6 +4,7 @@
 
 - Fix lost json subfields checking
 - Improve Schema kinds
+- Add Schema.prototype.namespaces and attach/detouch methods to add/remove
 
 ## [1.2.3][] - 2021-05-22
 

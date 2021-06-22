@@ -1,7 +1,7 @@
 'use strict';
 
 const metatests = require('metatests');
-const { Schema } = require('..');
+const { Schema, Model } = require('..');
 
 metatests.test('Schema: constructor', (test) => {
   const definition = { field1: 'string' };
@@ -460,5 +460,29 @@ metatests.test('Schema: generate ts interface', (test) => {
   const schema = new Schema('Company', raw);
   const iface = schema.toInterface();
   test.strictEqual(iface, expected);
+  test.end();
+});
+
+metatests.test('Schema: namespaces', (test) => {
+  const raw = {
+    name: { type: 'string', unique: true },
+    addresses: { many: 'Address' },
+  };
+
+  const types = {};
+  const entities = new Map();
+  entities.set('Address', {
+    city: 'string',
+    street: 'string',
+    building: 'string',
+  });
+  const model = new Model(types, entities);
+
+  const schema = new Schema('Company', raw, [model]);
+  test.strictEqual(schema.namespaces, new Set([model]));
+  schema.detouch(model);
+  test.strictEqual(schema.namespaces, new Set());
+  schema.attach(model);
+  test.strictEqual(schema.namespaces, new Set([model]));
   test.end();
 });
