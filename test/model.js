@@ -48,6 +48,7 @@ metatests.test('Model: from struct', (test) => {
 
   test.strictEqual(model.entities.get('Company'), {
     name: 'Company',
+    namespaces: new Set(),
     kind: 'dictionary',
     scope: 'application',
     store: 'persistent',

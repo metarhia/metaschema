@@ -31,8 +31,8 @@ export class Schema {
   preprocessIndex(key: string, def: object): object;
   static from(raw: object): Schema;
   check(value: any): { valid: boolean; errors: Array<string> };
-  attach(...namespaces: Array<Model>);
-  detouch(...namespaces: Array<Model>);
+  attach(...namespaces: Array<Model>): void;
+  detouch(...namespaces: Array<Model>): void;
 
   static KIND: Array<string>;
   static KIND_STORED: Array<string>;
