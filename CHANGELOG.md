@@ -3,6 +3,7 @@
 ## [Unreleased][unreleased]
 
 - Fix lost json subfields checking
+- Improve Schema kinds
 
 ## [1.2.3][] - 2021-05-22
 

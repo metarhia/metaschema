@@ -9,12 +9,13 @@ type Kind =
   | 'form'
   | 'view'
   | 'projection'
-  | 'log'
+  | 'journal'
   | 'struct'
   | 'scalar';
 
 export class Schema {
   name: string;
+  namespaces: Array<Model>;
   scope: Scope;
   kind: Kind;
   fields: object;
@@ -24,11 +25,19 @@ export class Schema {
   format: Function | null;
   parse: Function | null;
   serialize: Function | null;
+
   constructor(name: string, raw: object);
   preprocess(defs: object): void;
   preprocessIndex(key: string, def: object): object;
   static from(raw: object): Schema;
   check(value: any): { valid: boolean; errors: Array<string> };
+
+  static KIND: Array<string>;
+  static KIND_STORED: Array<string>;
+  static KIND_MEMORY: Array<string>;
+  static SCOPE: Array<string>;
+  static STORE: Array<string>;
+  static ALLOW: Array<string>;
 }
 
 export function createSchema(name: string, src: string): Schema;
@@ -41,6 +50,7 @@ export class Model {
   database: object;
   order: Set<string>;
   warnings: Array<string>;
+
   constructor(types: object, entities: Map<string, object>, database?: object);
   static load(modelPath: string, systemTypes?: object): Promise<Model>;
   preprocess(): void;
