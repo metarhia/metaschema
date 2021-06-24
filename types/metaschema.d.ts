@@ -20,7 +20,7 @@ export class Schema {
   kind: Kind;
   fields: object;
   indexes: object;
-  references: Array<string>;
+  references: Set<string>;
   validate: Function | null;
   format: Function | null;
   parse: Function | null;
@@ -29,6 +29,7 @@ export class Schema {
   constructor(name: string, raw: object, namespaces?: Array<Model>);
   preprocess(defs: object): void;
   preprocessIndex(key: string, def: object): object;
+  checkReferences(): void;
   static from(raw: object): Schema;
   check(value: any): { valid: boolean; errors: Array<string> };
   attach(...namespaces: Array<Model>): void;
@@ -56,7 +57,6 @@ export class Model {
   constructor(types: object, entities: Map<string, object>, database?: object);
   static load(modelPath: string, systemTypes?: object): Promise<Model>;
   preprocess(): void;
-  checkReferences(name: string): void;
   reorderEntity(name: string, base?: string): void;
   saveTypes(outputFile: string): Promise<void>;
 }
