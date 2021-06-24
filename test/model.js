@@ -55,14 +55,21 @@ metatests.test('Model: from struct', (test) => {
     allow: 'write',
     fields: { name: { type: 'string', unique: true, required: true } },
     indexes: { addresses: { many: 'Address' } },
-    references: ['Address'],
+    references: new Set(['Address']),
     validate: null,
+    warnings: ['Warning: "Address" referenced by "Company" is not found'],
     format: null,
     parse: null,
     serialize: null,
   });
 
   test.strictEqual(model.order, new Set(['Company']));
+
+  const warn = model.warnings[0];
+  test.strictEqual(
+    warn,
+    'Warning: "Address" referenced by "Company" is not found'
+  );
 
   test.end();
 });
