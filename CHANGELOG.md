@@ -5,6 +5,8 @@
 - Fix lost json subfields checking
 - Improve Schema kinds
 - Add Schema.prototype.namespaces and attach/detouch methods to add/remove
+- Add types to Schema.prototype.references (in addition to entities)
+- Move checkReferences from Model to Schema
 
 ## [1.2.3][] - 2021-05-22
 
