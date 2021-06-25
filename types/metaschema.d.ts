@@ -29,7 +29,7 @@ export class Schema {
   constructor(name: string, raw: object, namespaces?: Array<Model>);
   preprocess(defs: object): void;
   preprocessIndex(key: string, def: object): object;
-  checkReferences(): void;
+  checkConsistency(): Array<string>;
   static from(raw: object): Schema;
   check(value: any): { valid: boolean; errors: Array<string> };
   attach(...namespaces: Array<Model>): void;
