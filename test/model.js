@@ -57,7 +57,6 @@ metatests.test('Model: from struct', (test) => {
     indexes: { addresses: { many: 'Address' } },
     references: new Set(['Address']),
     validate: null,
-    warnings: ['Warning: "Address" referenced by "Company" is not found'],
     format: null,
     parse: null,
     serialize: null,
@@ -85,7 +84,7 @@ metatests.test('Model: loader', async (test) => {
   test.end();
 });
 
-metatests.test(`Model: restricted 'type' property in db schemas`, (test) => {
+metatests.test(`Model: restricted 'type' property`, (test) => {
   const model = new Model(
     { string: 'string' },
     new Map([['FailingEntity', { type: 'string' }]])

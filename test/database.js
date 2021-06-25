@@ -45,7 +45,6 @@ metatests.test('Schema: database', (test) => {
         indexes: {},
         references: new Set(['Country']),
         validate: null,
-        warnings: ['Warning: "Country" referenced by "" is not found'],
         format: null,
         parse: null,
         serialize: null,
@@ -58,10 +57,6 @@ metatests.test('Schema: database', (test) => {
     },
     references: new Set(['Country', 'Person']),
     validate: null,
-    warnings: [
-      'Warning: "Country" referenced by "Address" is not found',
-      'Warning: "Person" referenced by "Address" is not found',
-    ],
     format: null,
     parse: null,
     serialize: null,
@@ -69,5 +64,12 @@ metatests.test('Schema: database', (test) => {
 
   const entity = new Schema('Address', raw);
   test.strictEqual(entity, expected);
+
+  const warn = entity.checkConsistency();
+  test.strictEqual(warn, [
+    'Warning: "Country" referenced by "Address" is not found',
+    'Warning: "Person" referenced by "Address" is not found',
+  ]);
+
   test.end();
 });
