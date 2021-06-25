@@ -21,6 +21,18 @@ metatests.test('Schema: constructor', (test) => {
   test.end();
 });
 
+metatests.test('Schema: factory', (test) => {
+  const definition = { field1: 'string' };
+
+  const entities = new Map();
+  entities.set('Person', { name: 'string' });
+  const model = new Model({}, entities);
+
+  const schema = Schema.from(definition, [model]);
+  test.strictSame(schema.fields.field1.type, 'string');
+  test.end();
+});
+
 metatests.test('Schema: preprocess', (test) => {
   const definition = {
     field1: 'string',
@@ -493,14 +505,13 @@ metatests.test('Schema: check with namespaces', (test) => {
     address: 'Address',
   };
 
-  const types = {};
   const entities = new Map();
   entities.set('Address', {
     city: 'string',
     street: 'string',
     building: 'number',
   });
-  const model = new Model(types, entities);
+  const model = new Model({}, entities);
   const schema = new Schema('Company', raw, [model]);
 
   const data1 = {
