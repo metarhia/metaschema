@@ -486,3 +486,41 @@ metatests.test('Schema: namespaces', (test) => {
   test.strictEqual(schema.namespaces, new Set([model]));
   test.end();
 });
+
+metatests.test('Schema: check with namespaces', (test) => {
+  const raw = {
+    name: { type: 'string', unique: true },
+    address: 'Address',
+  };
+
+  const types = {};
+  const entities = new Map();
+  entities.set('Address', {
+    city: 'string',
+    street: 'string',
+    building: 'number',
+  });
+  const model = new Model(types, entities);
+  const schema = new Schema('Company', raw, [model]);
+
+  const data1 = {
+    name: 'Besarabsky Market',
+    address: {
+      city: 'Kiev',
+      street: 'Besarabskaya Square',
+      building: 2,
+    },
+  };
+  test.strictSame(schema.check(data1).valid, true);
+
+  const data2 = {
+    name: 'Besarabsky Market',
+    address: {
+      street: 'Besarabskaya Square',
+      building: '2',
+    },
+  };
+  test.strictSame(schema.check(data2).valid, false);
+
+  test.end();
+});

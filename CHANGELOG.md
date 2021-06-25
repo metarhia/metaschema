@@ -7,6 +7,7 @@
 - Add Schema.prototype.namespaces and attach/detouch methods to add/remove
 - Add types to Schema.prototype.references (in addition to entities)
 - Move Model.prototype.checkReferences to Schema.prototype.checkConsistency
+- Check schemas with references to schemas from attached models
 
 ## [1.2.3][] - 2021-05-22
 
