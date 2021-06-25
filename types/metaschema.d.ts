@@ -30,7 +30,7 @@ export class Schema {
   preprocess(defs: object): void;
   preprocessIndex(key: string, def: object): object;
   checkConsistency(): Array<string>;
-  static from(raw: object): Schema;
+  static from(raw: object, namespaces?: Array<Model>): Schema;
   check(value: any): { valid: boolean; errors: Array<string> };
   attach(...namespaces: Array<Model>): void;
   detouch(...namespaces: Array<Model>): void;
