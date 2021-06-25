@@ -2,12 +2,14 @@
 
 ## [Unreleased][unreleased]
 
-- Fix lost json subfields checking
-- Improve Schema kinds
+## [1.3.0][] - 2021-06-25
+
+- Check schemas with references to schemas from attached models
 - Add Schema.prototype.namespaces and attach/detouch methods to add/remove
 - Add types to Schema.prototype.references (in addition to entities)
 - Move Model.prototype.checkReferences to Schema.prototype.checkConsistency
-- Check schemas with references to schemas from attached models
+- Fix lost json subfields checking
+- Improve Schema kinds
 
 ## [1.2.3][] - 2021-05-22
 
@@ -76,7 +78,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v1.2.3...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/metarhia/metaschema/compare/v1.2.3...v1.3.0
 [1.2.3]: https://github.com/metarhia/metaschema/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/metarhia/metaschema/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/metarhia/metaschema/compare/v1.2.0...v1.2.1
