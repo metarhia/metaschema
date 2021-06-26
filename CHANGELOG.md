@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+## [1.3.1][] - 2021-06-26
+
 - Add namespaces to Schema.from factory
 - Fix "not expected" warning
 
@@ -81,7 +83,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v1.3.0...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v1.3.1...HEAD
+[1.3.1]: https://github.com/metarhia/metaschema/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/metarhia/metaschema/compare/v1.2.3...v1.3.0
 [1.2.3]: https://github.com/metarhia/metaschema/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/metarhia/metaschema/compare/v1.2.1...v1.2.2
