@@ -3,6 +3,7 @@
 ## [Unreleased][unreleased]
 
 - Add namespaces to Schema.from factory
+- Fix "not expected" warning
 
 ## [1.3.0][] - 2021-06-25
 
