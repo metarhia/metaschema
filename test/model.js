@@ -57,6 +57,7 @@ metatests.test('Model: from struct', (test) => {
     fields: { name: { type: 'string', unique: true, required: true } },
     indexes: { addresses: { many: 'Address' } },
     references: new Set(['Address']),
+    relations: new Set([]),
     validate: null,
     format: null,
     parse: null,

@@ -3,6 +3,7 @@
 ## [Unreleased][unreleased]
 
 - Schema projection
+- Schema.prototype.relations: Set<{ to: string, type: string }>
 
 ## [1.3.1][] - 2021-06-26
 
