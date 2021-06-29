@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Schema projection
+
 ## [1.3.1][] - 2021-06-26
 
 - Add namespaces to Schema.from factory

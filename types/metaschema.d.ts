@@ -16,6 +16,7 @@ type Kind =
 export class Schema {
   name: string;
   namespaces: Set<Model>;
+  parent: string;
   scope: Scope;
   kind: Kind;
   fields: object;

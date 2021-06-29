@@ -23,6 +23,7 @@ metatests.test('Schema: database', (test) => {
   const expected = {
     name: 'Address',
     namespaces: new Set(),
+    parent: '',
     kind: 'registry',
     scope: 'application',
     store: 'persistent',
@@ -35,6 +36,7 @@ metatests.test('Schema: database', (test) => {
       location: {
         name: '',
         namespaces: new Set(),
+        parent: '',
         kind: 'struct',
         scope: 'local',
         store: 'memory',
