@@ -13,6 +13,17 @@ type Kind =
   | 'struct'
   | 'scalar';
 
+type Cardinality =
+  | 'one-to-one'
+  | 'one-to-many'
+  | 'many-to-one'
+  | 'many-to-many';
+
+interface Relation {
+  to: string;
+  type: Cardinality;
+}
+
 export class Schema {
   name: string;
   namespaces: Set<Model>;
@@ -22,6 +33,7 @@ export class Schema {
   fields: object;
   indexes: object;
   references: Set<string>;
+  relations: Set<Relation>;
   validate: Function | null;
   format: Function | null;
   parse: Function | null;
