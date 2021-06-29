@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+## [1.3.2][] - 2021-06-30
+
 - Schema projection
 - Schema.prototype.relations: Set<{ to: string, type: string }>
 
@@ -86,7 +88,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v1.3.1...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v1.3.2...HEAD
+[1.3.2]: https://github.com/metarhia/metaschema/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/metarhia/metaschema/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/metarhia/metaschema/compare/v1.2.3...v1.3.0
 [1.2.3]: https://github.com/metarhia/metaschema/compare/v1.2.2...v1.2.3
