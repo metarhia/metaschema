@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Improve code style
+
 ## [1.3.2][] - 2021-06-30
 
 - Schema projection
