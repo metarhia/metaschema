@@ -27,15 +27,15 @@
     "url": "https://www.patreon.com/tshemsedinov"
   },
   "main": "metaschema.js",
-  "types": "types/metaschema.d.ts",
+  "types": "metaschema.d.ts",
   "files": [
     "lib/",
-    "types/"
+    "metaschema.d.ts"
   ],
   "readmeFilename": "README.md",
   "scripts": {
     "test": "npm run lint && npm run types && metatests test/",
-    "types": "tsc -p types/tsconfig.json",
+    "types": "tsc -p tsconfig.json",
     "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.ts\"",
     "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.ts\""
   },
