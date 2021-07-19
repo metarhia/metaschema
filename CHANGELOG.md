@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+## [1.3.3][] - 2021-07-19
+
 - Improve code style
 - Move types to package root
 - Package maintenance: update dependencies, update engines, security
@@ -92,7 +94,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v1.3.2...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v1.3.3...HEAD
+[1.3.3]: https://github.com/metarhia/metaschema/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/metarhia/metaschema/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/metarhia/metaschema/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/metarhia/metaschema/compare/v1.2.3...v1.3.0

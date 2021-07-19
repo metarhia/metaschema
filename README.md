@@ -14,7 +14,8 @@ Metadata schema and interface definition language
 $ npm install metaschema
 ```
 
-## Contributors
+## License & Contributors
 
-- Timur Shemsedinov (marcusaurelius)
-- See github for full [contributors list](https://github.com/metarhia/metaschema/graphs/contributors)
+Copyright (c) 2017-2021 [Metarhia contributors](https://github.com/metarhia/metaschema/graphs/contributors).
+Metaschema is [MIT licensed](./LICENSE).\
+Metaschema is a part of [Metarhia](https://github.com/metarhia) technology stack.
