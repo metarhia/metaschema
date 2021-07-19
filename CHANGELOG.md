@@ -4,6 +4,7 @@
 
 - Improve code style
 - Move types to package root
+- Package maintenance: update dependencies, update engines, security
 
 ## [1.3.2][] - 2021-06-30
 
