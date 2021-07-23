@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Show path to the field in warnings
+
 ## [1.3.3][] - 2021-07-19
 
 - Improve code style
