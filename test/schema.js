@@ -104,13 +104,17 @@ metatests.test('Schema: nested json, lost field', (test) => {
     field2: {
       subfield1: 'number',
     },
+    field3: 'string',
   };
   const obj = {
     field1: 'value',
   };
   const schema = Schema.from(definition);
   test.strictSame(schema.check(obj).valid, false);
-  test.strictSame(schema.check(obj).errors, ['Field "subfield1" is required']);
+  test.strictSame(schema.check(obj).errors, [
+    'Field "field2.subfield1" is required',
+    'Field "field3" is required',
+  ]);
   test.end();
 });
 
