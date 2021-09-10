@@ -2,7 +2,11 @@
 
 ## [Unreleased][unreleased]
 
+## [1.3.4][] - 2021-09-10
+
 - Show path to the field in warnings
+- Remove spread operator in `toLongForm`
+- Update dependencies
 
 ## [1.3.3][] - 2021-07-19
 
@@ -96,7 +100,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v1.3.3...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v1.3.4...HEAD
+[1.3.4]: https://github.com/metarhia/metaschema/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/metarhia/metaschema/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/metarhia/metaschema/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/metarhia/metaschema/compare/v1.3.0...v1.3.1
