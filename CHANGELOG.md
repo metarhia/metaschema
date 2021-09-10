@@ -5,6 +5,7 @@
 ## [1.3.4][] - 2021-09-10
 
 - Show path to the field in warnings
+- Remove spread operator in `toLongForm`
 - Update dependencies
 
 ## [1.3.3][] - 2021-07-19
