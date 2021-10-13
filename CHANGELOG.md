@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Unable to specify "nullable" type in schema without short-notation
+
 ## [1.3.4][] - 2021-09-10
 
 - Show path to the field in warnings
