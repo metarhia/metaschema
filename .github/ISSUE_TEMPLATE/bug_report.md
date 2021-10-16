@@ -12,14 +12,17 @@ A clear and concise description of what the bug is.
 **To Reproduce**
 Steps to reproduce the behavior: usage example or test.
 
+**Actual behavior**
+A clear and concise description of current behavior.
+
 **Expected behavior**
 A clear and concise description of what you expected.
 
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Desktop (please complete the following information):**
-
+**Versions**
+- metaschema: [e.g. 1.3.3]
 - OS: [e.g. Fedora 30 64-bit]
 - Node.js version [e.g. 14.15.1]
 
