@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Shorthand for optional nested structure
+
 ## [1.3.4][] - 2021-09-10
 
 - Show path to the field in warnings
