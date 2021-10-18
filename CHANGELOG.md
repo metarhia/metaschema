@@ -3,6 +3,7 @@
 ## [Unreleased][unreleased]
 
 - Fix nullable field long-form
+- Optional for nested structures
 
 ## [1.3.4][] - 2021-09-10
 
