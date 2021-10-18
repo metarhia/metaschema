@@ -4,6 +4,7 @@
 
 - Fix nullable field long-form
 - Optional for nested structures
+- Shorthand for optional nested structure
 
 ## [1.3.4][] - 2021-09-10
 

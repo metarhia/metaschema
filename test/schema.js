@@ -142,6 +142,27 @@ metatests.test('Schema: optional nested struct', (test) => {
   test.end();
 });
 
+metatests.test('Schema: shorthand for optional nested struct', (test) => {
+  const definition = {
+    'struct?': {
+      field: 'string',
+    },
+  };
+  const schema = Schema.from(definition);
+
+  const obj1 = {};
+  test.strictSame(schema.check(obj1).valid, true);
+
+  const obj2 = {
+    struct: {
+      field: 'value',
+    },
+  };
+  test.strictSame(schema.check(obj2).valid, true);
+
+  test.end();
+});
+
 metatests.test('Schema: shorthand', (test) => {
   const definition = {
     field1: {
