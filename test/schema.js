@@ -76,11 +76,11 @@ metatests.test('Schema: check', (test) => {
   test.end();
 });
 
-metatests.test('Schema: nested json', (test) => {
+metatests.test('Schema: nested schema', (test) => {
   const definition = {
     field1: 'string',
     field2: {
-      json: {
+      schema: {
         subfield1: 'number',
         subfield2: 'string',
       },
@@ -98,7 +98,7 @@ metatests.test('Schema: nested json', (test) => {
   test.end();
 });
 
-metatests.test('Schema: nested json, lost field', (test) => {
+metatests.test('Schema: nested schema, lost field', (test) => {
   const definition = {
     field1: 'string',
     field2: {
@@ -122,7 +122,7 @@ metatests.test('Schema: optional nested struct', (test) => {
   const definition = {
     struct: {
       required: false,
-      json: {
+      schema: {
         field: 'string',
       },
     },
