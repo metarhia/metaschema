@@ -22,6 +22,7 @@ A clear and concise description of what you expected.
 If applicable, add screenshots to help explain your problem.
 
 **Versions**
+
 - metaschema: [e.g. 1.3.3]
 - OS: [e.g. Fedora 30 64-bit]
 - Node.js version [e.g. 14.15.1]
