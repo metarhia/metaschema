@@ -185,17 +185,23 @@ metatests.test('Schema: shorthand', (test) => {
 });
 
 metatests.test('Schema: required shorthand', (test) => {
-  const definition = { name: '?string' };
-  const schema = Schema.from(definition);
+  const definition1 = { name: '?string' };
+  const schema1 = Schema.from(definition1);
+
+  const definition2 = { name: { type: '?string' } };
+  const schema2 = Schema.from(definition2);
 
   const obj1 = { name: 'value' };
-  test.strictSame(schema.check(obj1).valid, true);
+  test.strictSame(schema1.check(obj1).valid, true);
+  test.strictSame(schema2.check(obj1).valid, true);
 
   const obj2 = {};
-  test.strictSame(schema.check(obj2).valid, true);
+  test.strictSame(schema1.check(obj2).valid, true);
+  test.strictSame(schema2.check(obj2).valid, true);
 
   const obj3 = { name: 100 };
-  test.strictSame(schema.check(obj3).valid, false);
+  test.strictSame(schema1.check(obj3).valid, false);
+  test.strictSame(schema2.check(obj3).valid, false);
 
   test.end();
 });

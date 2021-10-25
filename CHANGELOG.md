@@ -3,6 +3,7 @@
 ## [Unreleased][unreleased]
 
 - Shorthand for optional nested structure
+- Fix nullable field long-form
 
 ## [1.3.4][] - 2021-09-10
 
