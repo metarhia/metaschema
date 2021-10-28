@@ -5,7 +5,7 @@
 - Fix nullable field long-form
 - Optional for nested structures
 - Shorthand for optional nested structure
-- Array of enumerated type
+- Support array of enumerated type
 
 ## [1.3.4][] - 2021-09-10
 
