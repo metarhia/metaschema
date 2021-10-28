@@ -325,6 +325,91 @@ metatests.test('Schema: check enum value', (test) => {
   test.end();
 });
 
+metatests.test('Schema: check array of enumerated type', (test) => {
+  const def1 = {
+    field1: { type: 'array', enum: ['uno', 'due', 'tre'] },
+  };
+  const def1Short = {
+    field1: { array: { enum: ['uno', 'due', 'tre'] } },
+  };
+  const obj1 = {
+    field1: ['due', 'uno', 'uno', 'due'],
+  };
+  const obj1Invalid = {
+    field1: ['due', 'quattro'],
+  };
+
+  const schema1 = Schema.from(def1);
+  const schema1Short = Schema.from(def1Short);
+  test.strictSame(schema1.check(obj1).valid, true);
+  test.strictSame(schema1Short.check(obj1).valid, true);
+
+  test.strictSame(schema1.check(obj1Invalid).valid, false);
+  test.strictSame(schema1.check(obj1Invalid).errors, [
+    'Field "field1" value is not of enum: uno, due, tre',
+  ]);
+  test.strictSame(schema1Short.check(obj1Invalid).valid, false);
+  test.strictSame(schema1Short.check(obj1Invalid).errors, [
+    'Field "field1" value is not of enum: uno, due, tre',
+  ]);
+
+  const def2 = {
+    field1: { type: 'array', enum: [1, 2, 3] },
+  };
+  const def2Short = {
+    field1: { array: { enum: [1, 2, 3] } },
+  };
+  const obj2 = {
+    field1: [2, 1, 3, 3, 2],
+  };
+  const obj2Invalid = {
+    field1: [2, 4, 1],
+  };
+
+  const schema2 = Schema.from(def2);
+  const schema2Short = Schema.from(def2Short);
+  test.strictSame(schema2.check(obj2).valid, true);
+  test.strictSame(schema2Short.check(obj2).valid, true);
+
+  test.strictSame(schema2.check(obj2Invalid).valid, false);
+  test.strictSame(schema2.check(obj2Invalid).errors, [
+    'Field "field1" value is not of enum: 1, 2, 3',
+  ]);
+  test.strictSame(schema2Short.check(obj2Invalid).valid, false);
+  test.strictSame(schema2Short.check(obj2Invalid).errors, [
+    'Field "field1" value is not of enum: 1, 2, 3',
+  ]);
+
+  const def3 = {
+    field1: { type: 'array', enum: [] },
+  };
+  const def3Short = {
+    field1: { array: { enum: [] } },
+  };
+  const obj3 = {
+    field1: [],
+  };
+  const obj3Invalid = {
+    field1: [1, 2, 3],
+  };
+
+  const schema3 = Schema.from(def3);
+  const schema3Short = Schema.from(def3Short);
+  test.strictSame(schema3.check(obj3).valid, true);
+  test.strictSame(schema2Short.check(obj3).valid, true);
+
+  test.strictSame(schema3.check(obj3Invalid).valid, false);
+  test.strictSame(schema3.check(obj3Invalid).errors, [
+    'Field "field1" value is not of enum: ',
+  ]);
+  test.strictSame(schema3Short.check(obj3Invalid).valid, false);
+  test.strictSame(schema3Short.check(obj3Invalid).errors, [
+    'Field "field1" value is not of enum: ',
+  ]);
+
+  test.end();
+});
+
 metatests.test('Schema: check collections', (test) => {
   const def1 = {
     field1: { array: 'number' },
