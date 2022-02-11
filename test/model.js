@@ -79,7 +79,8 @@ metatests.test('Model: loader', async (test) => {
   const model = await Model.load(process.cwd() + '/test/schemas', types);
   test.strictEqual(model.entities.size, 5);
   const Account = model.entities.get('Account');
-  test.strictEqual(Account.fields.fullName.constructor.name, 'Schema');
+  test.strictEqual(Account.fields.fullName.type, 'schema');
+  test.strictEqual(Account.fields.fullName.schema.constructor.name, 'Schema');
   test.strictEqual(model.order.size, 5);
   test.strictEqual(typeof model.types, 'object');
   test.strictEqual(typeof model.database, 'object');

@@ -99,22 +99,25 @@ metatests.test('Schema: nested schema', (test) => {
 });
 
 metatests.test('Schema: nested schema, lost field', (test) => {
-  const definition = {
+  const schema = Schema.from({
     field1: 'string',
     field2: {
       subfield1: 'number',
     },
     field3: 'string',
-  };
+  });
+
   const obj = {
     field1: 'value',
   };
-  const schema = Schema.from(definition);
-  test.strictSame(schema.check(obj).valid, false);
-  test.strictSame(schema.check(obj).errors, [
-    'Field "field2.subfield1" is required',
-    'Field "field3" is required',
-  ]);
+  test.strictSame(schema.check(obj), {
+    valid: false,
+    errors: [
+      'Field "field2.subfield1" is required',
+      'Field "field3" is required',
+    ],
+  });
+
   test.end();
 });
 
@@ -138,6 +141,32 @@ metatests.test('Schema: optional nested struct', (test) => {
     },
   };
   test.strictSame(schema.check(obj2).valid, true);
+
+  test.end();
+});
+
+metatests.test('Schema: optional nested struct base object', (test) => {
+  const definition = {
+    text: 'string',
+    struct: {
+      required: false,
+      schema: {
+        field: 'string',
+      },
+    },
+  };
+  const schema = Schema.from(definition);
+
+  const obj1 = { text: 'abc' };
+  test.strictSame(schema.check(obj1), { valid: true, errors: [] });
+
+  const obj2 = {
+    text: 'abc',
+    struct: {
+      field: 'value',
+    },
+  };
+  test.strictSame(schema.check(obj2), { valid: true, errors: [] });
 
   test.end();
 });
@@ -588,5 +617,77 @@ metatests.test('Schema: check with namespaces', (test) => {
   };
   test.strictSame(schema.check(data2).valid, false);
 
+  test.end();
+});
+
+metatests.test('Schema: multiple optional nested struct', (test) => {
+  const definition = {
+    field: 'string',
+    data: {
+      nfield1: {
+        schema: {
+          text: 'string',
+        },
+        required: false,
+      },
+      nfield2: {
+        schema: {
+          text: 'string',
+          caption: '?string',
+        },
+        required: false,
+      },
+    },
+  };
+  const schema = Schema.from(definition);
+
+  test.strictSame(
+    schema.check({
+      field: 'abc',
+      data: {
+        nfield1: { text: 'abc' },
+      },
+    }),
+    { valid: true, errors: [] }
+  );
+
+  test.strictSame(
+    schema.check({
+      field: 'abc',
+      data: {
+        nfield1: { text: 'abc' },
+        nfield2: { text: 'aaa' },
+      },
+    }),
+    { valid: true, errors: [] }
+  );
+
+  test.strictSame(
+    schema.check({
+      field: 'abc',
+      data: {
+        nfield1: { text: 'abc' },
+        nfield2: { text: 'aaa', caption: 'caption' },
+      },
+    }),
+    { valid: true, errors: [] }
+  );
+
+  test.strictSame(
+    schema.check({
+      field: 'abc',
+      data: {
+        nfield1: {},
+        nfield2: { text: 'aaa', caption: 42 },
+      },
+    }),
+    {
+      valid: false,
+      errors: [
+        `Field "data.nfield1.text" is required`,
+        `Field "data.nfield2.caption" is not of expected type: string`,
+      ],
+    }
+  );
   test.end();
 });
