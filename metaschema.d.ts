@@ -34,7 +34,9 @@ export class Schema {
   indexes: object;
   references: Set<string>;
   relations: Set<Relation>;
-  validate: Function | null;
+  validate:
+    | ((value: any, path: string) => boolean | { valid: boolean; errors?: [] })
+    | null;
   format: Function | null;
   parse: Function | null;
   serialize: Function | null;
