@@ -691,3 +691,114 @@ metatests.test('Schema: multiple optional nested struct', (test) => {
   );
   test.end();
 });
+
+metatests.test('Schema: validation function', (test) => {
+  const definition = {
+    validate: test.mustCall((value, path) => {
+      if (value.field) return { valid: true };
+      if (value.throw) throw new Error(value.throw);
+      return { valid: false, errors: [`${path}.field is required`] };
+    }, 3),
+  };
+  const schema = Schema.from(definition);
+
+  test.strictSame(
+    schema.check({
+      field: 'abc',
+    }),
+    { valid: true, errors: [] }
+  );
+
+  test.strictSame(
+    schema.check({
+      field2: 'abc',
+    }),
+    { valid: false, errors: ['.field is required'] }
+  );
+
+  test.strictSame(
+    schema.check({
+      throw: '42',
+    }),
+    { valid: false, errors: ['Field "" validation failed Error: 42'] }
+  );
+
+  test.end();
+});
+
+metatests.test('Schema: validation function simple return', (test) => {
+  const definition = {
+    validate: test.mustCall((value) => value.field === '42', 2),
+  };
+  const schema = Schema.from(definition);
+
+  test.strictSame(schema.check({ field: '42' }), { valid: true, errors: [] });
+  test.strictSame(schema.check({ field: '43' }), { valid: false, errors: [] });
+
+  test.end();
+});
+
+metatests.test('Schema: nested validation function', (test) => {
+  const definition = {
+    field: 'string',
+    nested: {
+      required: false,
+      schema: {
+        validate: test.mustCall((value, path) => {
+          if (value.field) return { valid: true };
+          if (value.throw) throw new Error(value.throw);
+          return { valid: false, errors: [`${path}.field is required`] };
+        }, 3),
+      },
+    },
+  };
+  const schema = Schema.from(definition);
+
+  test.strictSame(
+    schema.check({
+      field: 'abc',
+    }),
+    { valid: true, errors: [] }
+  );
+
+  test.strictSame(
+    schema.check({
+      field2: 'abc',
+    }),
+    {
+      valid: false,
+      errors: ['Field "field2" is not expected', 'Field "field" is required'],
+    }
+  );
+
+  test.strictSame(
+    schema.check({
+      field: 'abc',
+      nested: {
+        field: 'abc',
+      },
+    }),
+    { valid: true, errors: [] }
+  );
+
+  test.strictSame(
+    schema.check({
+      field: 'abc',
+      nested: {
+        field2: 'abc',
+      },
+    }),
+    { valid: false, errors: ['nested.field is required'] }
+  );
+
+  test.strictSame(
+    schema.check({
+      field: 'abc',
+      nested: {
+        throw: '42',
+      },
+    }),
+    { valid: false, errors: ['Field "nested" validation failed Error: 42'] }
+  );
+  test.end();
+});

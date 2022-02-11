@@ -8,6 +8,7 @@
 - Fix paths in validation errors
 - Unify nested schema fields to
   `{ type: 'schema', schema: Schema, /* other fields */ }`
+- Support Schema#validate function
 
 ## [1.3.4][] - 2021-09-10
 
