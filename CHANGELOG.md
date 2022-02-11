@@ -5,6 +5,9 @@
 - Fix nullable field long-form
 - Optional for nested structures
 - Shorthand for optional nested structure
+- Fix paths in validation errors
+- Unify nested schema fields to
+  `{ type: 'schema', schema: Schema, /* other fields */ }`
 
 ## [1.3.4][] - 2021-09-10
 
