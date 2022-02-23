@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+## [1.4.0][] - 2022-02-23
+
 - Fix nullable field long-form
 - Optional for nested structures
 - Shorthand for optional nested structure
@@ -108,7 +110,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v1.3.4...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/metarhia/metaschema/compare/v1.3.4...v1.4.0
 [1.3.4]: https://github.com/metarhia/metaschema/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/metarhia/metaschema/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/metarhia/metaschema/compare/v1.3.1...v1.3.2
