@@ -802,3 +802,24 @@ metatests.test('Schema: nested validation function', (test) => {
   );
   test.end();
 });
+
+metatests.test('Schema: calculated', (test) => {
+  const definition = {
+    filename: 'string',
+    size: 'number',
+    compression: {
+      size: 'number',
+      ratio: (file) => file.compression.size / file.size,
+    },
+  };
+  const obj = {
+    filename: 'file.ext',
+    size: 54321,
+    compression: {
+      size: 12345,
+    },
+  };
+  const schema = Schema.from(definition);
+  test.strictSame(schema.check(obj).valid, true);
+  test.end();
+});

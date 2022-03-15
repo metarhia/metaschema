@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Skip calculated fields in schemas
+
 ## [1.4.0][] - 2022-02-23
 
 - Fix nullable field long-form
