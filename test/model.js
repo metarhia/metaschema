@@ -46,25 +46,18 @@ metatests.test('Model: from struct', (test) => {
     text: 'text',
   });
 
-  test.strictEqual(model.entities.get('Company'), {
-    name: 'Company',
-    namespaces: new Set(),
-    parent: '',
-    kind: 'dictionary',
-    scope: 'application',
-    store: 'persistent',
-    allow: 'write',
-    fields: { name: { type: 'string', unique: true, required: true } },
-    indexes: { addresses: { many: 'Address' } },
-    references: new Set(['Address']),
-    relations: new Set([]),
-    validate: null,
-    format: null,
-    parse: null,
-    serialize: null,
-  });
-
   test.strictEqual(model.order, new Set(['Company']));
+
+  const company = model.entities.get('Company');
+
+  test.strictEqual(company.name, 'Company');
+  test.strictEqual(company.kind, 'dictionary');
+  test.strictEqual(company.store, 'persistent');
+  test.strictEqual(company.scope, 'application');
+
+  test.strictEqual(company.fields, {
+    name: { type: 'string', unique: true, required: true },
+  });
 
   const warn = model.warnings[0];
   test.strictEqual(

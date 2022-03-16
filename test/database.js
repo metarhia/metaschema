@@ -49,7 +49,7 @@ metatests.test('Schema: database', (test) => {
           },
           indexes: {},
           references: new Set(['Country']),
-          relations: new Set([]),
+          relations: new Set([{ to: 'Country', type: 'many-to-one' }]),
           validate: null,
           format: null,
           parse: null,
@@ -62,8 +62,11 @@ metatests.test('Schema: database', (test) => {
       naturalKey: { primary: ['street', 'building', 'apartment'] },
       altKey: { unique: ['name', 'street'] },
     },
-    references: new Set(['Country', 'Person']),
-    relations: new Set([]),
+    references: new Set(['string', 'Country', 'Person']),
+    relations: new Set([
+      { to: 'Country', type: 'many-to-one' },
+      { to: 'Person', type: 'one-to-many' },
+    ]),
     validate: null,
     format: null,
     parse: null,
@@ -71,7 +74,13 @@ metatests.test('Schema: database', (test) => {
   };
 
   const entity = new Schema('Address', raw);
-  test.strictEqual(entity, expected);
+  test.strictEqual(entity.name, expected.name);
+  test.strictEqual(entity.kind, expected.kind);
+  test.strictEqual(entity.store, expected.store);
+  test.strictEqual(Object.keys(entity.fields), Object.keys(expected.fields));
+  test.strictEqual(entity.indexes, expected.indexes);
+  test.strictEqual(entity.references, expected.references);
+  test.strictEqual(entity.relations, expected.relations);
 
   const warn = entity.checkConsistency();
   test.strictEqual(warn, [
