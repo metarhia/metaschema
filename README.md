@@ -16,6 +16,6 @@ $ npm install metaschema
 
 ## License & Contributors
 
-Copyright (c) 2017-2021 [Metarhia contributors](https://github.com/metarhia/metaschema/graphs/contributors).
+Copyright (c) 2017-2022 [Metarhia contributors](https://github.com/metarhia/metaschema/graphs/contributors).
 Metaschema is [MIT licensed](./LICENSE).\
 Metaschema is a part of [Metarhia](https://github.com/metarhia) technology stack.
