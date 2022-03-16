@@ -2,7 +2,11 @@
 
 ## [Unreleased][unreleased]
 
+## [1.4.1][] - 2022-03-17
+
 - Skip calculated fields in schemas
+- Update dependencies
+- Fix tests after update metatests to 0.8.1
 
 ## [1.4.0][] - 2022-02-23
 
@@ -112,7 +116,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v1.4.0...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v1.4.1...HEAD
+[1.4.1]: https://github.com/metarhia/metaschema/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/metarhia/metaschema/compare/v1.3.4...v1.4.0
 [1.3.4]: https://github.com/metarhia/metaschema/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/metarhia/metaschema/compare/v1.3.2...v1.3.3
