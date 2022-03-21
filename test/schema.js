@@ -823,3 +823,14 @@ metatests.test('Schema: calculated', (test) => {
   test.strictSame(schema.check(obj).valid, true);
   test.end();
 });
+
+['enum', 'array', 'set', 'map', 'object'].forEach((type) => {
+  metatests.testSync(`Schema: shorthand ${type} type`, (test) => {
+    test.throws(
+      () => Schema.from({ field1: type }),
+      new Error(
+        `Short string only definition of "field1: '${type}'" is not supported`
+      )
+    );
+  });
+});

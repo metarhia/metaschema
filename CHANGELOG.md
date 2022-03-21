@@ -2,6 +2,9 @@
 
 ## [Unreleased][unreleased]
 
+- Properly report error if trying to use `field: 'type'` shorthand for
+  `'enum', 'array', 'set', 'map', 'object'` types
+
 ## [1.4.1][] - 2022-03-17
 
 - Skip calculated fields in schemas
