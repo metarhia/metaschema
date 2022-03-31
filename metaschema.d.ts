@@ -1,3 +1,5 @@
+type Constructor<I> = new (...args: any[]) => I;
+
 type Scope = 'global' | 'system' | 'local' | 'memory';
 
 type Kind =
@@ -24,31 +26,68 @@ interface Relation {
   type: Cardinality;
 }
 
+type Scalar = string | number | boolean | bigint;
+
+interface Definition {
+  type: string;
+  required: boolean;
+  schema?: string | Schema;
+  value?: Definition;
+  key?: Scalar | symbol | object | Function;
+  unique?: boolean;
+  length?: { min: number; max: number };
+  default?: any;
+  note?: string;
+  index?: boolean;
+  enum?: Scalar[];
+}
+interface Type {
+  name: string;
+  kind: Kind;
+  check(
+    value: any,
+    path: string,
+    def?: Definition,
+    schema?: Schema
+  ): [] | string[];
+  toLong(def: any, Schema: Constructor<Schema>, schema: Schema): object;
+  isInstance?(value: any): boolean;
+}
+
 export class Schema {
   name: string;
+  kind: Kind;
+  scope: Scope;
+  store: string;
+  allow: string;
   namespaces: Set<Model>;
   parent: string;
-  scope: Scope;
-  kind: Kind;
   fields: object;
   indexes: object;
   references: Set<string>;
   relations: Set<Relation>;
-  validate:
-    | ((value: any, path: string) => boolean | { valid: boolean; errors?: [] })
-    | null;
-  format: Function | null;
-  parse: Function | null;
-  serialize: Function | null;
+  validate: (value: any, path: string) => { valid: boolean; errors?: [] };
+  format: Function;
+  parse: Function;
+  serialize: Function;
 
   constructor(name: string, raw: object, namespaces?: Array<Model>);
   preprocess(defs: object): void;
+  formatDef(defs: object): { name: string; defs: object };
   preprocessIndex(key: string, def: object): object;
-  checkConsistency(): Array<string>;
+  projection(metadata: object): { defs: { [key: string]: Definition } };
+  extractMetadata(metadata: object): void;
+  findKind(name: string): Kind | null;
+  findType(name: string): Type | null;
+  findReferences(name: string): Schema | null;
+
+  public checkConsistency(): Array<string>;
+  public check(value: any): { valid: boolean; errors: Array<string> };
+  public toInterface(): string;
+  public attach(...namespaces: Array<Model>): void;
+  public detouch(...namespaces: Array<Model>): void;
   static from(raw: object, namespaces?: Array<Model>): Schema;
-  check(value: any): { valid: boolean; errors: Array<string> };
-  attach(...namespaces: Array<Model>): void;
-  detouch(...namespaces: Array<Model>): void;
+  static extractSchema(def: object): Schema | null;
 
   static KIND: Array<string>;
   static KIND_STORED: Array<string>;
