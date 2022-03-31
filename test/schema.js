@@ -13,10 +13,10 @@ metatests.test('Schema: constructor', (test) => {
   test.strictSame(schema.allow, 'write');
   test.strictSame(typeof schema.fields, 'object');
   test.strictSame(typeof schema.indexes, 'object');
-  test.strictSame(schema.validate, null);
-  test.strictSame(schema.format, null);
-  test.strictSame(schema.parse, null);
-  test.strictSame(schema.serialize, null);
+  test.strictSame(typeof schema.validate, 'function');
+  test.strictSame(typeof schema.format, 'function');
+  test.strictSame(typeof schema.parse, 'function');
+  test.strictSame(typeof schema.serialize, 'function');
   test.strictSame(schema.fields.field1.type, 'string');
   test.end();
 });
@@ -109,6 +109,7 @@ metatests.test('Schema: nested schema, lost field', (test) => {
 
   const obj = {
     field1: 'value',
+    field2: {},
   };
   test.strictSame(schema.check(obj), {
     valid: false,
@@ -202,7 +203,7 @@ metatests.test('Schema: shorthand', (test) => {
   const schema = Schema.from(definition);
 
   const obj1 = { field1: 'value' };
-  test.strictSame(schema.check(obj1).valid, true);
+  test.strictSame(schema.check(obj1).valid, false);
 
   const obj2 = { field1: 1 };
   test.strictSame(schema.check(obj2).valid, false);
@@ -544,14 +545,15 @@ metatests.test('Schema: check collections value with long form', (test) => {
 
 metatests.test('Schema: generate ts interface', (test) => {
   const raw = {
-    Company: 'global dictionary',
+    Dictionary: { scope: 'global' },
     name: { type: 'string', unique: true },
     addresses: { many: 'Address' },
   };
 
   const expected = `interface Company {
   companyId: number;
-  name: string;\n}`;
+  name: string;
+  addresses: Address[];\n}`;
 
   const schema = new Schema('Company', raw);
   const iface = schema.toInterface();
@@ -694,6 +696,7 @@ metatests.test('Schema: multiple optional nested struct', (test) => {
 
 metatests.test('Schema: validation function', (test) => {
   const definition = {
+    field: '?string',
     validate: test.mustCall((value, path) => {
       if (value.field) return { valid: true };
       if (value.throw) throw new Error(value.throw);
@@ -720,7 +723,7 @@ metatests.test('Schema: validation function', (test) => {
     schema.check({
       throw: '42',
     }),
-    { valid: false, errors: ['Field "" validation failed Error: 42'] }
+    { valid: false, errors: ['Schema "" validation failed Error: 42'] }
   );
 
   test.end();
@@ -728,6 +731,7 @@ metatests.test('Schema: validation function', (test) => {
 
 metatests.test('Schema: validation function simple return', (test) => {
   const definition = {
+    field: '?string',
     validate: test.mustCall((value) => value.field === '42', 2),
   };
   const schema = Schema.from(definition);
@@ -744,6 +748,7 @@ metatests.test('Schema: nested validation function', (test) => {
     nested: {
       required: false,
       schema: {
+        field: { type: 'string', required: false },
         validate: test.mustCall((value, path) => {
           if (value.field) return { valid: true };
           if (value.throw) throw new Error(value.throw);
@@ -798,7 +803,7 @@ metatests.test('Schema: nested validation function', (test) => {
         throw: '42',
       },
     }),
-    { valid: false, errors: ['Field "nested" validation failed Error: 42'] }
+    { valid: false, errors: ['Schema "nested" validation failed Error: 42'] }
   );
   test.end();
 });

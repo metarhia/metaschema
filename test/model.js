@@ -57,6 +57,12 @@ metatests.test('Model: from struct', (test) => {
 
   test.strictEqual(company.fields, {
     name: { type: 'string', unique: true, required: true },
+    addresses: {
+      reference: 'Address',
+      relation: 'one-to-many',
+      required: true,
+      type: 'reference',
+    },
   });
 
   const warn = model.warnings[0];
