@@ -828,3 +828,127 @@ metatests.test('Schema: calculated', (test) => {
   test.strictSame(schema.check(obj).valid, true);
   test.end();
 });
+
+metatests.test('Schema: nested schemas with Schema instances', (test) => {
+  const def = {
+    name: {
+      type: 'schema',
+      schema: new Schema('', {
+        first: { type: 'string' },
+        last: { type: 'string' },
+        third: { type: 'string' },
+      }),
+    },
+    age: { type: 'number' },
+    levelOne: {
+      type: 'schema',
+      schema: new Schema('', {
+        levelTwo: {
+          type: 'schema',
+          schema: new Schema('', {
+            levelThree: { type: 'enum', enum: [1, 2, 3] },
+          }),
+        },
+      }),
+    },
+  };
+  const obj = {
+    name: {
+      first: 'Andrew',
+      last: 'John',
+      third: 'John',
+    },
+    age: 5,
+    levelOne: {
+      levelTwo: {
+        levelThree: 2,
+      },
+    },
+  };
+  const schema = new Schema('', def);
+  test.strictSame(schema.check(obj).valid, true);
+  test.end();
+});
+
+metatests.test('Schema: multiple nested arrays', (test) => {
+  const defs1 = {
+    Entity: {},
+    name: {
+      first: { type: 'string' },
+      last: { type: 'string' },
+      third: { type: '?string' },
+    },
+    age: { type: 'number' },
+    levelOne: {
+      levelTwo: {
+        levelThree: { type: 'enum', enum: [1, 2, 3] },
+      },
+    },
+    collection: { array: { array: 'number' } },
+  };
+
+  const schema1 = Schema.from(defs1);
+
+  const obj1 = {
+    name: {
+      first: 'a',
+      last: 'b',
+    },
+    age: 5,
+    levelOne: { levelTwo: { levelThree: 1 } },
+    collection: [
+      [1, 2, 3],
+      [3, 5, 6],
+    ],
+  };
+  test.strictSame(schema1.check(obj1).valid, true);
+
+  const defs2 = {
+    array: {
+      name: 'string',
+      age: 'number',
+      nest: {
+        arr1: { array: { enum: [1, 2, 3] } },
+        arr2: { array: { array: { object: { string: 'string' } } } },
+      },
+    },
+  };
+  const obj2 = [
+    {
+      name: 'A',
+      age: 5,
+      nest: {
+        arr1: [1, 2, 3],
+        arr2: [
+          [{ hello: 'world' }, { your: 'world' }],
+          [{ hello: 'world' }, { your: 'world' }],
+        ],
+      },
+    },
+    {
+      name: 'A',
+      age: 5,
+      nest: {
+        arr1: [1, 2, 3],
+        arr2: [
+          [{ hello: 'world' }, { your: 'world' }],
+          [{ hello: 'world' }, { your: 'world' }],
+        ],
+      },
+    },
+  ];
+  const schema2 = Schema.from(defs2);
+  test.strictSame(schema2.check(obj2).valid, true);
+
+  test.end();
+});
+
+metatests.test('Schema: custom function definition', (test) => {
+  const defs = {
+    custom: () => 10,
+  };
+  const schema = Schema.from(defs);
+  test.strictSame(schema.fields.custom(), 10);
+  test.strictSame(schema.check({}).valid, true);
+  test.end();
+});

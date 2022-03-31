@@ -94,3 +94,34 @@ metatests.test(`Model: restricted 'type' property`, (test) => {
   test.strictEqual(model.warnings.length, 1);
   test.end();
 });
+
+metatests.test('Model: many relation Schema for validation', (test) => {
+  const entities = new Map();
+
+  entities.set('Company', {
+    Dictionary: {},
+    name: { type: 'string', unique: true },
+    addresses: { many: 'Address' },
+  });
+
+  entities.set('Address', {
+    Entity: {},
+    city: { type: 'string', unique: true },
+  });
+
+  const model = new Model(types, entities, database);
+
+  const company = model.entities.get('Company');
+
+  const obj = {
+    name: 'Galeere',
+    addresses: [{ city: 'Berlin' }, { city: 'Kiev' }],
+  };
+
+  const obj1 = { name: 'Leere' };
+
+  test.strictSame(company.check(obj).valid, true);
+  test.strictSame(company.check(obj1).valid, false);
+
+  test.end();
+});
