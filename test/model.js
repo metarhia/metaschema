@@ -73,15 +73,34 @@ metatests.test('Model: from struct', (test) => {
   test.end();
 });
 
-metatests.test('Model: loader', async (test) => {
+metatests.test('Model: loader and custom type check', async (test) => {
   const model = await Model.load(process.cwd() + '/test/schemas', types);
-  test.strictEqual(model.entities.size, 5);
+  test.strictEqual(model.entities.size, 6);
   const Account = model.entities.get('Account');
   test.strictEqual(Account.fields.fullName.type, 'schema');
   test.strictEqual(Account.fields.fullName.schema.constructor.name, 'Schema');
-  test.strictEqual(model.order.size, 5);
+  test.strictEqual(model.order.size, 6);
   test.strictEqual(typeof model.types, 'object');
   test.strictEqual(typeof model.database, 'object');
+
+  const schema = model.entities.get('BigNumber');
+  const obj1 = {
+    val: '1234567890e.1234567890e',
+    depth: '123.456',
+  };
+  const obj2 = {
+    val: '1234567890e.1234567890e',
+    depth: '4561231231231',
+  };
+  const obj3 = {
+    val: '1234567890e.1234567890e',
+    depth: '123.456',
+    volume: '123.123',
+  };
+  test.strictSame(schema.check(obj1).valid, true);
+  test.strictSame(schema.check(obj2).valid, false);
+  test.strictSame(schema.check(obj3).valid, true);
+
   test.end();
 });
 

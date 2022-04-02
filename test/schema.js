@@ -952,3 +952,47 @@ metatests.test('Schema: custom function definition', (test) => {
   test.strictSame(schema.check({}).valid, true);
   test.end();
 });
+
+metatests.test('Schema: reserved fields permitted with Kind', (test) => {
+  const defs = {
+    Struct: {},
+    type: 'string',
+    required: 'string',
+    note: 'string',
+  };
+  const schema = Schema.from(defs);
+  test.strictSame(
+    schema.check({
+      type: 'myType',
+      required: 'never',
+      note: 'this is not vorbidden anymore',
+    }).valid,
+    true
+  );
+  test.strictSame(
+    schema.check({
+      note: 'this is not vorbidden anymore',
+    }).valid,
+    false
+  );
+  test.end();
+});
+
+metatests.test('Schema: optional shorthand key', (test) => {
+  const defs1 = { 'array?': 'string' };
+  const defs2 = { 'object?': { string: 'string' } };
+  const defs3 = { 'set?': 'string' };
+  const defs4 = { 'map?': { string: 'string' } };
+
+  const sch1 = Schema.from(defs1);
+  const sch2 = Schema.from(defs2);
+  const sch3 = Schema.from(defs3);
+  const sch4 = Schema.from(defs4);
+
+  test.strictSame(sch1.check([]).valid, true);
+  test.strictSame(sch2.check({}).valid, true);
+  test.strictSame(sch3.check(new Set()).valid, true);
+  test.strictSame(sch4.check(new Map()).valid, true);
+
+  test.end();
+});
