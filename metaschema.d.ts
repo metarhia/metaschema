@@ -72,14 +72,21 @@ export class Schema {
   serialize: Function;
 
   constructor(name: string, raw: object, namespaces?: Array<Model>);
-  preprocess(defs: object): void;
-  formatDef(defs: object): { name: string; defs: object };
+  preprocess(raw: object): object;
+  preprocessType(defs: object): {
+    name: string;
+    def: object;
+    kind?: string;
+    metadata?: object;
+  };
   preprocessIndex(key: string, def: object): object;
   projection(metadata: object): { defs: { [key: string]: Definition } };
   extractMetadata(metadata: object): void;
   findKind(name: string): Kind | null;
   findType(name: string): Type | null;
   findReferences(name: string): Schema | null;
+  isType(name: string): boolean;
+  getTypes(): string[];
 
   public checkConsistency(): Array<string>;
   public check(value: any): { valid: boolean; errors: Array<string> };
