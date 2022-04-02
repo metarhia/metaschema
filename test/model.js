@@ -58,8 +58,7 @@ metatests.test('Model: from struct', (test) => {
   test.strictEqual(company.fields, {
     name: { type: 'string', unique: true, required: true },
     addresses: {
-      reference: 'Address',
-      relation: 'one-to-many',
+      many: 'Address',
       required: true,
       type: 'reference',
     },

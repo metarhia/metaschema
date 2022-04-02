@@ -47,8 +47,7 @@ metatests.test('Schema: database', (test) => {
           fields: {
             country: {
               type: 'reference',
-              reference: 'Country',
-              relation: 'many-to-one',
+              one: 'Country',
               required: true,
             },
           },
@@ -63,8 +62,7 @@ metatests.test('Schema: database', (test) => {
       },
       persons: {
         type: 'reference',
-        reference: 'Person',
-        relation: 'one-to-many',
+        many: 'Person',
         required: true,
       },
     },
