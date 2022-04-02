@@ -81,7 +81,7 @@ export class Schema {
   };
   preprocessIndex(key: string, def: object): object;
   projection(metadata: object): { defs: { [key: string]: Definition } };
-  extractMetadata(metadata: object): void;
+  applyMetadata(metadata: object): void;
   findKind(name: string): Kind | null;
   findType(name: string): Type | null;
   findReferences(name: string): Schema | null;
@@ -93,8 +93,8 @@ export class Schema {
   public toInterface(): string;
   public attach(...namespaces: Array<Model>): void;
   public detouch(...namespaces: Array<Model>): void;
-  static from(raw: object, namespaces?: Array<Model>): Schema;
-  static extractSchema(def: object): Schema | null;
+  public static from(raw: object, namespaces?: Array<Model>): Schema;
+  public static extractSchema(def: object): Schema | null;
 
   static KIND: Array<string>;
   static KIND_STORED: Array<string>;

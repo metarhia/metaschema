@@ -85,21 +85,22 @@ metatests.test('Model: loader and custom type check', async (test) => {
 
   const schema = model.entities.get('BigNumber');
   const obj1 = {
-    val: '1234567890e.1234567890e',
+    value: '1234567890e.1234567890e',
     depth: '123.456',
   };
   const obj2 = {
-    val: '1234567890e.1234567890e',
+    value: '1234567890e.1234567890e',
     depth: '4561231231231',
   };
   const obj3 = {
-    val: '1234567890e.1234567890e',
+    value: '1234567890e.1234567890e',
     depth: '123.456',
     volume: '123.123',
   };
   test.strictSame(schema.check(obj1).valid, true);
   test.strictSame(schema.check(obj2).valid, false);
   test.strictSame(schema.check(obj3).valid, true);
+  test.strictSame(schema.check(null).valid, false);
 
   test.end();
 });
