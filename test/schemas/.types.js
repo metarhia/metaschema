@@ -1,5 +1,9 @@
 ({
   ip: 'inet',
+  json: {
+    js: 'schema',
+    pg: 'jsonb',
+  },
   decimal: {
     js: 'decimal',
     pg: 'decimal',
