@@ -14,9 +14,9 @@ metatests.test('Schema: constructor', (test) => {
   test.strictSame(typeof schema.fields, 'object');
   test.strictSame(typeof schema.indexes, 'object');
   test.strictSame(typeof schema.validate, 'function');
-  test.strictSame(typeof schema.format, 'function');
-  test.strictSame(typeof schema.parse, 'function');
-  test.strictSame(typeof schema.serialize, 'function');
+  test.strictSame(typeof schema.format, 'object');
+  test.strictSame(typeof schema.parse, 'object');
+  test.strictSame(typeof schema.serialize, 'object');
   test.strictSame(schema.fields.field1.type, 'string');
   test.end();
 });
