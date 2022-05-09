@@ -4,6 +4,31 @@
 
 - Properly report error if trying to use `field: 'type'` shorthand for
   `'enum', 'array', 'set', 'map', 'object'` types
+- Rewrite schemas and implement custom types
+  - elegant syntax/format for custom types and internal types
+  - custom types support
+  - preprocessor to reduce Schema preprocess complexity
+  - any kind of nested arrays, array of references https://github.com/metarhia/metaschema/issues/378
+  - nested schemas with Schema instances support
+  - any level of complex nested types support
+  - custom validate for field
+  - changed validate for schema, simplified for user
+  - all user's validate functions support 4 types of syntax: boolean return, throw Error, error message as string return and array of error messages
+  - reserved words permitted in schema if kind provided
+  - function fields stored in schema
+  - shorthand required key for collections support `{ 'array?': 'string' }`
+  - many relation now checks in runtime
+  - model now loads projections at the end, to fix bug
+  - schema kinds moved to separate file and kinds now have logic to remove hardcoded projection from Schema
+  - ts interfaces from schema now have relation ids as well
+  - deps update metautil
+  - nested object support https://github.com/metarhia/metaschema/issues/395
+  - syntax for validate function changed
+  - Model no more require metavm for browser compatibility: need `impress` update
+  - loadModel moved to loader: need `impress` update
+  - Model no more writes d.ts file to disk moved to loader as well: need `metasql` update
+  - syntax for pg types changed a bit, no more not-working types: need `metasql` update
+  - not supporting custom Schema kinds: need to not use custom kinds in schemas folder: `application/schemas/<YourSchema.js>`
 
 ## [1.4.1][] - 2022-03-17
 

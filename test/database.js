@@ -3,7 +3,7 @@
 const metatests = require('metatests');
 const { Schema } = require('..');
 
-metatests.test('Schema: database', (test) => {
+metatests.test('Database: schema Registry', (test) => {
   const raw = {
     Registry: {},
 
@@ -21,56 +21,85 @@ metatests.test('Schema: database', (test) => {
   };
 
   const expected = {
-    name: 'Address',
-    namespaces: new Set(),
-    parent: '',
     kind: 'registry',
     scope: 'application',
     store: 'persistent',
     allow: 'write',
-    fields: {
-      name: { type: 'string', unique: true, required: true },
-      street: { type: 'string', required: true },
-      building: { type: 'string', required: true },
-      apartment: { type: 'string', required: true },
-      location: {
-        type: 'schema',
-        required: true,
-        schema: {
-          name: '',
-          namespaces: new Set(),
-          parent: '',
-          kind: 'struct',
-          scope: 'local',
-          store: 'memory',
-          allow: 'write',
-          fields: {
-            country: { required: true, type: 'Country' },
-          },
-          indexes: {},
-          references: new Set(['Country']),
-          relations: new Set([{ to: 'Country', type: 'many-to-one' }]),
-          validate: null,
-          format: null,
-          parse: null,
-          serialize: null,
-        },
-      },
-    },
+    parent: '',
     indexes: {
       persons: { many: 'Person' },
       naturalKey: { primary: ['street', 'building', 'apartment'] },
       altKey: { unique: ['name', 'street'] },
     },
-    references: new Set(['string', 'Country', 'Person']),
+    references: new Set(['string', 'schema', 'Country', 'Person']),
     relations: new Set([
-      { to: 'Country', type: 'many-to-one' },
-      { to: 'Person', type: 'one-to-many' },
+      { to: 'Country', type: 'one-to-many' },
+      { to: 'Person', type: 'many-to-one' },
     ]),
-    validate: null,
-    format: null,
-    parse: null,
-    serialize: null,
+    fields: {
+      name: {
+        references: new Set(['string']),
+        relations: new Set(),
+        required: true,
+        unique: true,
+        type: 'string',
+      },
+      street: {
+        references: new Set(['string']),
+        relations: new Set(),
+        required: true,
+        type: 'string',
+      },
+      building: {
+        references: new Set(['string']),
+        relations: new Set(),
+        required: true,
+        type: 'string',
+      },
+      apartment: {
+        references: new Set(['string']),
+        relations: new Set(),
+        required: true,
+        type: 'string',
+      },
+      location: {
+        references: new Set(['Country']),
+        relations: new Set([{ to: 'Country', type: 'one-to-many' }]),
+        required: true,
+        schema: {
+          kind: 'struct',
+          scope: 'local',
+          store: 'memory',
+          allow: 'write',
+          parent: '',
+          indexes: {},
+          references: new Set(['Country']),
+          relations: new Set([{ to: 'Country', type: 'one-to-many' }]),
+          fields: {
+            country: {
+              references: new Set('Country'),
+              relations: new Set([{ to: 'Country', type: 'one-to-many' }]),
+              one: 'Country',
+              required: true,
+              type: 'Country',
+            },
+          },
+          name: '',
+          namespaces: new Set(),
+        },
+        options: { validate: null, format: null, parse: null, serialize: null },
+      },
+      persons: {
+        references: new Set(['Person']),
+        relations: new Set([{ to: 'Person', type: 'many-to-one' }]),
+        many: 'Person',
+        required: true,
+        type: 'Person',
+      },
+    },
+    name: 'Address',
+    namespaces: new Set(),
+    options: { validate: null, format: null, parse: null, serialize: null },
   };
 
   const entity = new Schema('Address', raw);
