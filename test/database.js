@@ -5,7 +5,7 @@ const { Schema } = require('..');
 
 metatests.test('Database: schema Registry', (test) => {
   const raw = {
-    Registry: { scope: 'application', store: 'persistent', allow: 'write' },
+    Registry: {},
 
     name: { type: 'string', unique: true },
     street: 'string',

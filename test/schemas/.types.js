@@ -8,7 +8,7 @@
     kind: 'scalar',
     rules: ['length'],
     symbols: '1234567890e.',
-    validate(src, path) {
+    checkType(src, path) {
       if (typeof src !== 'string') {
         return `Field "${path}" not a decimal 1`;
       }
@@ -21,6 +21,6 @@
           return `Field "${path}" not a decimal 3`;
       }
     },
-    format() {},
+    construct() {},
   },
 });
