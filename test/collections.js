@@ -282,3 +282,45 @@ metatests.test('Collections: optional shorthand key', (test) => {
 
   test.end();
 });
+
+metatests.test('Collections: nested object', (test) => {
+  const defs1 = { object: { string: { array: 'string' } } };
+  const defs2 = { type: 'object', key: 'string', value: { array: 'string' } };
+  const defs3 = {
+    type: 'object',
+    key: 'string',
+    value: {
+      type: 'array',
+      value: {
+        type: 'object',
+        key: 'string',
+        value: { type: 'object', key: 'string', value: { name: 'string' } },
+      },
+    },
+  };
+  const defs4 = { 'object?': { string: { array: 'string' } } };
+
+  const sch1 = Schema.from(defs1);
+  const sch2 = Schema.from(defs2);
+  const sch3 = Schema.from(defs3);
+  const sch4 = Schema.from(defs4);
+
+  test.strictSame(sch1.check({ key: ['hello', 'there'] }).valid, true);
+  test.strictSame(sch1.check({ key: 'hello' }).valid, false);
+  test.strictSame(sch1.check({}).valid, false);
+  test.strictSame(sch2.check({ key: ['hello', 'there'] }).valid, true);
+  test.strictSame(sch2.check({ key: 'hello' }).valid, false);
+  test.strictSame(sch2.check({}).valid, false);
+  test.strictSame(
+    sch3.check({ key: [{ key: { key: { name: 'Georg' } } }] }).valid,
+    true
+  );
+  test.strictSame(
+    sch3.check({ key: [{ key: { name: 'Georg' } }] }).valid,
+    false
+  );
+  test.strictSame(sch4.check({}).valid, true);
+  test.strictSame(sch4.fields.required, false);
+
+  test.end();
+});
