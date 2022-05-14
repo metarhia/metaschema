@@ -290,29 +290,31 @@ metatests.test('Schema: custom validate on field', (test) => {
     email: {
       type: 'string',
       required: true,
-      length: { max: 15 },
+      length: { min: 2, max: 15 },
       validate(src) {
-        if (typeof src !== 'string') return false;
-        if (src.length <= 2) {
-          return false;
-        }
         if (src.indexOf('@') === -1) {
-          return false;
+          return 'Not an Email';
         }
         const [, domain] = src.split('@');
-        if (domain.length <= 2) return false;
-        return true;
+        if (domain.length <= 2) return 'Not an Email';
       },
     },
   };
 
   const schema1 = Schema.from(defs1);
-  test.strictEqual(schema1.check({ email: 'asd' }).valid, false);
+  test.strictEqual(schema1.check({ email: 12345 }), {
+    valid: false,
+    errors: ['Field "email" is not of expected type: string'],
+  });
+  test.strictEqual(schema1.check({ email: 'ab' }), {
+    valid: false,
+    errors: ['Not an Email'],
+  });
   test.strictEqual(schema1.check({ email: 'asd@asd.com' }).valid, true);
-  test.strictEqual(
-    schema1.check({ email: 'asdasdasdasdasdasd@asd.com' }).valid,
-    false
-  );
+  test.strictEqual(schema1.check({ email: 'asdasdasdasdasdasd@asd.com' }), {
+    valid: false,
+    errors: ['Field "email" exceeds the maximum length'],
+  });
   const defs2 = {
     type: 'number',
     validate(num) {
