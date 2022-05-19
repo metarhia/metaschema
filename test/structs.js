@@ -185,7 +185,7 @@ metatests.test('Structs: multiple optional nested struct', (test) => {
       valid: false,
       errors: [
         `Field "data.nfield1.text" is required`,
-        `Field "data.nfield2.caption" is not of expected type: string`,
+        `Field "data.nfield2.caption" not of expected type: string`,
       ],
     }
   );

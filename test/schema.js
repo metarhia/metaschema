@@ -134,7 +134,7 @@ metatests.test('Schema: validation function', (test) => {
     schema.check({
       field2: 'abc',
     }),
-    { valid: false, errors: ['.field is required'] }
+    { valid: false, errors: ['Field "" .field is required'] }
   );
 
   test.strictSame(
@@ -157,7 +157,7 @@ metatests.test('Schema: validation function simple return', (test) => {
   test.strictSame(schema.check({ field: '42' }), { valid: true, errors: [] });
   test.strictSame(schema.check({ field: '43' }), {
     valid: false,
-    errors: ['Validation error'],
+    errors: ['Field "" validation error'],
   });
 
   test.end();
@@ -214,7 +214,7 @@ metatests.test('Schema: nested validation function', (test) => {
         field2: 'abc',
       },
     }),
-    { valid: false, errors: ['nested.field is required'] }
+    { valid: false, errors: ['Field "nested" nested.field is required'] }
   );
 
   test.strictSame(
@@ -304,11 +304,11 @@ metatests.test('Schema: custom validate on field', (test) => {
   const schema1 = Schema.from(defs1);
   test.strictEqual(schema1.check({ email: 12345 }), {
     valid: false,
-    errors: ['Field "email" is not of expected type: string'],
+    errors: ['Field "email" not of expected type: string'],
   });
   test.strictEqual(schema1.check({ email: 'ab' }), {
     valid: false,
-    errors: ['Not an Email'],
+    errors: ['Field "email" Not an Email'],
   });
   test.strictEqual(schema1.check({ email: 'asd@asd.com' }).valid, true);
   test.strictEqual(schema1.check({ email: 'asdasdasdasdasdasd@asd.com' }), {
@@ -336,11 +336,17 @@ metatests.test('Schema: custom validate on field', (test) => {
   const schema2 = Schema.from(defs2);
   const schema3 = Schema.from(defs3);
   const schema4 = Schema.from(defs4);
-  test.strictSame(schema2.check(12), { valid: false, errors: ['Not a ten'] });
-  test.strictSame(schema3.check(12), { valid: false, errors: ['Not a ten'] });
+  test.strictSame(schema2.check(12), {
+    valid: false,
+    errors: ['Field "" validation failed Error: Not a ten'],
+  });
+  test.strictSame(schema3.check(12), {
+    valid: false,
+    errors: ['Field "" Not a ten'],
+  });
   test.strictSame(schema4.check(12), {
     valid: false,
-    errors: ['Not', 'a', 'ten'],
+    errors: ['Field "" Not', 'Field "" a', 'Field "" ten'],
   });
   test.strictSame(schema2.check(10).valid, true);
   test.strictSame(schema3.check(10).valid, true);

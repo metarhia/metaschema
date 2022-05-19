@@ -261,6 +261,39 @@ metatests.test('Collections: multiple nested arrays', (test) => {
   const schema2 = Schema.from(defs2);
   test.strictSame(schema2.check(obj2).valid, true);
 
+  const obj3 = [
+    {
+      name: 'A',
+      age: 5,
+      nest: {
+        arr1: [1, 2, 3],
+        arr2: [
+          [{ hello: 'world' }, { your: 'world' }],
+          [{ hello: 'world' }, { your: 'world' }],
+        ],
+      },
+    },
+    {
+      name: 'A',
+      age: 5,
+      nest: {
+        arr1: [1, 2, 3],
+        arr2: [
+          [{ hello: 'world' }, { your: 1 }],
+          [{ hello: 'world' }, { your: 2 }],
+        ],
+      },
+    },
+  ];
+
+  test.strictEqual(schema2.check(obj3), {
+    valid: false,
+    errors: [
+      'Field "[1].nest.arr2[0][1].your" not of expected type: string',
+      'Field "[1].nest.arr2[1][1].your" not of expected type: string',
+    ],
+  });
+
   test.end();
 });
 
