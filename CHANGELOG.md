@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Tuple type implementation
+
 ## [2.0.0-alpha.1][] - 2022-05-21
 
 - Properly report error if trying to use `field: 'type'` shorthand for
