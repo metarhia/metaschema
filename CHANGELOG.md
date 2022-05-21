@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+## [2.0.0-alpha.1][] - 2022-05-21
+
 - Properly report error if trying to use `field: 'type'` shorthand for
   `'enum', 'array', 'set', 'map', 'object'` types
 - Rewrite schemas and implement custom types
@@ -144,7 +146,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v1.4.1...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v2.0.0-alpha.1...HEAD
+[2.0.0-alpha.1]: https://github.com/metarhia/metaschema/compare/v1.4.1...v2.0.0-alpha.1
 [1.4.1]: https://github.com/metarhia/metaschema/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/metarhia/metaschema/compare/v1.3.4...v1.4.0
 [1.3.4]: https://github.com/metarhia/metaschema/compare/v1.3.3...v1.3.4
