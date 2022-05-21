@@ -100,3 +100,40 @@ metatests.test('Model: many relation Schema for validation', (test) => {
 
   test.end();
 });
+
+metatests.test(
+  'Model: Identifier self reference, Schema referenced to Identifier',
+  (test) => {
+    const entities = new Map();
+    entities.set('Company', {
+      Registry: {},
+      id: '?Identifier',
+    });
+    entities.set('Identifier', {
+      Entity: {},
+      category: '?Identifier',
+      hashsum: { type: 'string', default: '' },
+    });
+    const model = new Model(types, entities, database);
+
+    const identifier = model.entities.get('Identifier');
+    const company = model.entities.get('Company');
+
+    test.contains(identifier.fields.category, {
+      one: 'Identifier',
+      required: false,
+      type: 'Identifier',
+    });
+    test.contains(identifier.fields.hashsum, {
+      required: true,
+      default: '',
+      type: 'string',
+    });
+    test.contains(company.fields.id, {
+      one: 'Identifier',
+      required: false,
+      type: 'Identifier',
+    });
+    test.end();
+  }
+);
