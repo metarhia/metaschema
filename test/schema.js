@@ -357,3 +357,11 @@ metatests.test('Schema: custom validate on field', (test) => {
   test.strictSame(schema5.check({ num: 10 }).valid, true);
   test.end();
 });
+
+metatests.test('Schema: with custom kind', (test) => {
+  const defs = { Custom: {}, type: 'string' };
+  const schema = Schema.from(defs);
+  test.strictEqual(schema.kind, 'custom');
+  test.strictSame(schema.check({ type: 'type' }).valid, true);
+  test.end();
+});

@@ -31,7 +31,7 @@ metatests.test('Database: schema Registry', (test) => {
       naturalKey: { primary: ['street', 'building', 'apartment'] },
       altKey: { unique: ['name', 'street'] },
     },
-    references: new Set(['string', 'schema', 'Country', 'Person']),
+    references: new Set(['string', 'Country', 'Person']),
     relations: new Set([
       { to: 'Country', type: 'one-to-many' },
       { to: 'Person', type: 'many-to-one' },

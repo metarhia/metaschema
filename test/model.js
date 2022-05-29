@@ -100,3 +100,49 @@ metatests.test('Model: many relation Schema for validation', (test) => {
 
   test.end();
 });
+
+metatests.test(
+  'Model: custom types with nested schema and realtion',
+  (test) => {
+    const entities = new Map();
+    entities.set('Identifier', { Entity: {}, creation: 'datetime' });
+    entities.set('Tester', {
+      Registry: {},
+      access: {
+        last: { type: 'datetime', default: 'now' },
+        count: { type: 'number', default: 0 },
+        identifiers: { many: 'Identifier' },
+      },
+    });
+    const model = new Model(types, entities, database);
+    const identifier = model.entities.get('Identifier');
+    test.strictEqual(
+      identifier.check({ creation: Date.now().toLocaleString() }).valid,
+      true
+    );
+    const tester = model.entities.get('Tester');
+    test.strictEqual(
+      tester.check({
+        access: {
+          last: Date.now().toLocaleString(),
+          count: 2,
+          identifiers: [
+            { creation: Date.now().toLocaleString() },
+            { creation: Date.now().toLocaleString() },
+          ],
+        },
+      }).valid,
+      true
+    );
+    test.strictEqual(
+      tester.check({
+        access: {
+          last: Date.now().toLocaleString(),
+          count: 2,
+        },
+      }).valid,
+      false
+    );
+    test.end();
+  }
+);
