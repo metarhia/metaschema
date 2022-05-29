@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+- Nested schema with relations bugfix
+- Custom kind support
 - Tuple type implementation
 
 ## [2.0.0-alpha.1][] - 2022-05-21
