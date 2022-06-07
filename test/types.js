@@ -34,13 +34,13 @@ const types = {
 metatests.test('Types: prepareTypes', (test) => {
   const tps = prepareTypes(types);
   const { datetime, text, json, decimal } = tps;
-  test.strictEqual(datetime.prototype.pg, types.datetime.pg);
-  test.strictEqual(text.prototype.pg, types.text.pg);
-  test.strictEqual(json.prototype.pg, types.json.pg);
-  test.strictEqual(decimal.prototype.pg, types.decimal.pg);
+  test.strictEqual(datetime.metadata.pg, types.datetime.pg);
+  test.strictEqual(text.metadata.pg, types.text.pg);
+  test.strictEqual(json.metadata.pg, types.json.pg);
+  test.strictEqual(decimal.metadata.pg, types.decimal.pg);
   const { string, number } = tps;
-  test.strictEqual(new string().pg, types.string);
-  test.strictEqual(new number().pg, types.number);
-  test.strictEqual(DEFAULT.string.prototype.pg, undefined);
+  test.strictEqual(string.metadata.pg, types.string);
+  test.strictEqual(number.metadata.pg, types.number);
+  test.strictEqual(DEFAULT.string.metadata.pg, undefined);
   test.end();
 });

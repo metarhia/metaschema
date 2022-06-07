@@ -107,7 +107,7 @@ metatests.test('Database: schema Registry', (test) => {
   test.strictEqual(entity.kind, expected.kind);
   test.strictEqual(entity.store, expected.store);
   test.strictEqual(Object.keys(entity.fields), Object.keys(expected.fields));
-  test.strictEqual(entity.indexes, expected.indexes);
+  test.strictEqual(Object.keys(entity.indexes), Object.keys(expected.indexes));
   test.strictEqual(entity.references, expected.references);
   test.strictEqual(entity.relations, expected.relations);
 

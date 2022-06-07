@@ -286,13 +286,10 @@ metatests.test('Collections: multiple nested arrays', (test) => {
     },
   ];
 
-  test.strictEqual(schema2.check(obj3), {
-    valid: false,
-    errors: [
-      'Field "[1].nest.arr2[0][1].your" not of expected type: string',
-      'Field "[1].nest.arr2[1][1].your" not of expected type: string',
-    ],
-  });
+  test.strictEqual(schema2.check(obj3).errors, [
+    'Field "[1].nest.arr2[0][1].your" not of expected type: string',
+    'Field "[1].nest.arr2[1][1].your" not of expected type: string',
+  ]);
 
   test.end();
 });
