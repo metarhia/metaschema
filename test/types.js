@@ -1,15 +1,15 @@
 'use strict';
 const metatests = require('metatests');
-const { prepareTypes, DEFAULT } = require('../lib/types.js');
+const { typeFactory, TYPES } = require('../lib/types.js');
 
 const types = {
-  string: 'varchar',
-  number: 'integer',
-  datetime: { js: 'string', pg: 'timestamp with time zone' },
-  text: { js: 'string', pg: 'text' },
-  json: { js: 'schema', pg: 'jsonb' },
+  string: { metadata: { pg: 'varchar' } },
+  number: { metadata: { pg: 'integer' } },
+  datetime: { js: 'string', metadata: { pg: 'timestamp with time zone' } },
+  text: { js: 'string', metadata: { pg: 'text' } },
+  json: { js: 'schema', metadata: { pg: 'jsonb' } },
   decimal: {
-    pg: 'decimal',
+    metadata: { pg: 'decimal' },
     kind: 'scalar',
     rules: ['length'],
     symbols: '1234567890e.',
@@ -32,15 +32,15 @@ const types = {
 };
 
 metatests.test('Types: prepareTypes', (test) => {
-  const tps = prepareTypes(types);
-  const { datetime, text, json, decimal } = tps;
-  test.strictEqual(datetime.prototype.pg, types.datetime.pg);
-  test.strictEqual(text.prototype.pg, types.text.pg);
-  test.strictEqual(json.prototype.pg, types.json.pg);
-  test.strictEqual(decimal.prototype.pg, types.decimal.pg);
-  const { string, number } = tps;
-  test.strictEqual(new string().pg, types.string);
-  test.strictEqual(new number().pg, types.number);
-  test.strictEqual(DEFAULT.string.prototype.pg, undefined);
+  const customTypes = typeFactory(types);
+  const { datetime, text, json, decimal } = customTypes;
+  test.strictEqual(datetime.metadata.pg, types.datetime.metadata.pg);
+  test.strictEqual(text.metadata.pg, types.text.metadata.pg);
+  test.strictEqual(json.metadata.pg, types.json.metadata.pg);
+  test.strictEqual(decimal.metadata.pg, types.decimal.metadata.pg);
+  const { string, number } = customTypes;
+  test.strictEqual(string.metadata.pg, types.string.metadata.pg);
+  test.strictEqual(number.metadata.pg, types.number.metadata.pg);
+  test.strictEqual(TYPES.string.metadata.pg, 'varchar');
   test.end();
 });

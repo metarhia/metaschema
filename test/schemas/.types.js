@@ -1,13 +1,16 @@
 ({
   ip: {
     js: 'string',
-    pg: 'inet',
+    metadata: { pg: 'inet' },
   },
   decimal: {
-    pg: 'decimal',
+    metadata: { pg: 'decimal' },
     kind: 'scalar',
     rules: ['length'],
     symbols: '1234567890e.',
+
+    construct() {},
+
     checkType(src, path) {
       if (typeof src !== 'string') {
         return `Field "${path}" not a decimal 1`;
@@ -21,6 +24,5 @@
           return `Field "${path}" not a decimal 3`;
       }
     },
-    construct() {},
   },
 });

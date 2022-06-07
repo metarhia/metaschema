@@ -3,6 +3,12 @@
 const metatests = require('metatests');
 const { Schema } = require('../metaschema');
 
+metatests.test('Scalars: kind', (test) => {
+  const schema = Schema.from('string');
+  test.strictSame(schema.kind, 'scalar');
+  test.end();
+});
+
 metatests.test('Scalars: schema shorthand', (test) => {
   const definition = {
     field1: {

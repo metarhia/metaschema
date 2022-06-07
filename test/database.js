@@ -31,75 +31,25 @@ metatests.test('Database: schema Registry', (test) => {
       naturalKey: { primary: ['street', 'building', 'apartment'] },
       altKey: { unique: ['name', 'street'] },
     },
-    references: new Set(['string', 'Country', 'Person']),
+    options: { validate: null, format: null, parse: null, serialize: null },
+    references: new Set(['string', 'Country', 'schema', 'Person']),
     relations: new Set([
       { to: 'Country', type: 'one-to-many' },
       { to: 'Person', type: 'many-to-one' },
     ]),
     fields: {
-      name: {
-        references: new Set(['string']),
-        relations: new Set(),
-        required: true,
-        unique: true,
-        type: 'string',
-      },
-      street: {
-        references: new Set(['string']),
-        relations: new Set(),
-        required: true,
-        type: 'string',
-      },
-      building: {
-        references: new Set(['string']),
-        relations: new Set(),
-        required: true,
-        type: 'string',
-      },
-      apartment: {
-        references: new Set(['string']),
-        relations: new Set(),
-        required: true,
-        type: 'string',
-      },
+      name: { unique: true, required: true, type: 'string' },
+      street: { required: true, type: 'string' },
+      building: { required: true, type: 'string' },
+      apartment: { required: true, type: 'string' },
       location: {
-        references: new Set(['Country']),
-        relations: new Set([{ to: 'Country', type: 'one-to-many' }]),
-        required: true,
-        schema: {
-          kind: 'struct',
-          scope: 'local',
-          store: 'memory',
-          allow: 'write',
-          parent: '',
-          indexes: {},
-          references: new Set(['Country']),
-          relations: new Set([{ to: 'Country', type: 'one-to-many' }]),
-          fields: {
-            country: {
-              references: new Set('Country'),
-              relations: new Set([{ to: 'Country', type: 'one-to-many' }]),
-              one: 'Country',
-              required: true,
-              type: 'Country',
-            },
-          },
-          name: '',
-          namespaces: new Set(),
-        },
-        options: { validate: null, format: null, parse: null, serialize: null },
+        country: { one: 'Country', required: true, type: 'Country' },
       },
-      persons: {
-        references: new Set(['Person']),
-        relations: new Set([{ to: 'Person', type: 'many-to-one' }]),
-        many: 'Person',
-        required: true,
-        type: 'Person',
-      },
+      persons: { many: 'Person', required: true, type: 'Person' },
+      addressId: { required: true, type: 'string' },
     },
     name: 'Address',
     namespaces: new Set(),
-    options: { validate: null, format: null, parse: null, serialize: null },
   };
 
   const entity = new Schema('Address', raw);
@@ -107,7 +57,7 @@ metatests.test('Database: schema Registry', (test) => {
   test.strictEqual(entity.kind, expected.kind);
   test.strictEqual(entity.store, expected.store);
   test.strictEqual(Object.keys(entity.fields), Object.keys(expected.fields));
-  test.strictEqual(entity.indexes, expected.indexes);
+  test.strictEqual(Object.keys(entity.indexes), Object.keys(expected.indexes));
   test.strictEqual(entity.references, expected.references);
   test.strictEqual(entity.relations, expected.relations);
 
