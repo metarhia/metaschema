@@ -14,28 +14,25 @@ metatests.test('Tuple: basic implementation', (test) => {
   test.contains(schema1.fields.value[2], { type: 'number', required: false });
   test.strictEqual(schema1.check(['abc', 1]).valid, true);
   test.strictEqual(schema1.check(['abc', 1, 2]).valid, true);
-  test.strictEqual(schema1.check(['abc', 'ab', 2]), {
-    valid: false,
-    errors: ['Field "(item1)" not of expected type: number'],
-  });
-  test.strictEqual(schema1.check(['abc', 2, 2, 123]), {
-    valid: false,
-    errors: ['Field "" value length is more then expected in tuple'],
-  });
+  test.strictEqual(schema1.check(['abc', 'ab', 2]).errors, [
+    'Field "(item1)" not of expected type: number',
+  ]);
+  test.strictEqual(schema1.check(['abc', 2, 2, 123]).errors, [
+    'Field "" value length is more then expected in tuple',
+  ]);
 
   const short2 = { tuple: ['bigint', 'boolean'] };
   const schema2 = Schema.from(short2);
   test.contains(schema2.fields.value[0], { type: 'bigint', required: true });
   test.contains(schema2.fields.value[1], { type: 'boolean', required: true });
   test.strictEqual(schema2.check([BigInt(9007199254740991), true]).valid, true);
-  test.strictEqual(schema2.check(['abc', 1]), {
-    valid: false,
-    errors: ['Field "(item0)" not of expected type: bigint'],
-  });
-  test.strictEqual(schema2.check([BigInt(9007199254740991), false, 123]), {
-    valid: false,
-    errors: ['Field "" value length is more then expected in tuple'],
-  });
+  test.strictEqual(schema2.check(['abc', 1]).errors, [
+    'Field "(item0)" not of expected type: bigint',
+  ]);
+  test.strictEqual(
+    schema2.check([BigInt(9007199254740991), false, 123]).errors,
+    ['Field "" value length is more then expected in tuple']
+  );
 
   const long = { type: 'tuple', value: ['string'] };
   const schema3 = Schema.from(long);
@@ -57,10 +54,9 @@ metatests.test('Tuple: with field names', (test) => {
     name: 'length',
   });
   test.strictEqual(schema1.check([1, '123']).valid, true);
-  test.strictEqual(schema1.check([1]), {
-    valid: false,
-    errors: ['Field "(length1)" not of expected type: string'],
-  });
+  test.strictEqual(schema1.check([1]).errors, [
+    'Field "(length1)" not of expected type: string',
+  ]);
   test.end();
 });
 
@@ -77,9 +73,9 @@ metatests.test('Tuple: usage with schema', (test) => {
     name: 'count',
   });
   test.strictEqual(schema.check({ field: [true, 123] }).valid, true);
-  test.strictEqual(schema.check({ field: [false, { some: 'wrong data' }] }), {
-    valid: false,
-    errors: ['Field "field(count1)" not of expected type: number'],
-  });
+  test.strictEqual(
+    schema.check({ field: [false, { some: 'wrong data' }] }).errors,
+    ['Field "field(count1)" not of expected type: number']
+  );
   test.end();
 });

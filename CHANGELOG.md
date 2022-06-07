@@ -2,6 +2,14 @@
 
 ## [Unreleased][unreleased]
 
+- Struct implementation
+- Refactoring and code quality improvement
+- Metadata handled separetely
+- Error handling improved now errors are chained
+- Custom Kinds support implemented with custom metadata `{ CustomKind: { customMetadata: 'meta' } }`
+- Update dependencies: "eslint", "eslint-config-metarhia"
+- Custom types syntax changed. No more hardcoded `pg`. Now you must use `metadata` which is static property of Type constructor.
+
 ## [2.0.0-alpha.2][] - 2022-05-29
 
 - Nested schema with relations bugfix

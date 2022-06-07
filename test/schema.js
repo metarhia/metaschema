@@ -41,9 +41,9 @@ metatests.test('Schema: generate ts interface', (test) => {
   };
 
   const expected = `interface Company {
-  companyId: number;
   name: string;
-  addressesId: number;\n}`;
+  addressesId: string[];
+  companyId?: string;\n}`;
 
   const schema = new Schema('Company', raw);
   const iface = schema.toInterface();
@@ -126,22 +126,22 @@ metatests.test('Schema: validation function', (test) => {
   test.strictSame(
     schema.check({
       field: 'abc',
-    }),
-    { valid: true, errors: [] }
+    }).valid,
+    true
   );
 
   test.strictSame(
     schema.check({
       field2: 'abc',
-    }),
-    { valid: false, errors: ['Field "" .field is required'] }
+    }).errors,
+    ['Field "" .field is required', 'Field "field2" is not expected']
   );
 
   test.strictSame(
     schema.check({
       throw: '42',
-    }),
-    { valid: false, errors: ['Field "" validation failed Error: 42'] }
+    }).errors,
+    ['Field "" validation failed Error: 42', 'Field "throw" is not expected']
   );
 
   test.end();
@@ -154,11 +154,10 @@ metatests.test('Schema: validation function simple return', (test) => {
   };
   const schema = Schema.from(definition);
 
-  test.strictSame(schema.check({ field: '42' }), { valid: true, errors: [] });
-  test.strictSame(schema.check({ field: '43' }), {
-    valid: false,
-    errors: ['Field "" validation error'],
-  });
+  test.strictSame(schema.check({ field: '42' }).valid, true);
+  test.strictSame(schema.check({ field: '43' }).errors, [
+    'Field "" validation error',
+  ]);
 
   test.end();
 });
@@ -167,7 +166,6 @@ metatests.test('Schema: nested validation function', (test) => {
   const definition = {
     field: 'string',
     nested: {
-      required: false,
       schema: {
         field: { type: 'string', required: false },
         validate: test.mustCall((value, path) => {
@@ -176,6 +174,7 @@ metatests.test('Schema: nested validation function', (test) => {
           return `${path}.field is required`;
         }, 3),
       },
+      required: false,
     },
   };
   const schema = Schema.from(definition);
@@ -183,18 +182,15 @@ metatests.test('Schema: nested validation function', (test) => {
   test.strictSame(
     schema.check({
       field: 'abc',
-    }),
-    { valid: true, errors: [] }
+    }).valid,
+    true
   );
 
   test.strictSame(
     schema.check({
       field2: 'abc',
-    }),
-    {
-      valid: false,
-      errors: ['Field "field" is required', 'Field "field2" is not expected'],
-    }
+    }).errors,
+    ['Field "field" is required', 'Field "field2" is not expected']
   );
 
   test.strictSame(
@@ -203,8 +199,8 @@ metatests.test('Schema: nested validation function', (test) => {
       nested: {
         field: 'abc',
       },
-    }),
-    { valid: true, errors: [] }
+    }).valid,
+    true
   );
 
   test.strictSame(
@@ -213,8 +209,11 @@ metatests.test('Schema: nested validation function', (test) => {
       nested: {
         field2: 'abc',
       },
-    }),
-    { valid: false, errors: ['Field "nested" nested.field is required'] }
+    }).errors,
+    [
+      'Field "field2" is not expected',
+      'Field "nested" nested.field is required',
+    ]
   );
 
   test.strictSame(
@@ -223,8 +222,11 @@ metatests.test('Schema: nested validation function', (test) => {
       nested: {
         throw: '42',
       },
-    }),
-    { valid: false, errors: ['Field "nested" validation failed Error: 42'] }
+    }).errors,
+    [
+      'Field "throw" is not expected',
+      'Field "nested" validation failed Error: 42',
+    ]
   );
   test.end();
 });
@@ -260,30 +262,33 @@ metatests.test('Schema: custom function definition', (test) => {
   test.end();
 });
 
-metatests.test('Schema: reserved fields permitted with Kind', (test) => {
-  const defs = {
-    Struct: {},
-    type: 'string',
-    required: 'string',
-    note: 'string',
-  };
-  const schema = Schema.from(defs);
-  test.strictSame(
-    schema.check({
-      type: 'myType',
-      required: 'never',
-      note: 'this is not vorbidden anymore',
-    }).valid,
-    true
-  );
-  test.strictSame(
-    schema.check({
-      note: 'this is not vorbidden anymore',
-    }).valid,
-    false
-  );
-  test.end();
-});
+metatests.test(
+  'Schema: reserved fields permitted with Kind exept "required"',
+  (test) => {
+    const defs = {
+      Struct: {},
+      required: 'string',
+      type: 'string',
+      note: 'string',
+    };
+    const schema = Schema.from(defs);
+    test.strictSame(
+      schema.check({
+        required: 'yes',
+        type: 'myType',
+        note: 'this is not vorbidden anymore',
+      }).valid,
+      true
+    );
+    test.strictSame(
+      schema.check({
+        note: 'this is not vorbidden anymore',
+      }).valid,
+      false
+    );
+    test.end();
+  }
+);
 
 metatests.test('Schema: custom validate on field', (test) => {
   const defs1 = {
@@ -302,19 +307,18 @@ metatests.test('Schema: custom validate on field', (test) => {
   };
 
   const schema1 = Schema.from(defs1);
-  test.strictEqual(schema1.check({ email: 12345 }), {
-    valid: false,
-    errors: ['Field "email" not of expected type: string'],
-  });
-  test.strictEqual(schema1.check({ email: 'ab' }), {
-    valid: false,
-    errors: ['Field "email" Not an Email'],
-  });
+  test.strictEqual(schema1.check({ email: 12345 }).errors, [
+    'Field "email" not of expected type: string',
+    'Field "email" validation failed TypeError: src.indexOf is not a function',
+  ]);
+  test.strictEqual(schema1.check({ email: 'ab' }).errors, [
+    'Field "email" Not an Email',
+  ]);
   test.strictEqual(schema1.check({ email: 'asd@asd.com' }).valid, true);
-  test.strictEqual(schema1.check({ email: 'asdasdasdasdasdasd@asd.com' }), {
-    valid: false,
-    errors: ['Field "email" exceeds the maximum length'],
-  });
+  test.strictEqual(
+    schema1.check({ email: 'asdasdasdasdasdasd@asd.com' }).errors,
+    ['Field "email" exceeds the maximum length']
+  );
   const defs2 = {
     type: 'number',
     validate(num) {
@@ -336,18 +340,15 @@ metatests.test('Schema: custom validate on field', (test) => {
   const schema2 = Schema.from(defs2);
   const schema3 = Schema.from(defs3);
   const schema4 = Schema.from(defs4);
-  test.strictSame(schema2.check(12), {
-    valid: false,
-    errors: ['Field "" validation failed Error: Not a ten'],
-  });
-  test.strictSame(schema3.check(12), {
-    valid: false,
-    errors: ['Field "" Not a ten'],
-  });
-  test.strictSame(schema4.check(12), {
-    valid: false,
-    errors: ['Field "" Not', 'Field "" a', 'Field "" ten'],
-  });
+  test.strictSame(schema2.check(12).errors, [
+    'Field "" validation failed Error: Not a ten',
+  ]);
+  test.strictSame(schema3.check(12).errors, ['Field "" Not a ten']);
+  test.strictSame(schema4.check(12).errors, [
+    'Field "" Not',
+    'Field "" a',
+    'Field "" ten',
+  ]);
   test.strictSame(schema2.check(10).valid, true);
   test.strictSame(schema3.check(10).valid, true);
   test.strictSame(schema4.check(10).valid, true);
@@ -364,4 +365,21 @@ metatests.test('Schema: with custom kind', (test) => {
   test.strictEqual(schema.kind, 'custom');
   test.strictSame(schema.check({ type: 'type' }).valid, true);
   test.end();
+});
+
+metatests.test('Schema: custom kind metadata', (test) => {
+  const defs = { Custom: { myMetadata: 'data' }, type: 'string' };
+  const schema = Schema.from(defs);
+  test.strictEqual(schema.custom, { myMetadata: 'data' });
+  test.end();
+});
+
+metatests.testSync('Schema: with number field name', (test) => {
+  const schema = Schema.from({
+    Dynamic: {},
+    field: 'string',
+    1234: { type: 'number' },
+  });
+  test.strictEqual(schema.kind, 'dynamic');
+  test.strictSame(schema.check({ 1234: 42, field: 'type' }).valid, true);
 });
