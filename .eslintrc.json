@@ -6,7 +6,7 @@
     "node": true
   },
   "parserOptions": {
-    "ecmaVersion": 2020
+    "ecmaVersion": "latest"
   },
   "rules": {
     "arrow-parens": ["error", "always"],
