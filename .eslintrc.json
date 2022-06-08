@@ -13,6 +13,7 @@
     "comma-dangle": "off",
     "handle-callback-err": "off",
     "consistent-return": "off",
-    "new-cap": "off"
+    "new-cap": "off",
+    "class-methods-use-this": "off"
   }
 }
