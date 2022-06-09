@@ -11,12 +11,12 @@ const database = {
 };
 
 const types = {
-  string: 'varchar',
-  number: 'integer',
-  boolean: 'boolean',
-  datetime: { js: 'string', pg: 'timestamp with time zone' },
-  text: { js: 'string', pg: 'text' },
-  json: { js: 'schema', pg: 'jsonb' },
+  string: { metadata: { pg: 'varchar' } },
+  number: { metadata: { pg: 'integer' } },
+  boolean: { metadata: { pg: 'boolean' } },
+  datetime: { js: 'string', metadata: { pg: 'timestamp with time zone' } },
+  text: { js: 'string', metadata: { pg: 'text' } },
+  json: { js: 'schema', metadata: { pg: 'jsonb' } },
 };
 
 metatests.test('Model: from struct', (test) => {
@@ -38,14 +38,14 @@ metatests.test('Model: from struct', (test) => {
   });
 
   const { string, number, boolean } = model.types;
-  test.strictEqual(string.metadata.pg, types.string);
-  test.strictEqual(number.metadata.pg, types.number);
-  test.strictEqual(boolean.metadata.pg, types.boolean);
+  test.strictEqual(string.metadata.pg, types.string.metadata.pg);
+  test.strictEqual(number.metadata.pg, types.number.metadata.pg);
+  test.strictEqual(boolean.metadata.pg, types.boolean.metadata.pg);
 
   const { datetime, text, json } = model.types;
-  test.strictEqual(datetime.metadata.pg, types.datetime.pg);
-  test.strictEqual(text.metadata.pg, types.text.pg);
-  test.strictEqual(json.metadata.pg, types.json.pg);
+  test.strictEqual(datetime.metadata.pg, types.datetime.metadata.pg);
+  test.strictEqual(text.metadata.pg, types.text.metadata.pg);
+  test.strictEqual(json.metadata.pg, types.json.metadata.pg);
 
   test.strictEqual(model.order, new Set(['Company']));
 

@@ -1,10 +1,10 @@
 ({
   ip: {
     js: 'string',
-    pg: 'inet',
+    metadata: { pg: 'inet' },
   },
   decimal: {
-    pg: 'decimal',
+    metadata: { pg: 'decimal' },
     kind: 'scalar',
     rules: ['length'],
     symbols: '1234567890e.',

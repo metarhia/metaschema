@@ -1,15 +1,15 @@
 'use strict';
 const metatests = require('metatests');
-const { prepareTypes, DEFAULT } = require('../lib/types.js');
+const { TypeFactory, DEFAULT_TYPES } = require('../lib/types.js');
 
 const types = {
-  string: 'varchar',
-  number: 'integer',
-  datetime: { js: 'string', pg: 'timestamp with time zone' },
-  text: { js: 'string', pg: 'text' },
-  json: { js: 'schema', pg: 'jsonb' },
+  string: { metadata: { pg: 'varchar' } },
+  number: { metadata: { pg: 'integer' } },
+  datetime: { js: 'string', metadata: { pg: 'timestamp with time zone' } },
+  text: { js: 'string', metadata: { pg: 'text' } },
+  json: { js: 'schema', metadata: { pg: 'jsonb' } },
   decimal: {
-    pg: 'decimal',
+    metadata: { pg: 'decimal' },
     kind: 'scalar',
     rules: ['length'],
     symbols: '1234567890e.',
@@ -32,15 +32,15 @@ const types = {
 };
 
 metatests.test('Types: prepareTypes', (test) => {
-  const tps = prepareTypes(types);
+  const tps = new TypeFactory().attouchTypes(types);
   const { datetime, text, json, decimal } = tps;
-  test.strictEqual(datetime.metadata.pg, types.datetime.pg);
-  test.strictEqual(text.metadata.pg, types.text.pg);
-  test.strictEqual(json.metadata.pg, types.json.pg);
-  test.strictEqual(decimal.metadata.pg, types.decimal.pg);
+  test.strictEqual(datetime.metadata.pg, types.datetime.metadata.pg);
+  test.strictEqual(text.metadata.pg, types.text.metadata.pg);
+  test.strictEqual(json.metadata.pg, types.json.metadata.pg);
+  test.strictEqual(decimal.metadata.pg, types.decimal.metadata.pg);
   const { string, number } = tps;
-  test.strictEqual(string.metadata.pg, types.string);
-  test.strictEqual(number.metadata.pg, types.number);
-  test.strictEqual(DEFAULT.string.metadata.pg, undefined);
+  test.strictEqual(string.metadata.pg, types.string.metadata.pg);
+  test.strictEqual(number.metadata.pg, types.number.metadata.pg);
+  test.strictEqual(DEFAULT_TYPES.string.metadata.pg, undefined);
   test.end();
 });
