@@ -356,3 +356,10 @@ metatests.test('Schema: with custom kind', (test) => {
   test.strictSame(schema.check({ type: 'type' }).valid, true);
   test.end();
 });
+
+metatests.test('Schema: custom kind metadata', (test) => {
+  const defs = { Custom: { myMetadata: 'data' }, type: 'string' };
+  const schema = Schema.from(defs);
+  test.strictEqual(schema.custom, { myMetadata: 'data' });
+  test.end();
+});
