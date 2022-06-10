@@ -46,6 +46,7 @@ metatests.test('Database: schema Registry', (test) => {
         country: { one: 'Country', type: 'Country' },
       },
       persons: { many: 'Person', type: 'Person' },
+      addressId: { type: 'string' },
     },
     name: 'Address',
     namespaces: new Set(),

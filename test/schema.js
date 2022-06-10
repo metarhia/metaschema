@@ -41,9 +41,9 @@ metatests.test('Schema: generate ts interface', (test) => {
   };
 
   const expected = `interface Company {
-  companyId: number;
   name: string;
-  addressesId: number;\n}`;
+  addressesId: string[];
+  companyId?: string;\n}`;
 
   const schema = new Schema('Company', raw);
   const iface = schema.toInterface();
