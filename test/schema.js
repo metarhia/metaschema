@@ -134,14 +134,14 @@ metatests.test('Schema: validation function', (test) => {
     schema.check({
       field2: 'abc',
     }).errors,
-    ['Field "" .field is required']
+    ['Field "" .field is required', 'Field "field2" is not expected']
   );
 
   test.strictSame(
     schema.check({
       throw: '42',
     }).errors,
-    ['Field "" validation failed Error: 42']
+    ['Field "" validation failed Error: 42', 'Field "throw" is not expected']
   );
 
   test.end();
@@ -166,7 +166,6 @@ metatests.test('Schema: nested validation function', (test) => {
   const definition = {
     field: 'string',
     nested: {
-      required: false,
       schema: {
         field: { type: 'string', required: false },
         validate: test.mustCall((value, path) => {
@@ -175,6 +174,7 @@ metatests.test('Schema: nested validation function', (test) => {
           return `${path}.field is required`;
         }, 3),
       },
+      required: false,
     },
   };
   const schema = Schema.from(definition);
@@ -210,7 +210,10 @@ metatests.test('Schema: nested validation function', (test) => {
         field2: 'abc',
       },
     }).errors,
-    ['Field "nested" nested.field is required']
+    [
+      'Field "field2" is not expected',
+      'Field "nested" nested.field is required',
+    ]
   );
 
   test.strictSame(
@@ -220,7 +223,10 @@ metatests.test('Schema: nested validation function', (test) => {
         throw: '42',
       },
     }).errors,
-    ['Field "nested" validation failed Error: 42']
+    [
+      'Field "throw" is not expected',
+      'Field "nested" validation failed Error: 42',
+    ]
   );
   test.end();
 });
@@ -256,30 +262,42 @@ metatests.test('Schema: custom function definition', (test) => {
   test.end();
 });
 
-metatests.test('Schema: reserved fields permitted with Kind', (test) => {
-  const defs = {
-    Struct: {},
-    type: 'string',
-    required: 'string',
-    note: 'string',
-  };
-  const schema = Schema.from(defs);
-  test.strictSame(
-    schema.check({
-      type: 'myType',
-      required: 'never',
-      note: 'this is not vorbidden anymore',
-    }).valid,
-    true
-  );
-  test.strictSame(
-    schema.check({
-      note: 'this is not vorbidden anymore',
-    }).valid,
-    false
-  );
-  test.end();
-});
+metatests.test(
+  'Schema: "required" and "typeMetadata" are not allowed',
+  (test) => {
+    const def1 = { typeMetadata: 'string' };
+    const def2 = { required: 'string' };
+    test.throws(() => Schema.from(def1));
+    test.throws(() => Schema.from(def2));
+    test.end();
+  }
+);
+
+metatests.test(
+  'Schema: reserved fields permitted with Kind exept "required"',
+  (test) => {
+    const defs = {
+      Struct: {},
+      type: 'string',
+      note: 'string',
+    };
+    const schema = Schema.from(defs);
+    test.strictSame(
+      schema.check({
+        type: 'myType',
+        note: 'this is not vorbidden anymore',
+      }).valid,
+      true
+    );
+    test.strictSame(
+      schema.check({
+        note: 'this is not vorbidden anymore',
+      }).valid,
+      false
+    );
+    test.end();
+  }
+);
 
 metatests.test('Schema: custom validate on field', (test) => {
   const defs1 = {
@@ -300,6 +318,7 @@ metatests.test('Schema: custom validate on field', (test) => {
   const schema1 = Schema.from(defs1);
   test.strictEqual(schema1.check({ email: 12345 }).errors, [
     'Field "email" not of expected type: string',
+    'Field "email" validation failed TypeError: src.indexOf is not a function',
   ]);
   test.strictEqual(schema1.check({ email: 'ab' }).errors, [
     'Field "email" Not an Email',

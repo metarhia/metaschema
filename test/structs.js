@@ -49,10 +49,10 @@ metatests.test('Structs: nested schema, lost field', (test) => {
 metatests.test('Structs: optional nested struct', (test) => {
   const definition = {
     struct: {
-      required: false,
       schema: {
         field: 'string',
       },
+      required: false,
     },
   };
   const schema = Schema.from(definition);
@@ -74,10 +74,10 @@ metatests.test('Structs: optional nested struct base object', (test) => {
   const definition = {
     text: 'string',
     struct: {
-      required: false,
       schema: {
         field: 'string',
       },
+      required: false,
     },
   };
   const schema = Schema.from(definition);
