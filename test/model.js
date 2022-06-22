@@ -148,7 +148,7 @@ metatests.test(
   },
 );
 
-metatests.test('Types: custom type correct name usin js type', (test) => {
+metatests.test('Model: custom type correct name using js type', (test) => {
   const entities = new Map();
   entities.set('CustomSchema', {
     Struct: {},

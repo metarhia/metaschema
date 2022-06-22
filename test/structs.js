@@ -226,3 +226,13 @@ metatests.test('Structs: nested schemas with Schema instances', (test) => {
   test.strictSame(schema.check(obj).valid, true);
   test.end();
 });
+
+metatests.test('Struct: json type as any plain object', (test) => {
+  const defs = { name: 'json' };
+  const schema = Schema.from(defs);
+  test.strictEqual(schema.check({ name: {} }).valid, true);
+  test.strictEqual(schema.check({ name: { a: 'b' } }).valid, true);
+  test.strictEqual(schema.check({ name: [] }).valid, true);
+  test.strictEqual(schema.check({ name: null }).valid, false);
+  test.end();
+});
