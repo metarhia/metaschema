@@ -343,11 +343,11 @@ metatests.test('Collections: nested object', (test) => {
   test.strictSame(sch2.check({}).valid, false);
   test.strictSame(
     sch3.check({ key: [{ key: { key: { name: 'Georg' } } }] }).valid,
-    true
+    true,
   );
   test.strictSame(
     sch3.check({ key: [{ key: { name: 'Georg' } }] }).valid,
-    false
+    false,
   );
   test.strictSame(sch4.check({}).valid, true);
   test.strictSame(sch4.fields.required, false);

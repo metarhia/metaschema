@@ -127,21 +127,21 @@ metatests.test('Schema: validation function', (test) => {
     schema.check({
       field: 'abc',
     }).valid,
-    true
+    true,
   );
 
   test.strictSame(
     schema.check({
       field2: 'abc',
     }).errors,
-    ['Field "" .field is required', 'Field "field2" is not expected']
+    ['Field "" .field is required', 'Field "field2" is not expected'],
   );
 
   test.strictSame(
     schema.check({
       throw: '42',
     }).errors,
-    ['Field "" validation failed Error: 42', 'Field "throw" is not expected']
+    ['Field "" validation failed Error: 42', 'Field "throw" is not expected'],
   );
 
   test.end();
@@ -183,14 +183,14 @@ metatests.test('Schema: nested validation function', (test) => {
     schema.check({
       field: 'abc',
     }).valid,
-    true
+    true,
   );
 
   test.strictSame(
     schema.check({
       field2: 'abc',
     }).errors,
-    ['Field "field" is required', 'Field "field2" is not expected']
+    ['Field "field" is required', 'Field "field2" is not expected'],
   );
 
   test.strictSame(
@@ -200,7 +200,7 @@ metatests.test('Schema: nested validation function', (test) => {
         field: 'abc',
       },
     }).valid,
-    true
+    true,
   );
 
   test.strictSame(
@@ -213,7 +213,7 @@ metatests.test('Schema: nested validation function', (test) => {
     [
       'Field "field2" is not expected',
       'Field "nested" nested.field is required',
-    ]
+    ],
   );
 
   test.strictSame(
@@ -226,7 +226,7 @@ metatests.test('Schema: nested validation function', (test) => {
     [
       'Field "throw" is not expected',
       'Field "nested" validation failed Error: 42',
-    ]
+    ],
   );
   test.end();
 });
@@ -278,16 +278,16 @@ metatests.test(
         type: 'myType',
         note: 'this is not vorbidden anymore',
       }).valid,
-      true
+      true,
     );
     test.strictSame(
       schema.check({
         note: 'this is not vorbidden anymore',
       }).valid,
-      false
+      false,
     );
     test.end();
-  }
+  },
 );
 
 metatests.test('Schema: custom validate on field', (test) => {
@@ -317,7 +317,7 @@ metatests.test('Schema: custom validate on field', (test) => {
   test.strictEqual(schema1.check({ email: 'asd@asd.com' }).valid, true);
   test.strictEqual(
     schema1.check({ email: 'asdasdasdasdasdasd@asd.com' }).errors,
-    ['Field "email" exceeds the maximum length']
+    ['Field "email" exceeds the maximum length'],
   );
   const defs2 = {
     type: 'number',

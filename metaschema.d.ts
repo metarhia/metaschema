@@ -77,7 +77,7 @@ export function loadSchema(fileName: string): Promise<Schema>;
 export function readDirectory(dirPath: string): Promise<Map<string, object>>;
 export function loadModel(
   modelPath: string,
-  systemTypes: object
+  systemTypes: object,
 ): Promise<Model>;
 export function saveTypes(outputFile: string, model: Model): Promise<void>;
 

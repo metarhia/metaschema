@@ -31,7 +31,7 @@ metatests.test('Tuple: basic implementation', (test) => {
   ]);
   test.strictEqual(
     schema2.check([BigInt(9007199254740991), false, 123]).errors,
-    ['Field "" value length is more then expected in tuple']
+    ['Field "" value length is more then expected in tuple'],
   );
 
   const long = { type: 'tuple', value: ['string'] };
@@ -75,7 +75,7 @@ metatests.test('Tuple: usage with schema', (test) => {
   test.strictEqual(schema.check({ field: [true, 123] }).valid, true);
   test.strictEqual(
     schema.check({ field: [false, { some: 'wrong data' }] }).errors,
-    ['Field "field(count1)" not of expected type: number']
+    ['Field "field(count1)" not of expected type: number'],
   );
   test.end();
 });

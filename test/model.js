@@ -64,7 +64,7 @@ metatests.test('Model: from struct', (test) => {
   const warn = model.warnings[0];
   test.strictEqual(
     warn,
-    'Warning: "Address" referenced by "Company" is not found'
+    'Warning: "Address" referenced by "Company" is not found',
   );
 
   test.end();
@@ -118,7 +118,7 @@ metatests.test(
     const identifier = model.entities.get('Identifier');
     test.strictEqual(
       identifier.check({ creation: Date.now().toLocaleString() }).valid,
-      true
+      true,
     );
     const tester = model.entities.get('Tester');
     test.strictEqual(
@@ -132,7 +132,7 @@ metatests.test(
           ],
         },
       }).valid,
-      true
+      true,
     );
     test.strictEqual(
       tester.check({
@@ -141,8 +141,8 @@ metatests.test(
           count: 2,
         },
       }).valid,
-      false
+      false,
     );
     test.end();
-  }
+  },
 );

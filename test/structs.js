@@ -145,7 +145,7 @@ metatests.test('Structs: multiple optional nested struct', (test) => {
         nfield1: { text: 'abc' },
       },
     }).valid,
-    true
+    true,
   );
 
   test.strictSame(
@@ -156,7 +156,7 @@ metatests.test('Structs: multiple optional nested struct', (test) => {
         nfield2: { text: 'aaa' },
       },
     }).valid,
-    true
+    true,
   );
 
   test.strictSame(
@@ -167,7 +167,7 @@ metatests.test('Structs: multiple optional nested struct', (test) => {
         nfield2: { text: 'aaa', caption: 'caption' },
       },
     }).valid,
-    true
+    true,
   );
 
   test.strictSame(
@@ -181,7 +181,7 @@ metatests.test('Structs: multiple optional nested struct', (test) => {
     [
       `Field "data.nfield1.text" is required`,
       `Field "data.nfield2.caption" not of expected type: string`,
-    ]
+    ],
   );
   test.end();
 });
