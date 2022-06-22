@@ -16,7 +16,7 @@ const types = {
   boolean: { metadata: { pg: 'boolean' } },
   datetime: { js: 'string', metadata: { pg: 'timestamp with time zone' } },
   text: { js: 'string', metadata: { pg: 'text' } },
-  json: { js: 'schema', metadata: { pg: 'jsonb' } },
+  customObject: { js: 'object', metadata: { pg: 'jsonb' } },
 };
 
 metatests.test('Model: from struct', (test) => {
@@ -42,10 +42,10 @@ metatests.test('Model: from struct', (test) => {
   test.strictEqual(number.metadata.pg, types.number.metadata.pg);
   test.strictEqual(boolean.metadata.pg, types.boolean.metadata.pg);
 
-  const { datetime, text, json } = model.types;
+  const { datetime, text, customObject } = model.types;
   test.strictEqual(datetime.metadata.pg, types.datetime.metadata.pg);
   test.strictEqual(text.metadata.pg, types.text.metadata.pg);
-  test.strictEqual(json.metadata.pg, types.json.metadata.pg);
+  test.strictEqual(customObject.metadata.pg, types.customObject.metadata.pg);
 
   test.strictEqual(model.order, new Set(['Company']));
 
@@ -94,7 +94,6 @@ metatests.test('Model: many relation Schema for validation', (test) => {
   };
 
   const obj1 = { name: 'Leere' };
-
   test.strictSame(company.check(obj).valid, true);
   test.strictSame(company.check(obj1).valid, false);
 
@@ -112,6 +111,7 @@ metatests.test(
         last: { type: 'datetime', default: 'now' },
         count: { type: 'number', default: 0 },
         identifiers: { many: 'Identifier' },
+        id: { type: 'Identifier', required: false },
       },
     });
     const model = new Model(types, entities, database);
@@ -130,6 +130,7 @@ metatests.test(
             { creation: Date.now().toLocaleString() },
             { creation: Date.now().toLocaleString() },
           ],
+          id: { creation: Date.now().toLocaleString() },
         },
       }).valid,
       true,
@@ -146,3 +147,17 @@ metatests.test(
     test.end();
   },
 );
+
+metatests.test('Types: custom type correct name usin js type', (test) => {
+  const entities = new Map();
+  entities.set('CustomSchema', {
+    Struct: {},
+
+    data: { customObject: { string: 'string' } },
+  });
+  const model = new Model(types, entities, database);
+  const schema = model.entities.get('CustomSchema');
+  test.strictEqual(schema.fields.data.type, 'customObject');
+  test.strictEqual(schema.check({ data: { a: 'b' } }).valid, true);
+  test.end();
+});
