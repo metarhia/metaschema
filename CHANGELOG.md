@@ -2,6 +2,9 @@
 
 ## [Unreleased][unreleased]
 
+- json type for any plain javascript object
+- fix names issue while using built-in prototypes for custom types
+
 ## [2.0.0][] - 2022-06-22
 
 - Struct implementation
