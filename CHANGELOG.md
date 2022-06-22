@@ -2,22 +2,19 @@
 
 ## [Unreleased][unreleased]
 
+## [2.0.0][] - 2022-06-22
+
 - Struct implementation
 - Refactoring and code quality improvement
 - Metadata handled separetely
 - Error handling improved now errors are chained
-- Custom Kinds support implemented with custom metadata `{ CustomKind: { customMetadata: 'meta' } }`
+- Custom Kinds support implemented with custom metadata
+  `{ CustomKind: { customMetadata: 'meta' } }`
 - Update dependencies: "eslint", "eslint-config-metarhia"
-- Custom types syntax changed. No more hardcoded `pg`. Now you must use `metadata` which is static property of Type constructor.
-
-## [2.0.0-alpha.2][] - 2022-05-29
-
+- Custom types syntax changed. No more hardcoded `pg`.
+  Now you must use `metadata` which is static property of Type constructor.
 - Nested schema with relations bugfix
-- Custom kind support
 - Tuple type implementation
-
-## [2.0.0-alpha.1][] - 2022-05-21
-
 - Properly report error if trying to use `field: 'type'` shorthand for
   `'enum', 'array', 'set', 'map', 'object'` types
 - Rewrite schemas and implement custom types
@@ -44,7 +41,6 @@
   - loadModel moved to loader: need `impress` update
   - Model no more writes d.ts file to disk moved to loader as well: need `metasql` update
   - syntax for pg types changed a bit, no more not-working types: need `metasql` update
-  - not supporting custom Schema kinds: need to not use custom kinds in schemas folder: `application/schemas/<YourSchema.js>`
 
 ## [1.4.1][] - 2022-03-17
 
@@ -160,9 +156,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v2.0.0-alpha.2...HEAD
-[2.0.0-alpha.2]: https://github.com/metarhia/metaschema/compare/v2.0.0-alpha.1...v2.0.0-alpha.2
-[2.0.0-alpha.1]: https://github.com/metarhia/metaschema/compare/v1.4.1...v2.0.0-alpha.1
+[unreleased]: https://github.com/metarhia/metaschema/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/metarhia/metaschema/compare/v1.4.1...v2.0.0
 [1.4.1]: https://github.com/metarhia/metaschema/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/metarhia/metaschema/compare/v1.3.4...v1.4.0
 [1.3.4]: https://github.com/metarhia/metaschema/compare/v1.3.3...v1.3.4
