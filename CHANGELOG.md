@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+## [2.0.1][] - 2022-06-24
+
 - json type for any plain javascript object
 - fix names issue while using built-in prototypes for custom types
 
@@ -159,7 +161,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v2.0.0...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/metarhia/metaschema/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/metarhia/metaschema/compare/v1.4.1...v2.0.0
 [1.4.1]: https://github.com/metarhia/metaschema/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/metarhia/metaschema/compare/v1.3.4...v1.4.0
