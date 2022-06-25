@@ -2,6 +2,10 @@
 
 ## [Unreleased][unreleased]
 
+## [2.0.2][] - 2022-06-25
+
+- Hotfix: added missed exports to metaschema.js
+
 ## [2.0.1][] - 2022-06-24
 
 - json type for any plain javascript object
@@ -161,7 +165,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v2.0.1...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v2.0.2...HEAD
+[2.0.2]: https://github.com/metarhia/metaschema/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/metarhia/metaschema/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/metarhia/metaschema/compare/v1.4.1...v2.0.0
 [1.4.1]: https://github.com/metarhia/metaschema/compare/v1.4.0...v1.4.1
