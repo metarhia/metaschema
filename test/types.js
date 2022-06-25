@@ -26,6 +26,7 @@ const types = {
           return `Field "${path}" not a decimal 3`;
         }
       }
+      return null;
     },
     construct() {},
   },

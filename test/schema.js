@@ -302,6 +302,7 @@ metatests.test('Schema: custom validate on field', (test) => {
         }
         const [, domain] = src.split('@');
         if (domain.length <= 2) return 'Not an Email';
+        return null;
       },
     },
   };
@@ -329,12 +330,14 @@ metatests.test('Schema: custom validate on field', (test) => {
     type: 'number',
     validate(num) {
       if (num !== 10) return 'Not a ten';
+      return null;
     },
   };
   const defs4 = {
     type: 'number',
     validate(num) {
       if (num !== 10) return ['Not', 'a', 'ten'];
+      return null;
     },
   };
   const schema2 = Schema.from(defs2);
