@@ -2,6 +2,10 @@
 
 ## [Unreleased][unreleased]
 
+## [2.0.3][] - 2022-06-28
+
+- Change data structure for test cases collections.js
+
 ## [2.0.2][] - 2022-06-25
 
 - Hotfix: added missed exports to metaschema.js
