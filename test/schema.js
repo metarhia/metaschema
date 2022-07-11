@@ -385,4 +385,14 @@ metatests.testSync('Schema: with number field name', (test) => {
   });
   test.strictEqual(schema.kind, 'dynamic');
   test.strictSame(schema.check({ 1234: 42, field: 'type' }).valid, true);
+  test.end();
+});
+
+metatests.testSync('Schema: toString', (test) => {
+  const schema = Schema.from({ a: 'string' });
+  test.strictEqual(
+    schema.toString(),
+    '{"a":{"required":true,"type":"string"}}',
+  );
+  test.end();
 });
