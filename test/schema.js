@@ -388,10 +388,14 @@ metatests.testSync('Schema: with number field name', (test) => {
   test.end();
 });
 
-metatests.testSync('Schema: toString', (test) => {
+metatests.testSync('Schema: toString, JSON.stringify', (test) => {
   const schema = Schema.from({ a: 'string' });
   test.strictEqual(
     schema.toString(),
+    '{"a":{"required":true,"type":"string"}}',
+  );
+  test.strictEqual(
+    JSON.stringify(schema),
     '{"a":{"required":true,"type":"string"}}',
   );
   test.end();
