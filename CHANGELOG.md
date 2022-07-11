@@ -2,6 +2,9 @@
 
 ## [Unreleased][unreleased]
 
+- Test fixups from <https://github.com/metarhia/metaschema/pull/420/commits/5732714114a14e0f8a71617c779d73eb4b345fb4>
+- toJSON and toString methods implementation for Schema
+
 ## [2.0.2][] - 2022-06-25
 
 - Hotfix: added missed exports to metaschema.js

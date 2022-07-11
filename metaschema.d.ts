@@ -69,6 +69,8 @@ export class Schema {
   toInterface(): string;
   attach(...namespaces: Array<Model>): void;
   detouch(...namespaces: Array<Model>): void;
+  toString(): string;
+  toJSON(): object;
   validate(value: any, path: string): SchemaError;
 }
 
