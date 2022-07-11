@@ -74,7 +74,7 @@ metatests.test('Collections: check collections', (test) => {
     field1: { map: { string: 'string' } },
   };
   const obj8 = {
-    field1: new Set([
+    field1: new Map([
       ['a', 1],
       ['b', 'B'],
     ]),
@@ -125,7 +125,7 @@ metatests.test('Collections: check collections value', (test) => {
   test.strictSame(schema7.check(obj7).valid, true);
 
   const def8 = { map: { string: 'string' } };
-  const obj8 = new Set([
+  const obj8 = new Map([
     ['a', 1],
     ['b', 'B'],
   ]);
@@ -175,7 +175,7 @@ metatests.test('Collections: check value with long form', (test) => {
   test.strictSame(schema7.check(obj7).valid, true);
 
   const def8 = { type: 'map', key: 'string', value: 'string' };
-  const obj8 = new Set([
+  const obj8 = new Map([
     ['a', 1],
     ['b', 'B'],
   ]);
