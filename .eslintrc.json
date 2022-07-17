@@ -1,5 +1,5 @@
 {
-  "extends": "metarhia",
+  "extends": ["metarhia", "plugin:prettier/recommended"],
   "env": {
     "browser": true,
     "es6": true,
@@ -7,8 +7,5 @@
   },
   "parserOptions": {
     "ecmaVersion": "latest"
-  },
-  "rules": {
-    "no-unused-vars": ["warn"]
   }
 }
