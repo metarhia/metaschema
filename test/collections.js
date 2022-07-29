@@ -193,7 +193,8 @@ metatests.test('Collections: check value with long form', (test) => {
 
 metatests.test('Collections: multiple nested arrays', (test) => {
   const defs1 = {
-    Entity: {},
+    Struct: {},
+
     name: {
       first: { type: 'string' },
       last: { type: 'string' },
