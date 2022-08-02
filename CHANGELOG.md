@@ -2,10 +2,77 @@
 
 ## [Unreleased][unreleased]
 
+- Using optional chaining operator
+
+## [2.1.0][] - 2022-07-11
+
+- Test fixups from <https://github.com/metarhia/metaschema/pull/420/commits/5732714114a14e0f8a71617c779d73eb4b345fb4>
+- toJSON and toString methods implementation for Schema
+
+## [2.0.2][] - 2022-06-25
+
+- Hotfix: added missed exports to metaschema.js
+
+## [2.0.1][] - 2022-06-24
+
+- json type for any plain javascript object
+- fix names issue while using built-in prototypes for custom types
+
+## [2.0.0][] - 2022-06-22
+
+- Struct implementation
+- Refactoring and code quality improvement
+- Metadata handled separetely
+- Error handling improved now errors are chained
+- Custom Kinds support implemented with custom metadata
+  `{ CustomKind: { customMetadata: 'meta' } }`
+- Update dependencies: "eslint", "eslint-config-metarhia"
+- Custom types syntax changed. No more hardcoded `pg`.
+  Now you must use `metadata` which is static property of Type constructor.
+- Nested schema with relations bugfix
+- Tuple type implementation
+- Properly report error if trying to use `field: 'type'` shorthand for
+  `'enum', 'array', 'set', 'map', 'object'` types
+- Rewrite schemas and implement custom types
+  - elegant syntax/format for custom types and internal types
+  - custom types support
+  - preprocessor to reduce Schema preprocess complexity
+  - any kind of nested arrays, array of references https://github.com/metarhia/metaschema/issues/378
+  - nested schemas with Schema instances support
+  - any level of complex nested types support
+  - custom validate for field
+  - changed validate for schema, simplified for user
+  - all user's validate functions support 4 types of syntax: boolean return, throw Error, error message as string return and array of error messages
+  - reserved words permitted in schema if kind provided
+  - function fields stored in schema
+  - shorthand required key for collections support `{ 'array?': 'string' }`
+  - many relation now checks in runtime
+  - model now loads projections at the end, to fix bug
+  - schema kinds moved to separate file and kinds now have logic to remove hardcoded projection from Schema
+  - ts interfaces from schema now have relation ids as well
+  - deps update metautil
+  - nested object support https://github.com/metarhia/metaschema/issues/395
+  - syntax for validate function changed
+  - Model no more require metavm for browser compatibility: need `impress` update
+  - loadModel moved to loader: need `impress` update
+  - Model no more writes d.ts file to disk moved to loader as well: need `metasql` update
+  - syntax for pg types changed a bit, no more not-working types: need `metasql` update
+
+## [1.4.1][] - 2022-03-17
+
+- Skip calculated fields in schemas
+- Update dependencies
+- Fix tests after update metatests to 0.8.1
+
+## [1.4.0][] - 2022-02-23
+
 - Fix nullable field long-form
 - Optional for nested structures
 - Shorthand for optional nested structure
-- Array of enumerated type
+- Fix paths in validation errors
+- Unify nested schema fields to
+  `{ type: 'schema', schema: Schema, /* other fields */ }`
+- Support Schema#validate function
 
 ## [1.3.4][] - 2021-09-10
 
@@ -105,7 +172,12 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v1.3.4...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v2.0.2...HEAD
+[2.0.2]: https://github.com/metarhia/metaschema/compare/v2.0.1...v2.0.2
+[2.0.1]: https://github.com/metarhia/metaschema/compare/v2.0.0...v2.0.1
+[2.0.0]: https://github.com/metarhia/metaschema/compare/v1.4.1...v2.0.0
+[1.4.1]: https://github.com/metarhia/metaschema/compare/v1.4.0...v1.4.1
+[1.4.0]: https://github.com/metarhia/metaschema/compare/v1.3.4...v1.4.0
 [1.3.4]: https://github.com/metarhia/metaschema/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/metarhia/metaschema/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/metarhia/metaschema/compare/v1.3.1...v1.3.2
