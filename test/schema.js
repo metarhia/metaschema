@@ -400,3 +400,76 @@ metatests.testSync('Schema: toString, JSON.stringify', (test) => {
   );
   test.end();
 });
+
+metatests.test('Schema: concat schemas with different attrs', (test) => {
+  const schema1 = Schema.from({ a: 'string', b: 'number' });
+  const schema2 = Schema.from({ c: 'string', d: 'number' });
+  const schema3 = Schema.from({ e: 'string', f: 'number' });
+  test.strictEqual(
+    Schema.concat(schema1, schema2, schema3).toString(),
+    JSON.stringify({
+      a: { required: true, type: 'string' },
+      b: { required: true, type: 'number' },
+      c: { required: true, type: 'string' },
+      d: { required: true, type: 'number' },
+      e: { required: true, type: 'string' },
+      f: { required: true, type: 'number' },
+    }),
+  );
+  test.end();
+});
+
+metatests.test(
+  'Schema: concat schemas with common attrs fails, when conflict exists',
+  (test) => {
+    const schema1 = Schema.from({ a: 'string', b: 'number' });
+    const schema2 = Schema.from({ b: 'string', c: 'number' });
+    try {
+      Schema.concat(schema1, schema2);
+      throw new Error("Shouldn't reach this point");
+    } catch (e) {
+      test.strictEqual(e.message, 'Schema concat conflicts with key "b"');
+    }
+    const schema3 = Schema.from({ Custom: {}, type: 'string' });
+    const schema4 = Schema.from({ Custom: {}, type: 'number' });
+    try {
+      Schema.concat(schema3, schema4);
+      throw new Error("Shouldn't reach this point");
+    } catch (e) {
+      test.strictEqual(e.message, 'Schema concat conflicts with key "type"');
+    }
+    test.end();
+  },
+);
+
+metatests.test(
+  'Schema: concat schemas with common attrs succeeds, when common fields are identical',
+  (test) => {
+    const schema1 = Schema.from({ a: 'string', b: 'number' });
+    const schema2 = Schema.from({ b: 'number', c: 'string' });
+    test.strictEqual(
+      Schema.concat(schema1, schema2).toString(),
+      JSON.stringify({
+        a: { required: true, type: 'string' },
+        b: { required: true, type: 'number' },
+        c: { required: true, type: 'string' },
+      }),
+    );
+    test.end();
+  },
+);
+
+metatests.test(
+  'Schema: concat schemas should fail, when schemas have different kinds',
+  (test) => {
+    const schema1 = Schema.from({ a: 'string', b: 'number' });
+    const schema2 = Schema.from({ Custom: {}, type: 'string' });
+    try {
+      Schema.concat(schema1, schema2);
+      throw new Error("Shouldn't reach this point");
+    } catch (e) {
+      test.strictEqual(e.message, 'Schemas have different kinds: "struct", "custom"');
+    }
+    test.end();
+  },
+);
