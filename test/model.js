@@ -11,19 +11,19 @@ const database = {
 };
 
 const types = {
-  string: 'varchar',
-  number: 'integer',
-  boolean: 'boolean',
-  datetime: 'timestamp with time zone',
-  text: 'text',
-  json: 'jsonb',
+  string: { metadata: { pg: 'varchar' } },
+  number: { metadata: { pg: 'integer' } },
+  boolean: { metadata: { pg: 'boolean' } },
+  datetime: { js: 'string', metadata: { pg: 'timestamp with time zone' } },
+  text: { js: 'string', metadata: { pg: 'text' } },
+  customObject: { js: 'object', metadata: { pg: 'jsonb' } },
 };
 
 metatests.test('Model: from struct', (test) => {
   const entities = new Map();
 
   entities.set('Company', {
-    Dictionary: {},
+    Dictionary: { store: 'persistent', scope: 'application' },
     name: { type: 'string', unique: true },
     addresses: { many: 'Address' },
   });
@@ -37,60 +37,127 @@ metatests.test('Model: from struct', (test) => {
     driver: 'pg',
   });
 
-  test.strictEqual(model.types, {
-    boolean: 'boolean',
-    datetime: 'timestamp with time zone',
-    json: 'jsonb',
-    number: 'integer',
-    string: 'varchar',
-    text: 'text',
-  });
+  const { string, number, boolean } = model.types;
+  test.strictEqual(string.metadata.pg, types.string.metadata.pg);
+  test.strictEqual(number.metadata.pg, types.number.metadata.pg);
+  test.strictEqual(boolean.metadata.pg, types.boolean.metadata.pg);
 
-  test.strictEqual(model.entities.get('Company'), {
-    name: 'Company',
-    namespaces: new Set(),
-    parent: '',
-    kind: 'dictionary',
-    scope: 'application',
-    store: 'persistent',
-    allow: 'write',
-    fields: { name: { type: 'string', unique: true, required: true } },
-    indexes: { addresses: { many: 'Address' } },
-    references: new Set(['Address']),
-    relations: new Set([]),
-    validate: null,
-    format: null,
-    parse: null,
-    serialize: null,
-  });
+  const { datetime, text, customObject } = model.types;
+  test.strictEqual(datetime.metadata.pg, types.datetime.metadata.pg);
+  test.strictEqual(text.metadata.pg, types.text.metadata.pg);
+  test.strictEqual(customObject.metadata.pg, types.customObject.metadata.pg);
 
   test.strictEqual(model.order, new Set(['Company']));
+
+  const company = model.entities.get('Company');
+
+  test.strictEqual(company.name, 'Company');
+  test.strictEqual(company.kind, 'dictionary');
+  test.strictEqual(company.store, 'persistent');
+  test.strictEqual(company.scope, 'application');
+
+  const { name } = company.fields;
+  test.strictEqual(name.type, 'string');
+  test.strictEqual(name.required, true);
+  test.strictEqual(name.unique, true);
 
   const warn = model.warnings[0];
   test.strictEqual(
     warn,
-    'Warning: "Address" referenced by "Company" is not found'
+    'Warning: "Address" referenced by "Company" is not found',
   );
 
   test.end();
 });
 
-metatests.test('Model: loader', async (test) => {
-  const model = await Model.load(process.cwd() + '/test/schemas', types);
-  test.strictEqual(model.entities.size, 5);
-  const Account = model.entities.get('Account');
-  test.strictEqual(Account.fields.fullName.constructor.name, 'Schema');
-  test.strictEqual(model.order.size, 5);
-  test.strictEqual(typeof model.types, 'object');
-  test.strictEqual(typeof model.database, 'object');
+metatests.test('Model: many relation Schema for validation', (test) => {
+  const entities = new Map();
+
+  entities.set('Company', {
+    Dictionary: {},
+    name: { type: 'string', unique: true },
+    addresses: { many: 'Address' },
+  });
+
+  entities.set('Address', {
+    Entity: {},
+    city: { type: 'string', unique: true },
+  });
+
+  const model = new Model(types, entities, database);
+
+  const company = model.entities.get('Company');
+
+  const obj = {
+    name: 'Galeere',
+    addresses: [{ city: 'Berlin' }, { city: 'Kiev' }],
+  };
+
+  const obj1 = { name: 'Leere' };
+  test.strictSame(company.check(obj).valid, true);
+  test.strictSame(company.check(obj1).valid, false);
+
   test.end();
 });
 
-metatests.test(`Model: restricted 'type' property`, (test) => {
-  const model = new Model(
-    { string: 'string' },
-    new Map([['FailingEntity', { type: 'string' }]])
-  );
-  test.strictEqual(model.warnings.length, 1);
+metatests.test(
+  'Model: custom types with nested schema and realtion',
+  (test) => {
+    const entities = new Map();
+    entities.set('Identifier', { Entity: {}, creation: 'datetime' });
+    entities.set('Tester', {
+      Registry: {},
+      access: {
+        last: { type: 'datetime', default: 'now' },
+        count: { type: 'number', default: 0 },
+        identifiers: { many: 'Identifier' },
+        id: { type: 'Identifier', required: false },
+      },
+    });
+    const model = new Model(types, entities, database);
+    const identifier = model.entities.get('Identifier');
+    test.strictEqual(
+      identifier.check({ creation: Date.now().toLocaleString() }).valid,
+      true,
+    );
+    const tester = model.entities.get('Tester');
+    test.strictEqual(
+      tester.check({
+        access: {
+          last: Date.now().toLocaleString(),
+          count: 2,
+          identifiers: [
+            { creation: Date.now().toLocaleString() },
+            { creation: Date.now().toLocaleString() },
+          ],
+          id: { creation: Date.now().toLocaleString() },
+        },
+      }).valid,
+      true,
+    );
+    test.strictEqual(
+      tester.check({
+        access: {
+          last: Date.now().toLocaleString(),
+          count: 2,
+        },
+      }).valid,
+      false,
+    );
+    test.end();
+  },
+);
+
+metatests.test('Model: custom type correct name using js type', (test) => {
+  const entities = new Map();
+  entities.set('CustomSchema', {
+    Struct: {},
+
+    data: { customObject: { string: 'string' } },
+  });
+  const model = new Model(types, entities, database);
+  const schema = model.entities.get('CustomSchema');
+  test.strictEqual(schema.fields.data.type, 'customObject');
+  test.strictEqual(schema.check({ data: { a: 'b' } }).valid, true);
   test.end();
 });

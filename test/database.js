@@ -3,7 +3,7 @@
 const metatests = require('metatests');
 const { Schema } = require('..');
 
-metatests.test('Schema: database', (test) => {
+metatests.test('Database: schema Registry', (test) => {
   const raw = {
     Registry: {},
 
@@ -21,53 +21,45 @@ metatests.test('Schema: database', (test) => {
   };
 
   const expected = {
-    name: 'Address',
-    namespaces: new Set(),
-    parent: '',
     kind: 'registry',
     scope: 'application',
     store: 'persistent',
     allow: 'write',
-    fields: {
-      name: { type: 'string', unique: true, required: true },
-      street: { type: 'string', required: true },
-      building: { type: 'string', required: true },
-      apartment: { type: 'string', required: true },
-      location: {
-        name: '',
-        namespaces: new Set(),
-        parent: '',
-        kind: 'struct',
-        scope: 'local',
-        store: 'memory',
-        allow: 'write',
-        fields: {
-          country: { required: true, type: 'Country' },
-        },
-        indexes: {},
-        references: new Set(['Country']),
-        relations: new Set([]),
-        validate: null,
-        format: null,
-        parse: null,
-        serialize: null,
-      },
-    },
+    parent: '',
     indexes: {
       persons: { many: 'Person' },
       naturalKey: { primary: ['street', 'building', 'apartment'] },
       altKey: { unique: ['name', 'street'] },
     },
-    references: new Set(['Country', 'Person']),
-    relations: new Set([]),
-    validate: null,
-    format: null,
-    parse: null,
-    serialize: null,
+    options: { validate: null, format: null, parse: null, serialize: null },
+    references: new Set(['string', 'Country', 'schema', 'Person']),
+    relations: new Set([
+      { to: 'Country', type: 'one-to-many' },
+      { to: 'Person', type: 'many-to-one' },
+    ]),
+    fields: {
+      name: { unique: true, required: true, type: 'string' },
+      street: { required: true, type: 'string' },
+      building: { required: true, type: 'string' },
+      apartment: { required: true, type: 'string' },
+      location: {
+        country: { one: 'Country', required: true, type: 'Country' },
+      },
+      persons: { many: 'Person', required: true, type: 'Person' },
+      addressId: { required: true, type: 'string' },
+    },
+    name: 'Address',
+    namespaces: new Set(),
   };
 
   const entity = new Schema('Address', raw);
-  test.strictEqual(entity, expected);
+  test.strictEqual(entity.name, expected.name);
+  test.strictEqual(entity.kind, expected.kind);
+  test.strictEqual(entity.store, expected.store);
+  test.strictEqual(Object.keys(entity.fields), Object.keys(expected.fields));
+  test.strictEqual(Object.keys(entity.indexes), Object.keys(expected.indexes));
+  test.strictEqual(entity.references, expected.references);
+  test.strictEqual(entity.relations, expected.relations);
 
   const warn = entity.checkConsistency();
   test.strictEqual(warn, [
