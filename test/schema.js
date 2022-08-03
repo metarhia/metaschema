@@ -468,7 +468,10 @@ metatests.test(
       Schema.concat(schema1, schema2);
       throw new Error("Shouldn't reach this point");
     } catch (e) {
-      test.strictEqual(e.message, 'Schemas have different kinds: "struct", "custom"');
+      test.strictEqual(
+        e.message,
+        'Schemas have different kinds: "struct", "custom"',
+      );
     }
     test.end();
   },
