@@ -2,6 +2,7 @@
 
 ## [Unreleased][unreleased]
 
+- add null check for non required fields
 - Using optional chaining operator
 
 ## [2.1.0][] - 2022-07-11

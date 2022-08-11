@@ -126,3 +126,18 @@ metatests.test('Scalars: check enum value', (test) => {
 
   test.end();
 });
+
+metatests.test('Scalars: check null value', (test) => {
+  const def = {
+    field1: { type: 'string', required: false },
+    field2: 'string',
+    field3: '?string',
+  };
+  const schema = Schema.from(def);
+  const obj1 = { field1: null, field2: 'uno', field3: null };
+  test.strictSame(schema.check(obj1).valid, true);
+
+  const obj2 = { field1: 'due', field2: null };
+  test.strictSame(schema.check(obj2).valid, false);
+  test.end();
+});
