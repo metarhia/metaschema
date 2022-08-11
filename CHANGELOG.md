@@ -2,6 +2,7 @@
 
 ## [Unreleased][unreleased]
 
+- Non required fields can be `null`
 - Using optional chaining operator
 
 ## [2.1.0][] - 2022-07-11
