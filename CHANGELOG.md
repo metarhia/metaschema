@@ -2,7 +2,7 @@
 
 ## [Unreleased][unreleased]
 
-- add null check for non required fields
+- Non required fields can be `null`
 - Using optional chaining operator
 
 ## [2.1.0][] - 2022-07-11
