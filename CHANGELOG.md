@@ -2,6 +2,8 @@
 
 ## [Unreleased][unreleased]
 
+## [2.1.1][] - 2022-08-16
+
 - Non required fields can be `null`
 - Using optional chaining operator
 
@@ -173,7 +175,9 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v2.0.2...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v2.1.0...HEAD
+[2.1.1]: https://github.com/metarhia/metaschema/compare/v2.1.0...v2.1.1
+[2.1.0]: https://github.com/metarhia/metaschema/compare/v2.0.2...v2.1.0
 [2.0.2]: https://github.com/metarhia/metaschema/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/metarhia/metaschema/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/metarhia/metaschema/compare/v1.4.1...v2.0.0

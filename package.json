@@ -1,6 +1,6 @@
 {
   "name": "metaschema",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "description": "Metadata Schema and Interface Definition Language (IDL)",
   "license": "MIT",
@@ -43,12 +43,12 @@
     "node": "14 || 16 || 18"
   },
   "dependencies": {
-    "metautil": "^3.5.21",
+    "metautil": "^3.5.23",
     "metavm": "^1.2.1"
   },
   "devDependencies": {
-    "@types/node": "^18.0.5",
-    "eslint": "^8.20.0",
+    "@types/node": "^18.7.6",
+    "eslint": "^8.22.0",
     "eslint-config-metarhia": "^8.1.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
