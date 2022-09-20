@@ -43,7 +43,7 @@
     "node": "14 || 16 || 18"
   },
   "dependencies": {
-    "metautil": "^3.5.23",
+    "metautil": "^3.5.24",
     "metavm": "^1.2.1"
   },
   "devDependencies": {
