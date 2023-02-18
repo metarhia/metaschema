@@ -1,6 +1,6 @@
 {
   "name": "metaschema",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "description": "Metadata Schema and Interface Definition Language (IDL)",
   "license": "MIT",
@@ -28,7 +28,10 @@
   },
   "main": "metaschema.js",
   "types": "metaschema.d.ts",
-  "files": ["lib/", "metaschema.d.ts"],
+  "files": [
+    "lib/",
+    "metaschema.d.ts"
+  ],
   "readmeFilename": "README.md",
   "scripts": {
     "test": "npm run lint && npm run types && metatests test/",
