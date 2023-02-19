@@ -1,4 +1,5 @@
 'use strict';
+
 const metatests = require('metatests');
 const { typeFactory, TYPES } = require('../lib/types.js');
 
