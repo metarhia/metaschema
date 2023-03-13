@@ -4,6 +4,7 @@
 
 - Add `BigInt` to known glabals
 - Add `node:` prefix in require for built-in modules
+- Update dependencies
 
 ## [2.1.2][] - 2023-02-18
 
@@ -183,7 +184,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v2.1.2...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v2.1.3...HEAD
+[2.1.3]: https://github.com/metarhia/metaschema/compare/v2.1.2...v2.1.3
 [2.1.2]: https://github.com/metarhia/metaschema/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/metarhia/metaschema/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/metarhia/metaschema/compare/v2.0.2...v2.1.0
