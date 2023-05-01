@@ -2,9 +2,16 @@
 
 ## [Unreleased][unreleased]
 
+## [2.1.4][] - 2023-05-01
+
+- Drop node.js 14 support, add node.js 20
+- Convert package_lock.json to lockfileVersion 2
+- Update dependencies
+
+## [2.1.3][] - 2023-03-13
+
 - Add `BigInt` to known glabals
 - Add `node:` prefix in require for built-in modules
-- Update dependencies
 
 ## [2.1.2][] - 2023-02-18
 
@@ -184,7 +191,8 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v2.1.3...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v2.1.4...HEAD
+[2.1.4]: https://github.com/metarhia/metaschema/compare/v2.1.3...v2.1.4
 [2.1.3]: https://github.com/metarhia/metaschema/compare/v2.1.2...v2.1.3
 [2.1.2]: https://github.com/metarhia/metaschema/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/metarhia/metaschema/compare/v2.1.0...v2.1.1
