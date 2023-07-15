@@ -40,18 +40,18 @@
     "node": "16 || 18 || 19 || 20"
   },
   "dependencies": {
-    "metautil": "^3.7.2",
+    "metautil": "^3.10.0",
     "metavm": "^1.2.5"
   },
   "devDependencies": {
-    "@types/node": "^18.15.2",
-    "eslint": "^8.36.0",
-    "eslint-config-metarhia": "^8.1.0",
+    "@types/node": "^20.4.2",
+    "eslint": "^8.45.0",
+    "eslint-config-metarhia": "^8.2.0",
     "eslint-config-prettier": "^8.7.0",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-prettier": "^5.0.0",
     "metatests": "^0.8.2",
-    "prettier": "^2.8.4",
-    "typescript": "^5.0.4"
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.6"
   }
 }
