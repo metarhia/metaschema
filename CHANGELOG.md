@@ -2,6 +2,12 @@
 
 ## [Unreleased][unreleased]
 
+## [2.1.5][] - 2023-07-15
+
+- Fix: remove debug output
+- Update dependencies
+- Package maintenance: AUTHORS, .prettierignore
+
 ## [2.1.4][] - 2023-05-01
 
 - Drop node.js 14 support, add node.js 20
