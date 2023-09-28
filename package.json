@@ -47,7 +47,7 @@
     "@types/node": "^20.4.2",
     "eslint": "^8.45.0",
     "eslint-config-metarhia": "^8.2.0",
-    "eslint-config-prettier": "^8.7.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^5.0.0",
     "metatests": "^0.8.2",
