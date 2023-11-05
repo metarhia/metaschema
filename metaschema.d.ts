@@ -39,39 +39,39 @@ export class Schema {
   static STORE: Array<string>;
   static ALLOW: Array<string>;
 
-  static from(raw: object, namespaces?: Array<Model>): Schema;
+  public static from(raw: object, namespaces?: Array<Model>): Schema;
   static extractSchema(def: object): Schema | null;
 
   root: null;
-  kind: Kind;
-  references: Set<string>;
-  relations: Set<Relation>;
-  scope: Scope;
-  allow: Allow;
-  parent: string;
-  indexes: object;
+  public kind: Kind;
+  public references: Set<string>;
+  public relations: Set<Relation>;
+  public scope: Scope;
+  public allow: Allow;
+  public parent: string;
+  public indexes: object;
   options: {
     validate: Function | null;
     format: Function | null;
     parse: Function | null;
     serialize: Function | null;
   };
-  custom: object;
-  fields: object;
-  name: string;
-  namespaces: Set<Model>;
+  public custom: object; // custom metadata
+  public fields: object;
+  public name: string;
+  public namespaces: Set<Model>;
 
   constructor(name: string, raw: object, namespaces?: Array<Model>);
-  get types(): object;
-  checkConsistency(): Array<string>;
+  public get types(): object;
+  public checkConsistency(): Array<string>;
   findReference(name: string): Schema;
-  check(value: any): SchemaError;
-  toInterface(): string;
+  public check(value: any): SchemaError;
+  public toInterface(): string;
   attach(...namespaces: Array<Model>): void;
   detouch(...namespaces: Array<Model>): void;
-  toString(): string;
-  toJSON(): object;
-  validate(value: any, path: string): SchemaError;
+  public toString(): string;
+  public toJSON(): object;
+  public validate(value: any, path: string): SchemaError;
 }
 
 export function createSchema(name: string, src: string): Schema;
@@ -84,14 +84,14 @@ export function loadModel(
 export function saveTypes(outputFile: string, model: Model): Promise<void>;
 
 export class Model {
-  types: object;
-  entities: Map<string, object>;
-  database: object;
+  public types: object;
+  public entities: Map<string, object>;
+  public database: object;
   order: Set<string>;
-  warnings: Array<string>;
+  public warnings: Array<string>;
 
   constructor(types: object, entities: Map<string, object>, database?: object);
-  preprocess(): void;
+  public preprocess(): void;
   reorderEntity(name: string, base?: string): void;
-  get dts(): string;
+  public get dts(): string;
 }
