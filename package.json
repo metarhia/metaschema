@@ -27,9 +27,13 @@
     "url": "https://www.patreon.com/tshemsedinov"
   },
   "main": "metaschema.js",
+  "browser": {
+    "./metaschema.js": "./dist.js"
+  },
   "types": "metaschema.d.ts",
   "files": [
     "lib/",
+    "dist.js",
     "metaschema.d.ts"
   ],
   "readmeFilename": "README.md",
