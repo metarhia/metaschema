@@ -26,7 +26,7 @@ interface Relation {
   type: Cardinality;
 }
 
-interface SchemaError {
+interface ValidationResult {
   valid: boolean;
   errors: string[];
 }
@@ -65,13 +65,13 @@ export class Schema {
   get types(): object;
   checkConsistency(): Array<string>;
   findReference(name: string): Schema;
-  check(value: any): SchemaError;
+  check(value: any): ValidationResult;
   toInterface(): string;
   attach(...namespaces: Array<Model>): void;
   detouch(...namespaces: Array<Model>): void;
   toString(): string;
   toJSON(): object;
-  validate(value: any, path: string): SchemaError;
+  validate(value: any, path: string): ValidationResult;
 }
 
 export function createSchema(name: string, src: string): Schema;
