@@ -15,6 +15,45 @@ Metadata schema and interface (contract) definition language
 $ npm install metaschema
 ```
 
+## Examples
+
+```js
+const { Schema } = require('metaschema');
+
+const schema = Schema.from({
+  name: {
+    first: 'string',
+    last: 'string',
+    third: '?string',
+  },
+  age: 'number',
+  levelOne: {
+    levelTwo: {
+      levelThree: { type: 'enum', enum: [1, 2, 3] },
+    },
+  },
+  collection: { array: { array: 'number' } },
+});
+
+const data = {
+  name: {
+    first: 'a',
+    last: 'b',
+  },
+  age: 5,
+  levelOne: { levelTwo: { levelThree: 1 } },
+  collection: [
+    [1, 2, 3],
+    [3, 5, 6],
+  ],
+};
+
+console.log(schema.check(data));
+
+// Output:
+// ValidationResult { errors: [], valid: true }
+```
+
 ## License & Contributors
 
 Copyright (c) 2017-2023 [Metarhia contributors](https://github.com/metarhia/metaschema/graphs/contributors).
