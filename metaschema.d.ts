@@ -66,6 +66,7 @@ export class Schema {
   checkConsistency(): Array<string>;
   findReference(name: string): Schema;
   check(value: any): ValidationResult;
+  partialCheck(value: any): ValidationResult;
   toInterface(): string;
   attach(...namespaces: Array<Model>): void;
   detouch(...namespaces: Array<Model>): void;
