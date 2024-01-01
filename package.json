@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "metautil": "^4.0.1",
-    "metavm": "^1.4.0"
+    "metavm": "^1.4.1"
   },
   "devDependencies": {
     "@types/node": "^20.9.1",
