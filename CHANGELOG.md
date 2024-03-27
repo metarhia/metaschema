@@ -2,6 +2,12 @@
 
 ## [Unreleased][unreleased]
 
+## [2.2.0][] - 2024-03-27
+
+- Add browser support
+- Rename `SchemaError` to `ValidationResult`
+- Update dependencies
+
 ## [2.1.5][] - 2023-07-15
 
 - Fix: remove debug output
@@ -197,7 +203,9 @@
 
 ## [0.x][] - First generation of metaschema
 
-[unreleased]: https://github.com/metarhia/metaschema/compare/v2.1.4...HEAD
+[unreleased]: https://github.com/metarhia/metaschema/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/metarhia/metaschema/compare/v2.1.5...v2.2.0
+[2.1.5]: https://github.com/metarhia/metaschema/compare/v2.1.4...v2.1.5
 [2.1.4]: https://github.com/metarhia/metaschema/compare/v2.1.3...v2.1.4
 [2.1.3]: https://github.com/metarhia/metaschema/compare/v2.1.2...v2.1.3
 [2.1.2]: https://github.com/metarhia/metaschema/compare/v2.1.1...v2.1.2
