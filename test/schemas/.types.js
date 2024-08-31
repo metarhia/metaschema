@@ -20,9 +20,11 @@
       const [a, b] = arr;
       const chars = new Set([...a, ...b]);
       for (const char of chars) {
-        if (!this.symbols.includes(char))
+        if (!this.symbols.includes(char)) {
           return `Field "${path}" not a decimal 3`;
+        }
       }
+      return 'Valid';
     },
   },
 });
