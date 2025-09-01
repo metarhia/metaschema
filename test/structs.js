@@ -1,9 +1,10 @@
 'use strict';
 
-const metatests = require('metatests');
+const { test } = require('node:test');
+const assert = require('node:assert');
 const { Schema } = require('../metaschema');
 
-metatests.test('Structs: nested schema', (test) => {
+test('Structs: nested schema', () => {
   const definition = {
     field1: 'string',
     field2: {
@@ -21,11 +22,10 @@ metatests.test('Structs: nested schema', (test) => {
     },
   };
   const schema = Schema.from(definition);
-  test.strictSame(schema.check(obj).valid, true);
-  test.end();
+  assert.strictEqual(schema.check(obj).valid, true);
 });
 
-metatests.test('Structs: nested schema, lost field', (test) => {
+test('Structs: nested schema, lost field', () => {
   const schema = Schema.from({
     field1: 'string',
     field2: {
@@ -38,15 +38,13 @@ metatests.test('Structs: nested schema, lost field', (test) => {
     field1: 'value',
     field2: {},
   };
-  test.strictSame(schema.check(obj).errors, [
+  assert.deepStrictEqual(schema.check(obj).errors, [
     'Field "field2.subfield1" is required',
     'Field "field3" is required',
   ]);
-
-  test.end();
 });
 
-metatests.test('Structs: optional nested struct', (test) => {
+test('Structs: optional nested struct', () => {
   const definition = {
     struct: {
       schema: {
@@ -58,19 +56,17 @@ metatests.test('Structs: optional nested struct', (test) => {
   const schema = Schema.from(definition);
 
   const obj1 = {};
-  test.strictSame(schema.check(obj1).valid, true);
+  assert.strictEqual(schema.check(obj1).valid, true);
 
   const obj2 = {
     struct: {
       field: 'value',
     },
   };
-  test.strictSame(schema.check(obj2).valid, true);
-
-  test.end();
+  assert.strictEqual(schema.check(obj2).valid, true);
 });
 
-metatests.test('Structs: optional nested struct base object', (test) => {
+test('Structs: optional nested struct base object', () => {
   const definition = {
     text: 'string',
     struct: {
@@ -83,7 +79,7 @@ metatests.test('Structs: optional nested struct base object', (test) => {
   const schema = Schema.from(definition);
 
   const obj1 = { text: 'abc' };
-  test.strictSame(schema.check(obj1).valid, true);
+  assert.strictEqual(schema.check(obj1).valid, true);
 
   const obj2 = {
     text: 'abc',
@@ -91,33 +87,32 @@ metatests.test('Structs: optional nested struct base object', (test) => {
       field: 'value',
     },
   };
-  test.strictSame(schema.check(obj2).valid, true);
-
-  test.end();
+  assert.strictEqual(schema.check(obj2).valid, true);
 });
 
-metatests.test('Structs: shorthand for optional nested struct', (test) => {
+test('Structs: shorthand for optional nested struct', () => {
   const definition = {
-    'struct?': {
-      field: 'string',
+    struct: {
+      schema: {
+        field: 'string',
+      },
+      required: false,
     },
   };
   const schema = Schema.from(definition);
 
   const obj1 = {};
-  test.strictSame(schema.check(obj1).valid, true);
+  assert.strictEqual(schema.check(obj1).valid, true);
 
   const obj2 = {
     struct: {
       field: 'value',
     },
   };
-  test.strictSame(schema.check(obj2).valid, true);
-
-  test.end();
+  assert.strictEqual(schema.check(obj2).valid, true);
 });
 
-metatests.test('Structs: multiple optional nested struct', (test) => {
+test('Structs: multiple optional nested struct', () => {
   const definition = {
     field: 'string',
     data: {
@@ -138,7 +133,7 @@ metatests.test('Structs: multiple optional nested struct', (test) => {
   };
   const schema = Schema.from(definition);
 
-  test.strictSame(
+  assert.strictEqual(
     schema.check({
       field: 'abc',
       data: {
@@ -148,7 +143,7 @@ metatests.test('Structs: multiple optional nested struct', (test) => {
     true,
   );
 
-  test.strictSame(
+  assert.strictEqual(
     schema.check({
       field: 'abc',
       data: {
@@ -159,7 +154,7 @@ metatests.test('Structs: multiple optional nested struct', (test) => {
     true,
   );
 
-  test.strictSame(
+  assert.strictEqual(
     schema.check({
       field: 'abc',
       data: {
@@ -170,7 +165,7 @@ metatests.test('Structs: multiple optional nested struct', (test) => {
     true,
   );
 
-  test.strictSame(
+  assert.deepStrictEqual(
     schema.check({
       field: 'abc',
       data: {
@@ -183,10 +178,9 @@ metatests.test('Structs: multiple optional nested struct', (test) => {
       `Field "data.nfield2.caption" not of expected type: string`,
     ],
   );
-  test.end();
 });
 
-metatests.test('Structs: nested schemas with Schema instances', (test) => {
+test('Structs: nested schemas with Schema instances', () => {
   const def = {
     name: {
       type: 'schema',
@@ -223,16 +217,14 @@ metatests.test('Structs: nested schemas with Schema instances', (test) => {
     },
   };
   const schema = new Schema('', def);
-  test.strictSame(schema.check(obj).valid, true);
-  test.end();
+  assert.strictEqual(schema.check(obj).valid, true);
 });
 
-metatests.test('Struct: json type as any plain object', (test) => {
+test('Struct: json type as any plain object', () => {
   const defs = { name: 'json' };
   const schema = Schema.from(defs);
-  test.strictEqual(schema.check({ name: {} }).valid, true);
-  test.strictEqual(schema.check({ name: { a: 'b' } }).valid, true);
-  test.strictEqual(schema.check({ name: [] }).valid, true);
-  test.strictEqual(schema.check({ name: null }).valid, false);
-  test.end();
+  assert.strictEqual(schema.check({ name: {} }).valid, true);
+  assert.strictEqual(schema.check({ name: { a: 'b' } }).valid, true);
+  assert.strictEqual(schema.check({ name: [] }).valid, true);
+  assert.strictEqual(schema.check({ name: null }).valid, false);
 });
