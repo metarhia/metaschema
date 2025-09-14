@@ -12,10 +12,12 @@ Metadata schema and interface (contract) definition language
 ## Installation
 
 ```bash
-$ npm install metaschema
+$ npm i metaschema
 ```
 
 ## Examples
+
+### Basic Schema Usage
 
 ```js
 const { Schema } = require('metaschema');
@@ -49,9 +51,78 @@ const data = {
 };
 
 console.log(schema.check(data));
+// Output: ValidationResult { errors: [], valid: true }
+```
 
-// Output:
-// ValidationResult { errors: [], valid: true }
+### Schema Constructor
+
+```js
+const { Schema } = require('metaschema');
+
+const schema = new Schema('User', {
+  name: 'string',
+  email: 'string',
+  age: 'number',
+  active: 'boolean',
+});
+
+console.log(schema.name); // 'User'
+console.log(schema.kind); // 'struct'
+console.log(schema.scope); // 'local'
+```
+
+### Model Usage
+
+```js
+const { Model } = require('metaschema');
+
+const types = {
+  string: { metadata: { pg: 'varchar' } },
+  number: { metadata: { pg: 'integer' } },
+  boolean: { metadata: { pg: 'boolean' } },
+};
+
+const entities = new Map();
+entities.set('User', {
+  Entity: { scope: 'application', store: 'persistent' },
+  name: 'string',
+  email: { type: 'string', unique: true },
+  age: 'number',
+});
+
+const model = new Model(types, entities);
+console.log(model.dts); // Generated TypeScript definitions
+```
+
+### Loader Functions
+
+```js
+const { createSchema, loadSchema, loadModel } = require('metaschema');
+
+// Create schema from string
+const schema1 = createSchema('User', "({ name: 'string', age: 'number' })");
+
+// Load schema from file
+const schema2 = await loadSchema('./schemas/user.js');
+
+// Load entire model from directory
+const model = await loadModel('./schemas');
+```
+
+### Schema Kinds and Metadata
+
+```js
+const { Schema, KIND, SCOPE, STORE } = require('metaschema');
+
+console.log(KIND); // ['struct', 'scalar', 'form', 'projection', ...]
+console.log(SCOPE); // ['application', 'global', 'local']
+console.log(STORE); // ['persistent', 'memory']
+
+const entitySchema = new Schema('Company', {
+  Entity: { scope: 'application', store: 'persistent' },
+  name: 'string',
+  address: 'string',
+});
 ```
 
 ## License & Contributors
