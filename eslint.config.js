@@ -10,4 +10,13 @@ module.exports = [
       strict: 'off',
     },
   },
+  {
+    files: ['metaschema.mjs'],
+    languageOptions: {
+      sourceType: 'module',
+      globals: {
+        crypto: 'readonly',
+      },
+    },
+  },
 ];

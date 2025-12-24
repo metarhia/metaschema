@@ -1,0 +1,20 @@
+{
+  "order": [
+    "kinds.js",
+    "metadata.js",
+    "util.js",
+    "struct.js",
+    "preprocessor.js",
+    "prototypes/abstract.js",
+    "prototypes/scalars.js",
+    "prototypes/collections.js",
+    "prototypes/reference.js",
+    "prototypes/schema.js",
+    "prototypes/tuple.js",
+    "prototypes/json.js",
+    "types.js",
+    "schema.js",
+    "model.js"
+  ],
+  "require": ["metautil"]
+}
