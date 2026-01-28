@@ -1,9 +1,10 @@
 'use strict';
 
-const metatests = require('metatests');
+const { test } = require('node:test');
+const assert = require('node:assert');
 const { Schema } = require('..');
 
-metatests.test('Database: schema Registry', (test) => {
+test('Database: schema Registry', () => {
   const raw = {
     Registry: {},
 
@@ -53,19 +54,25 @@ metatests.test('Database: schema Registry', (test) => {
   };
 
   const entity = new Schema('Address', raw);
-  test.strictEqual(entity.name, expected.name);
-  test.strictEqual(entity.kind, expected.kind);
-  test.strictEqual(entity.store, expected.store);
-  test.strictEqual(Object.keys(entity.fields), Object.keys(expected.fields));
-  test.strictEqual(Object.keys(entity.indexes), Object.keys(expected.indexes));
-  test.strictEqual(entity.references, expected.references);
-  test.strictEqual(entity.relations, expected.relations);
+  assert.strictEqual(entity.name, expected.name);
+  assert.strictEqual(entity.kind, expected.kind);
+  assert.strictEqual(entity.store, expected.store);
+  assert.deepStrictEqual(
+    Object.keys(entity.fields),
+    Object.keys(expected.fields),
+  );
+  assert.deepStrictEqual(
+    Object.keys(entity.indexes),
+    Object.keys(expected.indexes),
+  );
+  assert.deepStrictEqual(entity.references, expected.references);
+  assert.deepStrictEqual(entity.relations, expected.relations);
 
   const warn = entity.checkConsistency();
-  test.strictEqual(warn, [
-    'Warning: "Country" referenced by "Address" is not found',
-    'Warning: "Person" referenced by "Address" is not found',
-  ]);
-
-  test.end();
+  const countryWarning =
+    'Warning: "Country" referenced by "Address" is not found';
+  const personWarning =
+    'Warning: "Person" referenced by "Address" is not found';
+  const expectedWarnings = [countryWarning, personWarning];
+  assert.deepStrictEqual(warn, expectedWarnings);
 });

@@ -1,6 +1,7 @@
 'use strict';
 
-const metatests = require('metatests');
+const { test } = require('node:test');
+const assert = require('node:assert');
 const { Model } = require('..');
 
 const database = {
@@ -19,7 +20,7 @@ const types = {
   customObject: { js: 'object', metadata: { pg: 'jsonb' } },
 };
 
-metatests.test('Model: from struct', (test) => {
+test('Model: from struct', () => {
   const entities = new Map();
 
   entities.set('Company', {
@@ -30,7 +31,7 @@ metatests.test('Model: from struct', (test) => {
 
   const model = new Model(types, entities, database);
 
-  test.strictEqual(model.database, {
+  assert.deepStrictEqual(model.database, {
     name: 'example',
     description: 'Example database schema',
     version: 3,
@@ -38,39 +39,37 @@ metatests.test('Model: from struct', (test) => {
   });
 
   const { string, number, boolean } = model.types;
-  test.strictEqual(string.metadata.pg, types.string.metadata.pg);
-  test.strictEqual(number.metadata.pg, types.number.metadata.pg);
-  test.strictEqual(boolean.metadata.pg, types.boolean.metadata.pg);
+  assert.strictEqual(string.metadata.pg, types.string.metadata.pg);
+  assert.strictEqual(number.metadata.pg, types.number.metadata.pg);
+  assert.strictEqual(boolean.metadata.pg, types.boolean.metadata.pg);
 
   const { datetime, text, customObject } = model.types;
-  test.strictEqual(datetime.metadata.pg, types.datetime.metadata.pg);
-  test.strictEqual(text.metadata.pg, types.text.metadata.pg);
-  test.strictEqual(customObject.metadata.pg, types.customObject.metadata.pg);
+  assert.strictEqual(datetime.metadata.pg, types.datetime.metadata.pg);
+  assert.strictEqual(text.metadata.pg, types.text.metadata.pg);
+  assert.strictEqual(customObject.metadata.pg, types.customObject.metadata.pg);
 
-  test.strictEqual(model.order, new Set(['Company']));
+  assert.deepStrictEqual(model.order, new Set(['Company']));
 
   const company = model.entities.get('Company');
 
-  test.strictEqual(company.name, 'Company');
-  test.strictEqual(company.kind, 'dictionary');
-  test.strictEqual(company.store, 'persistent');
-  test.strictEqual(company.scope, 'application');
+  assert.strictEqual(company.name, 'Company');
+  assert.strictEqual(company.kind, 'dictionary');
+  assert.strictEqual(company.store, 'persistent');
+  assert.strictEqual(company.scope, 'application');
 
   const { name } = company.fields;
-  test.strictEqual(name.type, 'string');
-  test.strictEqual(name.required, true);
-  test.strictEqual(name.unique, true);
+  assert.strictEqual(name.type, 'string');
+  assert.strictEqual(name.required, true);
+  assert.strictEqual(name.unique, true);
 
   const warn = model.warnings[0];
-  test.strictEqual(
+  assert.strictEqual(
     warn,
     'Warning: "Address" referenced by "Company" is not found',
   );
-
-  test.end();
 });
 
-metatests.test('Model: many relation Schema for validation', (test) => {
+test('Model: many relation Schema for validation', () => {
   const entities = new Map();
 
   entities.set('Company', {
@@ -94,61 +93,55 @@ metatests.test('Model: many relation Schema for validation', (test) => {
   };
 
   const obj1 = { name: 'Leere' };
-  test.strictSame(company.check(obj).valid, true);
-  test.strictSame(company.check(obj1).valid, false);
-
-  test.end();
+  assert.strictEqual(company.check(obj).valid, true);
+  assert.strictEqual(company.check(obj1).valid, false);
 });
 
-metatests.test(
-  'Model: custom types with nested schema and realtion',
-  (test) => {
-    const entities = new Map();
-    entities.set('Identifier', { Entity: {}, creation: 'datetime' });
-    entities.set('Tester', {
-      Registry: {},
+test('Model: custom types with nested schema and realtion', () => {
+  const entities = new Map();
+  entities.set('Identifier', { Entity: {}, creation: 'datetime' });
+  entities.set('Tester', {
+    Registry: {},
+    access: {
+      last: { type: 'datetime', default: 'now' },
+      count: { type: 'number', default: 0 },
+      identifiers: { many: 'Identifier' },
+      id: { type: 'Identifier', required: false },
+    },
+  });
+  const model = new Model(types, entities, database);
+  const identifier = model.entities.get('Identifier');
+  assert.strictEqual(
+    identifier.check({ creation: Date.now().toLocaleString() }).valid,
+    true,
+  );
+  const tester = model.entities.get('Tester');
+  assert.strictEqual(
+    tester.check({
       access: {
-        last: { type: 'datetime', default: 'now' },
-        count: { type: 'number', default: 0 },
-        identifiers: { many: 'Identifier' },
-        id: { type: 'Identifier', required: false },
+        last: Date.now().toLocaleString(),
+        count: 2,
+        identifiers: [
+          { creation: Date.now().toLocaleString() },
+          { creation: Date.now().toLocaleString() },
+        ],
+        id: { creation: Date.now().toLocaleString() },
       },
-    });
-    const model = new Model(types, entities, database);
-    const identifier = model.entities.get('Identifier');
-    test.strictEqual(
-      identifier.check({ creation: Date.now().toLocaleString() }).valid,
-      true,
-    );
-    const tester = model.entities.get('Tester');
-    test.strictEqual(
-      tester.check({
-        access: {
-          last: Date.now().toLocaleString(),
-          count: 2,
-          identifiers: [
-            { creation: Date.now().toLocaleString() },
-            { creation: Date.now().toLocaleString() },
-          ],
-          id: { creation: Date.now().toLocaleString() },
-        },
-      }).valid,
-      true,
-    );
-    test.strictEqual(
-      tester.check({
-        access: {
-          last: Date.now().toLocaleString(),
-          count: 2,
-        },
-      }).valid,
-      false,
-    );
-    test.end();
-  },
-);
+    }).valid,
+    true,
+  );
+  assert.strictEqual(
+    tester.check({
+      access: {
+        last: Date.now().toLocaleString(),
+        count: 2,
+      },
+    }).valid,
+    false,
+  );
+});
 
-metatests.test('Model: custom type correct name using js type', (test) => {
+test('Model: custom type correct name using js type', () => {
   const entities = new Map();
   entities.set('CustomSchema', {
     Struct: {},
@@ -157,7 +150,6 @@ metatests.test('Model: custom type correct name using js type', (test) => {
   });
   const model = new Model(types, entities, database);
   const schema = model.entities.get('CustomSchema');
-  test.strictEqual(schema.fields.data.type, 'customObject');
-  test.strictEqual(schema.check({ data: { a: 'b' } }).valid, true);
-  test.end();
+  assert.strictEqual(schema.fields.data.type, 'customObject');
+  assert.strictEqual(schema.check({ data: { a: 'b' } }).valid, true);
 });

@@ -1,27 +1,27 @@
 'use strict';
 
-const metatests = require('metatests');
+const { test } = require('node:test');
+const assert = require('node:assert');
 const { Schema, Model } = require('..');
 
-metatests.test('Schema: constructor', (test) => {
+test('Schema: constructor', () => {
   const definition = { field1: 'string' };
   const schema = new Schema('StructName', definition);
-  test.strictSame(schema.name, 'StructName');
-  test.strictSame(schema.kind, 'struct');
-  test.strictSame(schema.scope, 'local');
-  test.strictSame(schema.store, 'memory');
-  test.strictSame(schema.allow, 'write');
-  test.strictSame(typeof schema.fields, 'object');
-  test.strictSame(typeof schema.indexes, 'object');
-  test.strictSame(schema.options.validate, null);
-  test.strictSame(schema.options.format, null);
-  test.strictSame(schema.options.parse, null);
-  test.strictSame(schema.options.serialize, null);
-  test.strictSame(schema.fields.field1.type, 'string');
-  test.end();
+  assert.strictEqual(schema.name, 'StructName');
+  assert.strictEqual(schema.kind, 'struct');
+  assert.strictEqual(schema.scope, 'local');
+  assert.strictEqual(schema.store, 'memory');
+  assert.strictEqual(schema.allow, 'write');
+  assert.strictEqual(typeof schema.fields, 'object');
+  assert.strictEqual(typeof schema.indexes, 'object');
+  assert.strictEqual(schema.options.validate, null);
+  assert.strictEqual(schema.options.format, null);
+  assert.strictEqual(schema.options.parse, null);
+  assert.strictEqual(schema.options.serialize, null);
+  assert.strictEqual(schema.fields.field1.type, 'string');
 });
 
-metatests.test('Schema: factory', (test) => {
+test('Schema: factory', () => {
   const definition = { field1: 'string' };
 
   const entities = new Map();
@@ -29,11 +29,10 @@ metatests.test('Schema: factory', (test) => {
   const model = new Model({}, entities);
 
   const schema = Schema.from(definition, [model]);
-  test.strictSame(schema.fields.field1.type, 'string');
-  test.end();
+  assert.strictEqual(schema.fields.field1.type, 'string');
 });
 
-metatests.test('Schema: generate ts interface', (test) => {
+test('Schema: generate ts interface', () => {
   const raw = {
     Dictionary: { scope: 'global' },
     name: { type: 'string', unique: true },
@@ -47,11 +46,10 @@ metatests.test('Schema: generate ts interface', (test) => {
 
   const schema = new Schema('Company', raw);
   const iface = schema.toInterface();
-  test.strictEqual(iface, expected);
-  test.end();
+  assert.strictEqual(iface, expected);
 });
 
-metatests.test('Schema: namespaces', (test) => {
+test('Schema: namespaces', () => {
   const raw = {
     name: { type: 'string', unique: true },
     addresses: { many: 'Address' },
@@ -67,15 +65,14 @@ metatests.test('Schema: namespaces', (test) => {
   const model = new Model(types, entities);
 
   const schema = new Schema('Company', raw, [model]);
-  test.strictEqual(schema.namespaces, new Set([model]));
+  assert.deepStrictEqual(schema.namespaces, new Set([model]));
   schema.detouch(model);
-  test.strictEqual(schema.namespaces, new Set());
+  assert.deepStrictEqual(schema.namespaces, new Set());
   schema.attach(model);
-  test.strictEqual(schema.namespaces, new Set([model]));
-  test.end();
+  assert.deepStrictEqual(schema.namespaces, new Set([model]));
 });
 
-metatests.test('Schema: check with namespaces', (test) => {
+test('Schema: check with namespaces', () => {
   const raw = {
     name: { type: 'string', unique: true },
     address: 'Address',
@@ -98,7 +95,7 @@ metatests.test('Schema: check with namespaces', (test) => {
       building: 2,
     },
   };
-  test.strictSame(schema.check(data1).valid, true);
+  assert.strictEqual(schema.check(data1).valid, true);
 
   const data2 = {
     name: 'Besarabsky Market',
@@ -107,93 +104,87 @@ metatests.test('Schema: check with namespaces', (test) => {
       building: '2',
     },
   };
-  test.strictSame(schema.check(data2).valid, false);
-
-  test.end();
+  assert.strictEqual(schema.check(data2).valid, false);
 });
 
-metatests.test('Schema: validation function', (test) => {
+test('Schema: validation function', () => {
   const definition = {
     field: '?string',
-    validate: test.mustCall((value, path) => {
+    validate: (value, path) => {
       if (value.field) return true;
       if (value.throw) throw new Error(value.throw);
       return `${path}.field is required`;
-    }, 3),
+    },
   };
   const schema = Schema.from(definition);
 
-  test.strictSame(
+  assert.strictEqual(
     schema.check({
       field: 'abc',
     }).valid,
     true,
   );
 
-  test.strictSame(
+  assert.deepStrictEqual(
     schema.check({
       field2: 'abc',
     }).errors,
     ['Field "" .field is required', 'Field "field2" is not expected'],
   );
 
-  test.strictSame(
+  assert.deepStrictEqual(
     schema.check({
       throw: '42',
     }).errors,
     ['Field "" validation failed Error: 42', 'Field "throw" is not expected'],
   );
-
-  test.end();
 });
 
-metatests.test('Schema: validation function simple return', (test) => {
+test('Schema: validation function simple return', () => {
   const definition = {
     field: '?string',
-    validate: test.mustCall((value) => value.field === '42', 2),
+    validate: (value) => value.field === '42',
   };
   const schema = Schema.from(definition);
 
-  test.strictSame(schema.check({ field: '42' }).valid, true);
-  test.strictSame(schema.check({ field: '43' }).errors, [
+  assert.strictEqual(schema.check({ field: '42' }).valid, true);
+  assert.deepStrictEqual(schema.check({ field: '43' }).errors, [
     'Field "" validation error',
   ]);
-
-  test.end();
 });
 
-metatests.test('Schema: nested validation function', (test) => {
+test('Schema: nested validation function', () => {
   const definition = {
     field: 'string',
     nested: {
       schema: {
         field: { type: 'string', required: false },
-        validate: test.mustCall((value, path) => {
+        validate: (value, path) => {
           if (value.field) return true;
           if (value.throw) throw new Error(value.throw);
           return `${path}.field is required`;
-        }, 3),
+        },
       },
       required: false,
     },
   };
   const schema = Schema.from(definition);
 
-  test.strictSame(
+  assert.strictEqual(
     schema.check({
       field: 'abc',
     }).valid,
     true,
   );
 
-  test.strictSame(
+  assert.deepStrictEqual(
     schema.check({
       field2: 'abc',
     }).errors,
     ['Field "field" is required', 'Field "field2" is not expected'],
   );
 
-  test.strictSame(
+  assert.strictEqual(
     schema.check({
       field: 'abc',
       nested: {
@@ -203,7 +194,7 @@ metatests.test('Schema: nested validation function', (test) => {
     true,
   );
 
-  test.strictSame(
+  assert.deepStrictEqual(
     schema.check({
       field: 'abc',
       nested: {
@@ -216,7 +207,7 @@ metatests.test('Schema: nested validation function', (test) => {
     ],
   );
 
-  test.strictSame(
+  assert.deepStrictEqual(
     schema.check({
       field: 'abc',
       nested: {
@@ -228,10 +219,9 @@ metatests.test('Schema: nested validation function', (test) => {
       'Field "nested" validation failed Error: 42',
     ],
   );
-  test.end();
 });
 
-metatests.test('Schema: calculated', (test) => {
+test('Schema: calculated', () => {
   const definition = {
     filename: 'string',
     size: 'number',
@@ -248,49 +238,43 @@ metatests.test('Schema: calculated', (test) => {
     },
   };
   const schema = Schema.from(definition);
-  test.strictSame(schema.check(obj).valid, true);
-  test.end();
+  assert.strictEqual(schema.check(obj).valid, true);
 });
 
-metatests.test('Schema: custom function definition', (test) => {
+test('Schema: custom function definition', () => {
   const defs = {
     custom: () => 10,
   };
   const schema = Schema.from(defs);
-  test.strictSame(schema.fields.custom(), 10);
-  test.strictSame(schema.check({}).valid, true);
-  test.end();
+  assert.strictEqual(schema.fields.custom(), 10);
+  assert.strictEqual(schema.check({}).valid, true);
 });
 
-metatests.test(
-  'Schema: reserved fields permitted with Kind exept "required"',
-  (test) => {
-    const defs = {
-      Struct: {},
-      required: 'string',
-      type: 'string',
-      note: 'string',
-    };
-    const schema = Schema.from(defs);
-    test.strictSame(
-      schema.check({
-        required: 'yes',
-        type: 'myType',
-        note: 'this is not vorbidden anymore',
-      }).valid,
-      true,
-    );
-    test.strictSame(
-      schema.check({
-        note: 'this is not vorbidden anymore',
-      }).valid,
-      false,
-    );
-    test.end();
-  },
-);
+test('Schema: reserved fields permitted with Kind exept "required"', () => {
+  const defs = {
+    Struct: {},
+    required: 'string',
+    type: 'string',
+    note: 'string',
+  };
+  const schema = Schema.from(defs);
+  assert.strictEqual(
+    schema.check({
+      required: 'yes',
+      type: 'myType',
+      note: 'this is not vorbidden anymore',
+    }).valid,
+    true,
+  );
+  assert.strictEqual(
+    schema.check({
+      note: 'this is not vorbidden anymore',
+    }).valid,
+    false,
+  );
+});
 
-metatests.test('Schema: custom validate on field', (test) => {
+test('Schema: custom validate on field', () => {
   const defs1 = {
     email: {
       type: 'string',
@@ -308,15 +292,15 @@ metatests.test('Schema: custom validate on field', (test) => {
   };
 
   const schema1 = Schema.from(defs1);
-  test.strictEqual(schema1.check({ email: 12345 }).errors, [
+  assert.deepStrictEqual(schema1.check({ email: 12345 }).errors, [
     'Field "email" not of expected type: string',
     'Field "email" validation failed TypeError: src.indexOf is not a function',
   ]);
-  test.strictEqual(schema1.check({ email: 'ab' }).errors, [
+  assert.deepStrictEqual(schema1.check({ email: 'ab' }).errors, [
     'Field "email" Not an Email',
   ]);
-  test.strictEqual(schema1.check({ email: 'asd@asd.com' }).valid, true);
-  test.strictEqual(
+  assert.strictEqual(schema1.check({ email: 'asd@asd.com' }).valid, true);
+  assert.deepStrictEqual(
     schema1.check({ email: 'asdasdasdasdasdasd@asd.com' }).errors,
     ['Field "email" exceeds the maximum length'],
   );
@@ -343,60 +327,55 @@ metatests.test('Schema: custom validate on field', (test) => {
   const schema2 = Schema.from(defs2);
   const schema3 = Schema.from(defs3);
   const schema4 = Schema.from(defs4);
-  test.strictSame(schema2.check(12).errors, [
+  assert.deepStrictEqual(schema2.check(12).errors, [
     'Field "" validation failed Error: Not a ten',
   ]);
-  test.strictSame(schema3.check(12).errors, ['Field "" Not a ten']);
-  test.strictSame(schema4.check(12).errors, [
+  assert.deepStrictEqual(schema3.check(12).errors, ['Field "" Not a ten']);
+  assert.deepStrictEqual(schema4.check(12).errors, [
     'Field "" Not',
     'Field "" a',
     'Field "" ten',
   ]);
-  test.strictSame(schema2.check(10).valid, true);
-  test.strictSame(schema3.check(10).valid, true);
-  test.strictSame(schema4.check(10).valid, true);
+  assert.strictEqual(schema2.check(10).valid, true);
+  assert.strictEqual(schema3.check(10).valid, true);
+  assert.strictEqual(schema4.check(10).valid, true);
   const defs5 = { num: { type: 'number', validate: (num) => num === 10 } };
   const schema5 = Schema.from(defs5);
-  test.strictSame(schema5.check({ num: 12 }).valid, false);
-  test.strictSame(schema5.check({ num: 10 }).valid, true);
-  test.end();
+  assert.strictEqual(schema5.check({ num: 12 }).valid, false);
+  assert.strictEqual(schema5.check({ num: 10 }).valid, true);
 });
 
-metatests.test('Schema: with custom kind', (test) => {
+test('Schema: with custom kind', () => {
   const defs = { Custom: {}, type: 'string' };
   const schema = Schema.from(defs);
-  test.strictEqual(schema.kind, 'custom');
-  test.strictSame(schema.check({ type: 'type' }).valid, true);
-  test.end();
+  assert.strictEqual(schema.kind, 'custom');
+  assert.strictEqual(schema.check({ type: 'type' }).valid, true);
 });
 
-metatests.test('Schema: custom kind metadata', (test) => {
+test('Schema: custom kind metadata', () => {
   const defs = { Custom: { myMetadata: 'data' }, type: 'string' };
   const schema = Schema.from(defs);
-  test.strictEqual(schema.custom, { myMetadata: 'data' });
-  test.end();
+  assert.deepStrictEqual(schema.custom, { myMetadata: 'data' });
 });
 
-metatests.testSync('Schema: with number field name', (test) => {
+test('Schema: with number field name', () => {
   const schema = Schema.from({
     Dynamic: {},
     field: 'string',
     1234: { type: 'number' },
   });
-  test.strictEqual(schema.kind, 'dynamic');
-  test.strictSame(schema.check({ 1234: 42, field: 'type' }).valid, true);
-  test.end();
+  assert.strictEqual(schema.kind, 'dynamic');
+  assert.strictEqual(schema.check({ 1234: 42, field: 'type' }).valid, true);
 });
 
-metatests.testSync('Schema: toString, JSON.stringify', (test) => {
+test('Schema: toString, JSON.stringify', () => {
   const schema = Schema.from({ a: 'string' });
-  test.strictEqual(
+  assert.strictEqual(
     schema.toString(),
     '{"a":{"required":true,"type":"string"}}',
   );
-  test.strictEqual(
+  assert.strictEqual(
     JSON.stringify(schema),
     '{"a":{"required":true,"type":"string"}}',
   );
-  test.end();
 });

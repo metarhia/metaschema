@@ -1,6 +1,7 @@
 'use strict';
 
-const metatests = require('metatests');
+const { test } = require('node:test');
+const assert = require('node:assert');
 const { typeFactory, TYPES } = require('../lib/types.js');
 
 const types = {
@@ -33,16 +34,15 @@ const types = {
   },
 };
 
-metatests.test('Types: prepareTypes', (test) => {
+test('Types: prepareTypes', () => {
   const customTypes = typeFactory(types);
   const { datetime, text, json, decimal } = customTypes;
-  test.strictEqual(datetime.metadata.pg, types.datetime.metadata.pg);
-  test.strictEqual(text.metadata.pg, types.text.metadata.pg);
-  test.strictEqual(json.metadata.pg, types.json.metadata.pg);
-  test.strictEqual(decimal.metadata.pg, types.decimal.metadata.pg);
+  assert.strictEqual(datetime.metadata.pg, types.datetime.metadata.pg);
+  assert.strictEqual(text.metadata.pg, types.text.metadata.pg);
+  assert.strictEqual(json.metadata.pg, types.json.metadata.pg);
+  assert.strictEqual(decimal.metadata.pg, types.decimal.metadata.pg);
   const { string, number } = customTypes;
-  test.strictEqual(string.metadata.pg, types.string.metadata.pg);
-  test.strictEqual(number.metadata.pg, types.number.metadata.pg);
-  test.strictEqual(TYPES.string.metadata.pg, 'varchar');
-  test.end();
+  assert.strictEqual(string.metadata.pg, types.string.metadata.pg);
+  assert.strictEqual(number.metadata.pg, types.number.metadata.pg);
+  assert.strictEqual(TYPES.string.metadata.pg, 'varchar');
 });
