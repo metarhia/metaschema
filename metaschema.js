@@ -1,8 +1,13 @@
 'use strict';
 
+const { constants } = require('./lib/kinds.js');
 const schema = require('./lib/schema.js');
 const model = require('./lib/model.js');
 const loader = require('./lib/loader.js');
-const { constants } = require('./lib/kinds.js');
 
-module.exports = { ...schema, ...model, ...loader, ...constants };
+module.exports = {
+  ...constants,
+  ...schema,
+  ...model,
+  ...loader,
+};

@@ -2,7 +2,8 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { createSchema, loadSchema, loadModel } = require('..');
+
+const { createSchema, loadSchema, loadModel } = require('../metaschema.js');
 
 const types = {
   string: { metadata: { pg: 'varchar' } },
@@ -27,7 +28,7 @@ test('Loader: loadSchema', async () => {
 });
 
 test('Loader: loadModel, projection', async () => {
-  const model = await loadModel(process.cwd() + '/test/schemas', types);
+  const model = await loadModel(`${process.cwd()}/test/schemas`, types);
   assert.strictEqual(model.entities.size, 6);
   const Account = model.entities.get('Account');
   assert.strictEqual(Account.fields.fullName.constructor.type, 'schema');
