@@ -18,10 +18,7 @@ type Kind =
   | 'scalar';
 
 type Cardinality =
-  | 'one-to-one'
-  | 'one-to-many'
-  | 'many-to-one'
-  | 'many-to-many';
+  'one-to-one' | 'one-to-many' | 'many-to-one' | 'many-to-many';
 
 interface Relation {
   to: string;
@@ -32,6 +29,27 @@ interface ValidationResult {
   valid: boolean;
   errors: string[];
 }
+
+export const KIND: Array<string>;
+export const KIND_STORED: Array<string>;
+export const KIND_MEMORY: Array<string>;
+export const SCOPE: Array<string>;
+export const STORE: Array<string>;
+export const ALLOW: Array<string>;
+
+export function createSchema(name: string, src: string): Schema;
+export function loadSchema(fileName: string): Promise<Schema>;
+export function readDirectory(dirPath: string): Promise<Map<string, object>>;
+export function loadModel(
+  modelPath: string,
+  systemTypes?: object,
+): Promise<Model>;
+export function saveTypes(outputFile: string, model: Model): Promise<void>;
+export function getKindMetadata(
+  kind: Kind,
+  meta?: object,
+  root?: Schema,
+): { defs: object; metadata: object };
 
 export class Schema {
   static KIND: Array<string>;
@@ -76,20 +94,6 @@ export class Schema {
   validate(value: unknown, path: string): ValidationResult;
 }
 
-export function createSchema(name: string, src: string): Schema;
-export function loadSchema(fileName: string): Promise<Schema>;
-export function readDirectory(dirPath: string): Promise<Map<string, object>>;
-export function loadModel(
-  modelPath: string,
-  systemTypes?: object,
-): Promise<Model>;
-export function saveTypes(outputFile: string, model: Model): Promise<void>;
-export function getKindMetadata(
-  kind: Kind,
-  meta?: object,
-  root?: Schema,
-): { defs: object; metadata: object };
-
 export class Model {
   types: object;
   entities: Map<string, Schema>;
@@ -102,10 +106,3 @@ export class Model {
   reorderEntity(name: string, base?: string): void;
   get dts(): string;
 }
-
-export const KIND: Array<string>;
-export const KIND_STORED: Array<string>;
-export const KIND_MEMORY: Array<string>;
-export const SCOPE: Array<string>;
-export const STORE: Array<string>;
-export const ALLOW: Array<string>;

@@ -2,7 +2,8 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { Schema } = require('../metaschema');
+
+const { Schema } = require('../metaschema.js');
 
 test('Structs: nested schema', () => {
   const definition = {

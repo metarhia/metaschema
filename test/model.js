@@ -2,7 +2,8 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { Model } = require('..');
+
+const { Model } = require('../metaschema.js');
 
 const database = {
   name: 'example',

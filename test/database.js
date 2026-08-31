@@ -2,7 +2,8 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { Schema } = require('..');
+
+const { Schema } = require('../metaschema.js');
 
 test('Database: schema Registry', () => {
   const raw = {
