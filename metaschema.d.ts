@@ -37,6 +37,11 @@ export const SCOPE: Array<string>;
 export const STORE: Array<string>;
 export const ALLOW: Array<string>;
 
+export function getKindMetadata(
+  kind: Kind,
+  meta?: object,
+  root?: Schema,
+): { defs: object; metadata: object };
 export function createSchema(name: string, src: string): Schema;
 export function loadSchema(fileName: string): Promise<Schema>;
 export function readDirectory(dirPath: string): Promise<Map<string, object>>;
@@ -45,11 +50,6 @@ export function loadModel(
   systemTypes?: object,
 ): Promise<Model>;
 export function saveTypes(outputFile: string, model: Model): Promise<void>;
-export function getKindMetadata(
-  kind: Kind,
-  meta?: object,
-  root?: Schema,
-): { defs: object; metadata: object };
 
 export class Schema {
   static KIND: Array<string>;
