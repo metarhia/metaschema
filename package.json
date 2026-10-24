@@ -47,6 +47,7 @@
     "node": ">=18"
   },
   "dependencies": {
+    "js-yaml": "^5.5.0",
     "metaskills": "^1.0.5",
     "metautil": "^5.4.0",
     "metavm": "^1.4.5"
